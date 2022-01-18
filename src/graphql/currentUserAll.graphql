@@ -1,0 +1,16 @@
+query currentUserAll {
+    currentUser {
+        _id
+		email
+		tokenVersion
+		categories {
+			_id
+			categoryName
+			items {
+				_id
+				itemName
+				expiration
+			}
+		}
+	}
+}

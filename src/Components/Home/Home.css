@@ -1,0 +1,37 @@
+li {
+    all: unset;
+}
+
+.home__container {
+    width: 100%;
+    height: 150vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-content: center;
+    padding: 3rem;
+    background-image: url("../../../public/header.webp");
+}
+
+.category__container {
+    width: 100%;
+    height: fit-content;
+    border: 2px solid black;
+}
+
+.category__title {
+    width: 100%;
+    padding: 2rem;
+    background: darkgreen;
+    color: mistyrose;
+}
+
+.category__list__item {
+    width: 100%;
+    height: fit-content;
+    background: mistyrose;
+}
+
+.list__entry {
+    margin: .5rem;
+}
