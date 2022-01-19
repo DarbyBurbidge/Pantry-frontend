@@ -1,4 +1,9 @@
 body {
     all: unset;
-    background: mistyrose
+    background: mistyrose;
+    box-sizing: border-box;
+}
+
+li {
+    list-style-type: none;
 }

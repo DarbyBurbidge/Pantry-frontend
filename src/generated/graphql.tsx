@@ -123,6 +123,22 @@ export type User = {
   userName: Scalars['String'];
 };
 
+export type AddCategoryMutationVariables = Exact<{
+  categoryName: Scalars['String'];
+}>;
+
+
+export type AddCategoryMutation = { __typename?: 'Mutation', addCategory: { __typename?: 'ReturnObject', message: string, return: boolean } };
+
+export type AddItemMutationVariables = Exact<{
+  itemName: Scalars['String'];
+  categoryId: Scalars['String'];
+  expiration: Scalars['String'];
+}>;
+
+
+export type AddItemMutation = { __typename?: 'Mutation', addItem: { __typename?: 'ReturnObject', message: string, return: boolean } };
+
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -132,6 +148,13 @@ export type CurrentUserAllQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CurrentUserAllQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', _id: string, email: string, tokenVersion: number, categories: Array<{ __typename?: 'Category', _id: string, categoryName: string, items?: Array<{ __typename?: 'Item', _id: string, itemName: string, expiration: string }> | null | undefined }> } | null | undefined };
+
+export type DeleteItemMutationVariables = Exact<{
+  _id: Scalars['String'];
+}>;
+
+
+export type DeleteItemMutation = { __typename?: 'Mutation', deleteItem: { __typename?: 'ReturnObject', message: string, return: boolean } };
 
 export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -147,6 +170,76 @@ export type LoginMutationVariables = Exact<{
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken: string, user: { __typename?: 'User', _id: string, email: string } } };
 
 
+export const AddCategoryDocument = gql`
+    mutation addCategory($categoryName: String!) {
+  addCategory(categoryName: $categoryName) {
+    message
+    return
+  }
+}
+    `;
+export type AddCategoryMutationFn = Apollo.MutationFunction<AddCategoryMutation, AddCategoryMutationVariables>;
+
+/**
+ * __useAddCategoryMutation__
+ *
+ * To run a mutation, you first call `useAddCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addCategoryMutation, { data, loading, error }] = useAddCategoryMutation({
+ *   variables: {
+ *      categoryName: // value for 'categoryName'
+ *   },
+ * });
+ */
+export function useAddCategoryMutation(baseOptions?: Apollo.MutationHookOptions<AddCategoryMutation, AddCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddCategoryMutation, AddCategoryMutationVariables>(AddCategoryDocument, options);
+      }
+export type AddCategoryMutationHookResult = ReturnType<typeof useAddCategoryMutation>;
+export type AddCategoryMutationResult = Apollo.MutationResult<AddCategoryMutation>;
+export type AddCategoryMutationOptions = Apollo.BaseMutationOptions<AddCategoryMutation, AddCategoryMutationVariables>;
+export const AddItemDocument = gql`
+    mutation addItem($itemName: String!, $categoryId: String!, $expiration: String!) {
+  addItem(itemName: $itemName, categoryId: $categoryId, expiration: $expiration) {
+    message
+    return
+  }
+}
+    `;
+export type AddItemMutationFn = Apollo.MutationFunction<AddItemMutation, AddItemMutationVariables>;
+
+/**
+ * __useAddItemMutation__
+ *
+ * To run a mutation, you first call `useAddItemMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddItemMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addItemMutation, { data, loading, error }] = useAddItemMutation({
+ *   variables: {
+ *      itemName: // value for 'itemName'
+ *      categoryId: // value for 'categoryId'
+ *      expiration: // value for 'expiration'
+ *   },
+ * });
+ */
+export function useAddItemMutation(baseOptions?: Apollo.MutationHookOptions<AddItemMutation, AddItemMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddItemMutation, AddItemMutationVariables>(AddItemDocument, options);
+      }
+export type AddItemMutationHookResult = ReturnType<typeof useAddItemMutation>;
+export type AddItemMutationResult = Apollo.MutationResult<AddItemMutation>;
+export type AddItemMutationOptions = Apollo.BaseMutationOptions<AddItemMutation, AddItemMutationVariables>;
 export const CurrentUserDocument = gql`
     query CurrentUser {
   currentUser {
@@ -227,6 +320,40 @@ export function useCurrentUserAllLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type CurrentUserAllQueryHookResult = ReturnType<typeof useCurrentUserAllQuery>;
 export type CurrentUserAllLazyQueryHookResult = ReturnType<typeof useCurrentUserAllLazyQuery>;
 export type CurrentUserAllQueryResult = Apollo.QueryResult<CurrentUserAllQuery, CurrentUserAllQueryVariables>;
+export const DeleteItemDocument = gql`
+    mutation deleteItem($_id: String!) {
+  deleteItem(_id: $_id) {
+    message
+    return
+  }
+}
+    `;
+export type DeleteItemMutationFn = Apollo.MutationFunction<DeleteItemMutation, DeleteItemMutationVariables>;
+
+/**
+ * __useDeleteItemMutation__
+ *
+ * To run a mutation, you first call `useDeleteItemMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteItemMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteItemMutation, { data, loading, error }] = useDeleteItemMutation({
+ *   variables: {
+ *      _id: // value for '_id'
+ *   },
+ * });
+ */
+export function useDeleteItemMutation(baseOptions?: Apollo.MutationHookOptions<DeleteItemMutation, DeleteItemMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteItemMutation, DeleteItemMutationVariables>(DeleteItemDocument, options);
+      }
+export type DeleteItemMutationHookResult = ReturnType<typeof useDeleteItemMutation>;
+export type DeleteItemMutationResult = Apollo.MutationResult<DeleteItemMutation>;
+export type DeleteItemMutationOptions = Apollo.BaseMutationOptions<DeleteItemMutation, DeleteItemMutationVariables>;
 export const HelloDocument = gql`
     query Hello {
   hello

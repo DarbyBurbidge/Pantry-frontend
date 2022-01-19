@@ -1,0 +1,27 @@
+.item__form {
+    position: absolute;
+    right: 0;
+    display: block;
+    margin: 1rem;
+    margin-left: auto;
+    padding: .5rem;
+}
+
+.item__input {
+    font-family: serif;
+    font-size: 1rem;
+    margin-left: 1rem;
+    padding: .5rem;
+    border-left: 3px solid hsl(32, 100%, 15%);
+    border-top: 3px solid hsl(32, 100%, 15%);
+    border-bottom: 3px solid hsl(32, 100%, 5%);
+    border-right: 3px solid hsl(32, 100%, 5%);
+    
+}
+
+.additem__button {
+    transform-style: preserve-3d;
+    height: 42px;
+    margin: 0rem 1rem;
+    animation: form-slide 3s ease-in 0s forwards;
+}

@@ -1,0 +1,6 @@
+mutation deleteItem ($_id: String!) {
+	deleteItem(_id: $_id){
+		message
+		return
+	}
+}
