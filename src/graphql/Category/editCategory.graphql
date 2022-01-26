@@ -1,0 +1,6 @@
+mutation editCategoryName ($_id: String! $categoryName: String!) {
+	editCategoryName (_id: $_id categoryName: $categoryName) {
+		message
+		return
+	}
+}

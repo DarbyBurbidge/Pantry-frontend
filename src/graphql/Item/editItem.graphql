@@ -1,0 +1,6 @@
+mutation editItem ($_id: String! $itemName: String! $expiration: String!) {
+	editItem (_id: $_id itemName: $itemName expiration: $expiration) {
+		message
+		return
+	}
+}

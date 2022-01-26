@@ -2,8 +2,17 @@ body {
     all: unset;
     background: mistyrose;
     box-sizing: border-box;
+    --color-primary: #9494D1;
+    --color-border: #222;
+    --color-add: #94D194;
+    --color-edit: #D1B294;
+    --color-delete: #D19494;
 }
 
 li {
     list-style-type: none;
+}
+
+button {
+    all: unset;
 }

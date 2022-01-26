@@ -1,0 +1,882 @@
+.item-card {
+  font-family: Tahoma, sans-serif;
+  font-size: 1rem;
+}
+.item-card__container {
+  width: 14em;
+  margin: 1em;
+  border-radius: 1em;
+  border: 2px solid #212121;
+  padding: 0.75em;
+  display: flex;
+  flex-direction: column;
+  background: #9494d1;
+  list-style: none;
+}
+.item-card__attributes {
+  display: flex;
+  padding: 0.25em 0.75em;
+  border-radius: 0.5em;
+  border: 1px solid #212121;
+  background: white;
+  color: #212121;
+}
+.item-card__attributes--left {
+  margin-right: auto;
+}
+.item-card__attributes--right {
+  margin-left: auto;
+}
+.item-card__buttons {
+  width: 100%;
+  margin-top: 1em;
+  padding: 0.25em 0;
+  /* May need to change display options down the road */
+  display: flex;
+  justify-content: space-around;
+}
+
+.button {
+  min-width: 2em;
+  padding: 0.5em 0.75em;
+  border-radius: 0.75em;
+  border: 1px solid #212121;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #212121;
+  /* for components that stand apart */
+}
+.button__add {
+  background: #94d194;
+  min-width: 9rem;
+}
+.button__edit {
+  background: #d1b394;
+}
+.button__delete {
+  background: #d19494;
+}
+.button__login, .button__logout, .button__register {
+  font-size: 1rem;
+  width: 5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid #212121;
+  background: #fff;
+}
+.button--solo {
+  border: 2px solid #212121;
+}
+
+.category-card {
+  position: relative;
+  width: 18rem;
+  margin: 4rem 0rem;
+  display: flex;
+  justify-content: center;
+  border-radius: 2rem;
+  border: 2px solid #212121;
+}
+.category-card__header {
+  position: absolute;
+  top: -3rem;
+  height: 6rem;
+  width: 20rem;
+  margin: 0 50% 0 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  border: 2px solid #212121;
+  background: #9494d1;
+  text-shadow: 1px 1px 1px #212121, 1px -1px 1px #212121, -1px 1px 1px #212121, -1px -1px 1px #212121;
+}
+.category-card__title {
+  font-size: 1.75rem;
+}
+.category-card__body {
+  width: 100%;
+  margin-top: 3rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.item-form {
+  display: flex;
+  flex-direction: column;
+}
+.item-form__input {
+  color: #212121;
+  background: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #212121;
+}
+
+.form__container {
+  position: absolute;
+  z-index: 2;
+  /* bottom is 1.25em because it's 1.1rem for height of button/2
+      but this contains the 2px border as well making
+      the height of this element ~39px, cut in half is 19.5px or ~1.25rem (20px)
+  */
+  bottom: -1.25rem;
+  margin: 0 50% 0 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cancel__button {
+  position: absolute;
+  top: 0.25rem;
+  right: 1rem;
+  z-index: 100;
+  -webkit-animation: fade-in 1.5s linear forwards;
+          animation: fade-in 1.5s linear forwards;
+}
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.add-item, .add-item.button--solo {
+  width: 9rem;
+  z-index: 6;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.item-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  z-index: 2;
+  border-radius: 1em;
+  background: #9494d1;
+  border: 0 solid #212121;
+  -webkit-animation: form-grow_container 0.5s linear forwards 0.49s;
+          animation: form-grow_container 0.5s linear forwards 0.49s;
+}
+.item-form.exp-false {
+  -webkit-animation: expiration-toggle_form 0.5s linear forwards;
+          animation: expiration-toggle_form 0.5s linear forwards;
+}
+.item-form.exp-true {
+  -webkit-animation: expiration-reverse_form 0.5s linear forwards;
+          animation: expiration-reverse_form 0.5s linear forwards;
+}
+
+.item-form__name-label {
+  font-size: 0.9rem;
+  padding-left: 0.1rem;
+  opacity: 0;
+  width: 12rem;
+  position: absolute;
+  z-index: 3;
+  -webkit-animation: form-grow_name--label 450ms linear forwards 540ms;
+          animation: form-grow_name--label 450ms linear forwards 540ms;
+}
+.item-form__name-label.exp-false {
+  -webkit-animation: expiration-toggle_name--label 0.5s linear forwards;
+          animation: expiration-toggle_name--label 0.5s linear forwards;
+}
+.item-form__name-label.exp-true {
+  -webkit-animation: expiration-reverse_name--label 0.5s linear forwards;
+          animation: expiration-reverse_name--label 0.5s linear forwards;
+}
+
+.item-name {
+  opacity: 0;
+  width: 12rem;
+  position: absolute;
+  z-index: 3;
+  -webkit-animation: form-grow_name 450ms linear forwards 540ms;
+          animation: form-grow_name 450ms linear forwards 540ms;
+}
+.item-name.exp-false {
+  -webkit-animation: expiration-toggle_name 0.5s linear forwards;
+          animation: expiration-toggle_name 0.5s linear forwards;
+}
+.item-name.exp-true {
+  -webkit-animation: expiration-reverse_name 0.5s linear forwards;
+          animation: expiration-reverse_name 0.5s linear forwards;
+}
+
+.item-form__exp-label {
+  font-size: 0.9rem;
+  padding-left: 0.1rem;
+  opacity: 0;
+  width: 12rem;
+  position: absolute;
+  z-index: 4;
+  -webkit-animation: form-grow_exp--label 450ms linear forwards 540ms;
+          animation: form-grow_exp--label 450ms linear forwards 540ms;
+}
+.item-form__exp-label.exp-false {
+  -webkit-animation: expiration-toggle_exp--label 0.5s linear forwards;
+          animation: expiration-toggle_exp--label 0.5s linear forwards;
+}
+.item-form__exp-label.exp-true {
+  -webkit-animation: expiration-reverse_exp--label 0.5s linear forwards;
+          animation: expiration-reverse_exp--label 0.5s linear forwards;
+}
+
+.item-exp {
+  opacity: 0;
+  width: 12rem;
+  position: absolute;
+  z-index: 4;
+  -webkit-animation: form-grow_exp 450ms linear forwards 540ms;
+          animation: form-grow_exp 450ms linear forwards 540ms;
+}
+.item-exp.exp-false {
+  -webkit-animation: expiration-toggle_exp 0.5s linear forwards;
+          animation: expiration-toggle_exp 0.5s linear forwards;
+}
+.item-exp.exp-true {
+  -webkit-animation: expiration-reverse_exp 0.5s linear forwards;
+          animation: expiration-reverse_exp 0.5s linear forwards;
+}
+
+.item-form__expiration-toggle {
+  opacity: 0;
+  width: 12rem;
+  position: absolute;
+  z-index: 5;
+  background: #d19494;
+}
+.item-form__expiration-toggle--on {
+  -webkit-animation: form-grow_toggle 450ms linear forwards 540ms;
+          animation: form-grow_toggle 450ms linear forwards 540ms;
+}
+.item-form__expiration-toggle--off {
+  opacity: 1;
+  bottom: 3.25rem;
+}
+
+.submit-item {
+  border: 2px solid #212121;
+  -webkit-animation: form-grow_button 0.5s linear forwards;
+          animation: form-grow_button 0.5s linear forwards;
+}
+
+@-webkit-keyframes form-grow_button {
+  0% {
+    margin-top: initial;
+    width: 9rem;
+  }
+  99% {
+    border: 2px solid #212121;
+    width: 12rem;
+  }
+  100% {
+    width: 12rem;
+    border: 1px solid #212121;
+  }
+}
+
+@keyframes form-grow_button {
+  0% {
+    margin-top: initial;
+    width: 9rem;
+  }
+  99% {
+    border: 2px solid #212121;
+    width: 12rem;
+  }
+  100% {
+    width: 12rem;
+    border: 1px solid #212121;
+  }
+}
+@-webkit-keyframes form-grow_container {
+  0% {
+    padding: 0;
+    border: 2px solid #212121;
+    bottom: -1.25rem;
+  }
+  10% {
+    padding: 0 0.5rem;
+  }
+  100% {
+    padding: 0.5rem;
+    padding-top: 10.25rem;
+    border: 2px solid #212121;
+    bottom: -5.5rem;
+  }
+}
+@keyframes form-grow_container {
+  0% {
+    padding: 0;
+    border: 2px solid #212121;
+    bottom: -1.25rem;
+  }
+  10% {
+    padding: 0 0.5rem;
+  }
+  100% {
+    padding: 0.5rem;
+    padding-top: 10.25rem;
+    border: 2px solid #212121;
+    bottom: -5.5rem;
+  }
+}
+/* delay 540ms */
+@-webkit-keyframes form-grow_toggle {
+  0% {
+    opacity: 1;
+    bottom: 0;
+  }
+  100% {
+    opacity: 1;
+    bottom: 3.25rem;
+  }
+}
+@keyframes form-grow_toggle {
+  0% {
+    opacity: 1;
+    bottom: 0;
+  }
+  100% {
+    opacity: 1;
+    bottom: 3.25rem;
+  }
+}
+@-webkit-keyframes form-grow_exp--label {
+  0% {
+    opacity: 1;
+    bottom: 0;
+  }
+  100% {
+    opacity: 1;
+    bottom: 8rem;
+  }
+}
+@keyframes form-grow_exp--label {
+  0% {
+    opacity: 1;
+    bottom: 0;
+  }
+  100% {
+    opacity: 1;
+    bottom: 8rem;
+  }
+}
+@-webkit-keyframes form-grow_exp {
+  0% {
+    opacity: 1;
+    bottom: 0;
+  }
+  100% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+}
+@keyframes form-grow_exp {
+  0% {
+    opacity: 1;
+    bottom: 0;
+  }
+  100% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+}
+@-webkit-keyframes form-grow_name--label {
+  0% {
+    opacity: 1;
+    bottom: 0;
+  }
+  100% {
+    opacity: 1;
+    bottom: 11.5rem;
+  }
+}
+@keyframes form-grow_name--label {
+  0% {
+    opacity: 1;
+    bottom: 0;
+  }
+  100% {
+    opacity: 1;
+    bottom: 11.5rem;
+  }
+}
+@-webkit-keyframes form-grow_name {
+  0% {
+    opacity: 1;
+    bottom: 0;
+  }
+  100% {
+    opacity: 1;
+    bottom: 9.5rem;
+  }
+}
+@keyframes form-grow_name {
+  0% {
+    opacity: 1;
+    bottom: 0;
+  }
+  100% {
+    opacity: 1;
+    bottom: 9.5rem;
+  }
+}
+/*
+    Animation for toggling off/on expiration
+*/
+@-webkit-keyframes expiration-toggle_form {
+  0% {
+    padding: 0.5rem;
+    padding-top: 10.25rem;
+    border: 2px solid #212121;
+    bottom: -5.5rem;
+  }
+  100% {
+    padding: 0.5rem;
+    padding-top: 7rem;
+    border: 2px solid #212121;
+    bottom: -4rem;
+  }
+}
+@keyframes expiration-toggle_form {
+  0% {
+    padding: 0.5rem;
+    padding-top: 10.25rem;
+    border: 2px solid #212121;
+    bottom: -5.5rem;
+  }
+  100% {
+    padding: 0.5rem;
+    padding-top: 7rem;
+    border: 2px solid #212121;
+    bottom: -4rem;
+  }
+}
+@-webkit-keyframes expiration-reverse_form {
+  0% {
+    padding: 0.5rem;
+    padding-top: 7rem;
+    border: 2px solid #212121;
+    bottom: -4rem;
+  }
+  100% {
+    padding: 0.5rem;
+    padding-top: 10.25rem;
+    border: 2px solid #212121;
+    bottom: -5.5rem;
+  }
+}
+@keyframes expiration-reverse_form {
+  0% {
+    padding: 0.5rem;
+    padding-top: 7rem;
+    border: 2px solid #212121;
+    bottom: -4rem;
+  }
+  100% {
+    padding: 0.5rem;
+    padding-top: 10.25rem;
+    border: 2px solid #212121;
+    bottom: -5.5rem;
+  }
+}
+@-webkit-keyframes expiration-toggle_exp--label {
+  0% {
+    opacity: 1;
+    bottom: 8rem;
+  }
+  50% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 3.25rem;
+  }
+}
+@keyframes expiration-toggle_exp--label {
+  0% {
+    opacity: 1;
+    bottom: 8rem;
+  }
+  50% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 3.25rem;
+  }
+}
+@-webkit-keyframes expiration-reverse_exp--label {
+  0% {
+    opacity: 1;
+    bottom: 3.25rem;
+  }
+  50% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 8rem;
+  }
+}
+@keyframes expiration-reverse_exp--label {
+  0% {
+    opacity: 1;
+    bottom: 3.25rem;
+  }
+  50% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 8rem;
+  }
+}
+@-webkit-keyframes expiration-toggle_exp {
+  0% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+  99% {
+    opacity: 1;
+    bottom: 3.25rem;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes expiration-toggle_exp {
+  0% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+  99% {
+    opacity: 1;
+    bottom: 3.25rem;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes expiration-reverse_exp {
+  0% {
+    opacity: 1;
+    bottom: 3.25rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+}
+@keyframes expiration-reverse_exp {
+  0% {
+    opacity: 1;
+    bottom: 3.25rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+}
+@-webkit-keyframes expiration-toggle_name--label {
+  0% {
+    opacity: 1;
+    bottom: 11.5rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 8rem;
+  }
+}
+@keyframes expiration-toggle_name--label {
+  0% {
+    opacity: 1;
+    bottom: 11.5rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 8rem;
+  }
+}
+@-webkit-keyframes expiration-reverse_name--label {
+  0% {
+    opacity: 1;
+    bottom: 8rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 11.5rem;
+  }
+}
+@keyframes expiration-reverse_name--label {
+  0% {
+    opacity: 1;
+    bottom: 8rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 11.5rem;
+  }
+}
+@-webkit-keyframes expiration-toggle_name {
+  0% {
+    opacity: 1;
+    bottom: 9.5rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+}
+@keyframes expiration-toggle_name {
+  0% {
+    opacity: 1;
+    bottom: 9.5rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+}
+@-webkit-keyframes expiration-reverse_name {
+  0% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 9.5rem;
+  }
+}
+@keyframes expiration-reverse_name {
+  0% {
+    opacity: 1;
+    bottom: 6rem;
+  }
+  100% {
+    opacity: 1;
+    bottom: 9.5rem;
+  }
+}
+.login-form, .register-form {
+  position: relative;
+  right: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.register-form {
+  bottom: -3rem;
+}
+
+.form-input {
+  position: absolute;
+  bottom: 0rem;
+  font-size: 1rem;
+  width: 4rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid #212121;
+  background: #fff;
+}
+.form-input.login, .form-input.register {
+  width: 5rem;
+}
+
+.login, .register {
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+}
+
+.email {
+  z-index: 98;
+}
+
+.password {
+  z-index: 97;
+}
+
+.email.toggle-input {
+  -webkit-animation: slide-input__1 1000ms ease-in-out forwards;
+          animation: slide-input__1 1000ms ease-in-out forwards;
+}
+
+.password.toggle-input {
+  -webkit-animation: slide-input__2 1000ms ease-in-out forwards;
+          animation: slide-input__2 1000ms ease-in-out forwards;
+}
+
+.login.toggle-input, .register.toggle-input {
+  -webkit-animation: slide-input__3 1000ms ease-in-out forwards;
+          animation: slide-input__3 1000ms ease-in-out forwards;
+}
+
+@-webkit-keyframes slide-input__1 {
+  0% {
+    width: 4;
+  }
+  100% {
+    width: 8rem;
+    transform: translateX(-8.5rem);
+  }
+}
+
+@keyframes slide-input__1 {
+  0% {
+    width: 4;
+  }
+  100% {
+    width: 8rem;
+    transform: translateX(-8.5rem);
+  }
+}
+@-webkit-keyframes slide-input__2 {
+  0% {
+    width: 4;
+  }
+  100% {
+    width: 8rem;
+    transform: translateX(0);
+  }
+}
+@keyframes slide-input__2 {
+  0% {
+    width: 4;
+  }
+  100% {
+    width: 8rem;
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes slide-input__3 {
+  100% {
+    transform: translateX(8.5rem);
+  }
+}
+@keyframes slide-input__3 {
+  100% {
+    transform: translateX(8.5rem);
+  }
+}
+/*** The new CSS Reset - version 1.2.0 (last updated 23.7.2021) ***/
+/* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
+*:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
+  all: unset;
+  display: revert;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/*
+  Remove list styles (bullets/numbers)
+  in case you use it with normalize.css
+*/
+ol, ul {
+  list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+img {
+  max-width: 100%;
+}
+
+/* Removes spacing between cells in tables */
+table {
+  border-collapse: collapse;
+}
+
+/* Revert the 'white-space' property for textarea elements on Safari */
+textarea {
+  white-space: revert;
+}
+
+.body {
+  min-height: 100vh;
+}
+
+.header__container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #9494d1;
+  border-bottom: 4px solid #212121;
+}
+
+.logo {
+  width: 4rem;
+  margin: 2rem auto;
+  aspect-ratio: 1;
+  border-radius: 1rem;
+  border: 2px solid #212121;
+}
+
+.header-title {
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 1px 1px 1px #212121, 1px -1px 1px #212121, -1px 1px 1px #212121, -1px -1px 1px #212121;
+}
+
+.link-container {
+  margin: 1rem 2rem;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.link-container--guest {
+  padding: 3.5rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 8rem;
+  color: white;
+  background: #9494d1;
+  border-top: 4px solid #212121;
+}/*# sourceMappingURL=styles.css.map */

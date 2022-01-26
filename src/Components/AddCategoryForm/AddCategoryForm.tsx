@@ -21,18 +21,18 @@ export const AddCategoryForm: React.FC = () => {
                 setFormToggle(!formToggle);
                 window.location.href = '/'
             }}>
-                <button type="submit" className="category__button addcategory__button button__submit">
-                    Submit Component
+                <button type="submit" className="button button__add addcategory__button button__submit">
+                    Submit Category
                 </button>
                 <input className="category__input" type="text" placeholder="category name" value={categoryName} onChange={(e) => {setCategoryName(e.target.value)}} required/>
             </form>
         ) : (
-            <button className="category__button addcategory__button"
+            <button className="button button__add button__category"
                 onClick={() => { if (!formToggle) {
                     setFormToggle(!formToggle)
                 }}}
             >
-                Add Component
+                Add Category
             </button>
         )
     );

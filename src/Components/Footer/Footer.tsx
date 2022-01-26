@@ -1,6 +1,6 @@
 
 export const Footer: React.FC = () => {
-    return(<>
-
-    </>);
+    return(<div className="footer">
+        2022 &copy Darby Burbidge
+    </div>);
 };

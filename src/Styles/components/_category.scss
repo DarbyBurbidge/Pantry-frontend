@@ -1,0 +1,45 @@
+@use '../abstracts' as *;
+
+.category-card {
+    position: relative;
+    width: 18rem;
+    margin: 4rem 0rem;
+    display: flex;
+    justify-content: center;
+    border-radius: 2rem;
+    border: 2px solid $color-border;
+
+    &__header {
+        position: absolute;
+        top: -3rem;
+        height: 6rem;
+        width: 20rem;
+        margin: 0 50% 0 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1rem;
+        border: 2px solid $color-border;
+        background: $color-primary;
+        text-shadow:
+            1px  1px 1px $color-border,
+            1px -1px 1px $color-border,
+            -1px  1px 1px $color-border,
+            -1px -1px 1px $color-border;
+    }
+
+    &__title {
+        font-size: 1.75rem;
+    }
+
+    &__body {
+        width: 100%;
+        margin-top: 3rem;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+}

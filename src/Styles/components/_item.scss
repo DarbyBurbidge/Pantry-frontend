@@ -1,0 +1,41 @@
+@use '../abstracts' as *;
+
+.item-card {
+    font-family: map-get($font-stack, 'sans-serif');
+    font-size: 1rem;
+    &__container {
+        width: 14em;
+        margin: 1em;
+        border-radius: 1em;
+        border: 2px solid $color-border;
+        padding: .75em;
+        display: flex;
+        flex-direction: column;
+        background: $color-primary;
+        list-style: none;
+    }
+
+    &__attributes {
+        display: flex;
+        padding: .25em .75em;
+        border-radius: .5em;
+        border: 1px solid $color-border;
+        background: $color-white;
+        color: $color-border;
+        &--left {
+            margin-right: auto;
+        }
+        &--right {
+            margin-left: auto;
+        }
+    }
+
+    &__buttons {
+        width: 100%;
+        margin-top: 1em;
+        padding: .25em 0;
+        /* May need to change display options down the road */
+        display: flex;
+        justify-content: space-around;
+    }
+}

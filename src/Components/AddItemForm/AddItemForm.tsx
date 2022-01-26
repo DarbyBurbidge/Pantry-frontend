@@ -1,49 +1,72 @@
 import React, { useState } from 'react';
 import { useAddItemMutation } from '../../generated/graphql';
-import "./AddItemForm.css"
 
 interface AddItemProps {
-    categoryId: string
+    className: string;
+    categoryId: string;
 }
 
-export const AddItemForm: React.FC<AddItemProps> = ({categoryId}) => {
+export const AddItemForm: React.FC<AddItemProps> = ({className, categoryId}) => {
     const [addItem,] = useAddItemMutation();
 
+    const today = new Date().toISOString().split('T')
+    console.log(today[0])
     const [ formToggle, setFormToggle ] = useState(false);
     const [ itemName, setItemName ] = useState('');
-    const [ expiration, setItemExp ] = useState('')
+    const [ hasExp, setHasExp ] = useState(true);
+    const [ expiration, setItemExp ] = useState(today[0]);
 
 
     return(
-        formToggle ? (
-            <form className="item__form" onSubmit={(e) => {
-                e.preventDefault();
-                if (!formToggle) {
-                    return
-                }
-                addItem({variables: {
-                    itemName,
-                    categoryId,
-                    expiration
-                }})
-                console.log("submit");
-                setFormToggle(!formToggle);
-                window.location.href = '/'
-            }}>
-                <button type="submit" className="item__button additem__button button__submit">
-                    Submit Item
+        <div className={formToggle ? 'form__container form__container--active' : 'form__container'}>
+            {formToggle ? (
+                
+                <form className="item-form exp-alter" onSubmit={(e) => {
+                    e.preventDefault();
+                    if (!formToggle) {
+                        return
+                    }
+                    console.log(`The expiration is ${expiration}`)
+                    const submitExp = hasExp ? expiration : 'N/A';
+                    addItem({variables: {
+                        itemName,
+                        categoryId,
+                        expiration: submitExp
+                    }})
+                    console.log("submit");
+                    setFormToggle(!formToggle);
+                    window.location.href = '/'
+                }}>
+                    <button className="cancel__button" type="button" onClick={() => { setFormToggle(false)}}>x</button>
+                    <label className="item-form__name-label exp-alter">Item:</label>
+                    <input className="item-form__input item-name exp-alter" type="text" placeholder="item name" value={itemName} onChange={(e) => {setItemName(e.target.value)}} required/>
+                    <label className="item-form__exp-label exp-alter">Expiration:</label>
+                    <input className="item-form__input item-exp exp-alter" type="date" value={expiration} onChange={(e) => {setItemExp(e.target.value)}} pattern="\d{2}-\d{2}-\d{4}"/>
+                    <button className="item-form__expiration-toggle item-form__expiration-toggle--on button exp-alter" type="button" onClick={() => {
+                        const elements = document.getElementsByClassName('exp-alter');
+                        console.log(elements);
+                        for (let i = 0; i < elements.length; i++) {
+                            elements[i].classList.remove(`exp-${hasExp}`);
+                            elements[i].classList.add(`exp-${!hasExp}`);
+                        }
+                        setHasExp(!hasExp);
+                    }} >
+                        { hasExp ? 'Missing Expiration' : 'Has Expiration' }
+                    </button> 
+                    <button className="button button__add add-item submit-item" type="submit" >
+                        Submit Item
+                    </button>
+                </form>
+            ) : (
+                <button className={className}
+                    onClick={() => { if (!formToggle) {
+                        setFormToggle(!formToggle)
+                    }}}
+                >
+                    Add Item
                 </button>
-                <input className="item__input" type="text" placeholder="item name" value={itemName} onChange={(e) => {setItemName(e.target.value)}} required/>
-                <input className="item__input" type="date" value={expiration} onChange={(e) => {setItemExp(e.target.value)}} required/>
-            </form>
-        ) : (
-            <button className="item__button additem__button"
-                onClick={() => { if (!formToggle) {
-                    setFormToggle(!formToggle)
-                }}}
-            >
-                Add Item
-            </button>
-        )
+            )}
+            
+        </div>
     );
 };
