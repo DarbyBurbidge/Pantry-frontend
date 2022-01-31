@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { CurrentUserAllDocument, useCurrentUserQuery, useLogoutMutation } from '../../generated/graphql';
 import { Login } from '../Login/Login';
 import { Register } from '../Register/Register';
@@ -9,7 +8,7 @@ export const Header: React.FC = () => {
 
     return(<>
         <div className="header__container">
-            <img className="logo" src="backboard.jpg" alt="logo" />
+            <img className="logo" src="refrigerator_icon.webp" alt="logo" />
             <h1 className="header-title">The Pantry</h1>
             {data?.currentUser ? (
                 <div className="link-container">

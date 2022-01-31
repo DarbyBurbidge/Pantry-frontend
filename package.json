@@ -1,5 +1,6 @@
 {
   "name": "frontend",
+  "homepage": "https://thedarby.rocks",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,7 +13,7 @@
     "apollo-link": "^1.2.14",
     "apollo-link-error": "^1.1.13",
     "apollo-link-http": "^1.5.17",
-    "apollo-link-token-refresh": "^0.3.3",
+    "apollo-link-token-refresh": "^0.4.0",
     "graphql": "^16.2.0",
     "jwt-decode": "^3.1.2",
     "react": "^17.0.2",

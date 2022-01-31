@@ -1,0 +1,35 @@
+@use '../abstracts' as *;
+
+.edit-category {
+        position: absolute;
+        width: 20rem;
+        height: calc(100% + 4px);
+        margin: 0 50% 0 50%;
+        padding: calc(1rem - 2px);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        border-radius: $br-lg;
+        border: $border-emphasis solid $color-border;
+        background: $color-primary;
+
+        &__new-category {
+            width: calc(100% + 4px);
+            padding: .25rem .75rem;
+            font-size: 1.5rem;
+            background: $color-white;
+            border-radius: $br-md;
+            border: $border-emphasis solid $color-border;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: $color-border;
+        }
+
+        &.display-false {
+            visibility: hidden;
+            z-index: -1;
+        }
+    }

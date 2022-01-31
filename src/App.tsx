@@ -7,19 +7,21 @@ export const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
   //This whole component is here to make sure that an accessToken is fetched when the page is reloaded (otherwise it falls out of memory on refresh)
     useEffect(() => {
-        fetch('http://localhost:5000/refresh_token', {
-            method: 'POST',
-            credentials: 'include'
+        fetch('https://guarded-oasis-23318.herokuapp.com/refresh_token', {
+          method: 'POST',
+          credentials: 'include',
         }).then(async ret => {
-            const {accessToken} = await ret.json()
-            setAccessToken(accessToken)
-            setLoading(false);
+          const {accessToken} = await ret.json()
+          setAccessToken(accessToken)
+          setLoading(false);
+        }).catch((err) => {
+          console.log(err);
         });
     }, [])
 
   if (loading) {
     return (
-      <div>loading...</div>
+      <div>loading... app</div>
     )
   }
   return (

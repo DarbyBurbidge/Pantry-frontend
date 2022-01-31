@@ -11,8 +11,8 @@ $form-field-width: 12rem;
         color: $color-border;
         background: $color-white;
         padding: .25rem .75rem;
-        border-radius: .5rem;
-        border: 1px solid $color-border;
+        border-radius: $br-sm;
+        border: $border-width solid $color-border;
     }
 }
 
@@ -64,9 +64,8 @@ $form-field-width: 12rem;
     align-items: center;
     padding: 0;
     z-index: 2;
-    border-radius: 1em;
+    border-radius: $br-lg;
     background: $color-primary;
-    border: 0 solid $color-border;
     animation: form-grow_container .5s linear forwards .49s;
     &.exp-false {
         animation: expiration-toggle_form .5s linear forwards;
@@ -161,7 +160,7 @@ $form-field-width: 12rem;
 }
 
 .submit-item {
-    border: 2px solid $color-border;
+    border: $border-emphasis solid $color-border;
     animation: form-grow_button .5s linear forwards;
 }
 
@@ -171,19 +170,19 @@ $form-field-width: 12rem;
         width: 9rem;
     }
     99% {
-        border: 2px solid $color-border;
+        border: $border-emphasis solid $color-border;
         width: $form-field-width;
     }
     100% {
         width: $form-field-width;
-        border: 1px solid $color-border;
+        border: $border-width solid $color-border;
     }
 }
 
 @keyframes form-grow_container {
     0% {
         padding: 0;
-        border: 2px solid $color-border;
+        border: $border-emphasis solid $color-border;
         bottom: -1.25rem;
     }
     10% {
@@ -192,7 +191,7 @@ $form-field-width: 12rem;
     100% {
         padding: .5rem;
         padding-top: 10.25rem;
-        border: 2px solid $color-border;
+        border: $border-emphasis solid $color-border;
         bottom: -5.5rem;
     }
 }
@@ -261,13 +260,13 @@ $form-field-width: 12rem;
     0% {   
         padding: .5rem;
         padding-top: 10.25rem;
-        border: 2px solid $color-border;
+        border: $border-emphasis solid $color-border;
         bottom: -5.5rem;
     }
     100% {
         padding: .5rem;
         padding-top: 7rem;
-        border: 2px solid $color-border;
+        border: $border-emphasis solid $color-border;
         bottom: -4rem;
     }
 }
@@ -276,13 +275,13 @@ $form-field-width: 12rem;
     0% {   
         padding: .5rem;
         padding-top: 7rem;
-        border: 2px solid $color-border;
+        border: $border-emphasis solid $color-border;
         bottom: -4rem;
     }
     100% {
         padding: .5rem;
         padding-top: 10.25rem;
-        border: 2px solid $color-border;
+        border: $border-emphasis solid $color-border;
         bottom: -5.5rem;
     }
 }

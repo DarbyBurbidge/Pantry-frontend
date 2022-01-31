@@ -4,10 +4,11 @@
     font-family: map-get($font-stack, 'sans-serif');
     font-size: 1rem;
     &__container {
+        position: relative;
         width: 14em;
         margin: 1em;
-        border-radius: 1em;
-        border: 2px solid $color-border;
+        border-radius: $br-lg;
+        border: $border-emphasis solid $color-border;
         padding: .75em;
         display: flex;
         flex-direction: column;
@@ -18,8 +19,8 @@
     &__attributes {
         display: flex;
         padding: .25em .75em;
-        border-radius: .5em;
-        border: 1px solid $color-border;
+        border-radius: $br-sm;
+        border: $border-width solid $color-border;
         background: $color-white;
         color: $color-border;
         &--left {

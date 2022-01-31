@@ -1,4 +1,8 @@
-import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache, Observable } from '@apollo/react-hooks';
+import ApolloClient from 'apollo-client';
+import { ApolloLink, Observable } from 'apollo-link';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import { onError } from 'apollo-link-error';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
@@ -65,7 +69,7 @@ const client = new ApolloClient({
       },
       //access our refresh api using the refresh cookie
       fetchAccessToken: async () => {
-        const res = await fetch('http://localhost:5000/refresh_token', {
+        const res = await fetch('https://guarded-oasis-23318.herokuapp.com/refresh_token', {
           method: 'POST',
           credentials: 'include'
         });
@@ -101,7 +105,7 @@ const client = new ApolloClient({
     requestLink,
     //declaring the link to the backend server, making sure to use our cookies
     new HttpLink({
-      uri: 'http://localhost:5000/graphql',
+      uri: 'https://guarded-oasis-23318.herokuapp.com/graphql',
       credentials: 'include'
     })
   ]),

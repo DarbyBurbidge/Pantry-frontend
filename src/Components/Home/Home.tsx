@@ -1,9 +1,7 @@
 import React from 'react';
-import {  CurrentUserAllDocument, useCurrentUserAllQuery, useDeleteItemMutation } from '../../generated/graphql';
+import { useCurrentUserAllQuery } from '../../generated/graphql';
 import { AddCategoryForm } from '../AddCategoryForm/AddCategoryForm';
-import { AddItemForm } from '../AddItemForm/AddItemForm';
 import { CategoryCard } from '../CategoryCard/CategoryCard';
-import { ItemCard } from '../ItemCard/ItemCard';
 import "./Home.css"
 
 export const Home: React.FC = () => {
@@ -15,7 +13,7 @@ export const Home: React.FC = () => {
         console.error(error)
         body = <div className="body">Please Log In:</div>
     } else if (loading) {
-        body = <div className="body">loading...</div>
+        body = <div className="body">loading... I wish you luck</div>
     } else if (!data?.currentUser) {
         body = <div className="body">{/*<WelcomePage />*/}</div>
     } else {

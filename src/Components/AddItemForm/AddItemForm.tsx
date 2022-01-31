@@ -39,7 +39,7 @@ export const AddItemForm: React.FC<AddItemProps> = ({className, categoryId}) => 
                 }}>
                     <button className="cancel__button" type="button" onClick={() => { setFormToggle(false)}}>x</button>
                     <label className="item-form__name-label exp-alter">Item:</label>
-                    <input className="item-form__input item-name exp-alter" type="text" placeholder="item name" value={itemName} onChange={(e) => {setItemName(e.target.value)}} required/>
+                    <input className="item-form__input item-name exp-alter" type="text" placeholder="item name" value={itemName} onChange={(e) => {setItemName(e.target.value)}} autoFocus required/>
                     <label className="item-form__exp-label exp-alter">Expiration:</label>
                     <input className="item-form__input item-exp exp-alter" type="date" value={expiration} onChange={(e) => {setItemExp(e.target.value)}} pattern="\d{2}-\d{2}-\d{4}"/>
                     <button className="item-form__expiration-toggle item-form__expiration-toggle--on button exp-alter" type="button" onClick={() => {

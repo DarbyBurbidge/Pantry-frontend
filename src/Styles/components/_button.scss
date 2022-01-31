@@ -1,19 +1,30 @@
 @use '../abstracts' as *;
 
+$button-width: 5rem;
+$button-wide: 9rem;
+$button-padding: .5rem .75rem;
+$button-radius: $br-md;
+
+
 .button {
-    min-width: 2em;
-    padding: .5em .75em;
-    border-radius: .75em;
-    border: 1px solid $color-border;
+    font-family: map-get($font-stack, 'sans-serif');
+    min-width: $button-width;
+    padding: $button-padding;
+    border-radius: $button-radius;
+    border: $border-width solid $color-border;
     display: flex;
     justify-content: center;
     align-items: center;
     color: $color-border;
 
+    &:focus, &:active {
+        filter: brightness(90%);
+    }
+
     
     &__add {
         background: $color-add;
-        min-width: 9rem;
+        min-width: $button-wide;
     }
 
     &__edit {
@@ -25,17 +36,14 @@
     }
 
     &__login, &__logout, &__register {
-        font-size: 1rem;
-        width: 5rem;
-        padding: .5rem;
-        border-radius: .5rem;
-        border: 2px solid $color-border;
-        background: #fff;
+        border-radius: $br-md;
+        border: $border-emphasis solid $color-border;
+        background: $color-white;
     }
 
     /* for components that stand apart */
     &--solo {
-        border: 2px solid $color-border;
+        border: $border-emphasis solid $color-border;
     }
 
 }

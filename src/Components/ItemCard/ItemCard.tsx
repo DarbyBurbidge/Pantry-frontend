@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CurrentUserAllDocument, useDeleteItemMutation } from '../../generated/graphql';
-import { AddItemForm } from '../AddItemForm/AddItemForm';
+import { EditItemForm } from '../EditItemForm/EditItemForm';
 
 
 interface ItemCardProps {
@@ -12,8 +12,28 @@ interface ItemCardProps {
     };
 }
 
+/* This whole block is likely a waste
+    It was meant as a function to convert a date into a 4 digit number
+    if it's not the current year but it's unnecessary
+const thisYear = (date: string) => {
+    console.log(`The date is: ${date}`)
+    if (date == 'N/A') {
+        return date
+    }
+    const today = new Date().toDateString();
+    const thisYear = today.split(' ')[3];
+    const givenYear = returnToDate(date).split('-')[0];
+    if (thisYear != givenYear) {
+        return givenYear.substring(2,4)
+    }
+    return givenYear
+}
+*/
+
 export const ItemCard: React.FC<ItemCardProps> = ({item}) => {
-    const [ deleteItem, {} ] = useDeleteItemMutation();
+    const [formToggle, setFormToggle] = useState(false);
+
+    const [ deleteItem,] = useDeleteItemMutation();
 
     return(
         <li className="item-card">
@@ -23,7 +43,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({item}) => {
                     <span className="item-card__attributes--right">{item.expiration}</span>
                 </li>
                 <li className="item-card__buttons">
-                    <button className="button button__edit">Edit</button>  
+                    <button className="button button__edit" onClick={() => setFormToggle(!formToggle)}>Edit</button>  
                     <button className="button button__delete"
                         onClick={() => {
                             deleteItem({
@@ -37,6 +57,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({item}) => {
                         Delete
                     </button>
                 </li>
+                <EditItemForm itemName={item.itemName} itemExp={item.expiration} itemId={item._id} className={`display-${formToggle}`} formToggle={setFormToggle}/>
             </ul>
         </li>
     );

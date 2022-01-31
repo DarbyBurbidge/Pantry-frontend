@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { setAccessToken } from '../../accessToken';
 import { CurrentUserDocument, CurrentUserQuery, useLoginMutation } from '../../generated/graphql';
 
@@ -7,8 +6,6 @@ export const Register: React.FC = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ formToggle, setFormToggle ] = useState(false);
-    //The new History
-    const navigate = useNavigate();
 
     const [login, {loading, error}] = useLoginMutation();
 
@@ -29,6 +26,10 @@ export const Register: React.FC = () => {
         e.preventDefault()
         if (!formToggle) {
             setFormToggle(!formToggle)
+            const focusInput = document.querySelector('.email--register');
+            focusInput?.setAttribute('required', 'true');
+            focusInput?.nextElementSibling?.querySelector('.password--register')?.setAttribute('required', 'true');
+            (focusInput as HTMLElement).focus()
             return
         }
         let response
@@ -65,19 +66,19 @@ export const Register: React.FC = () => {
     }}>
         <button className={formToggle ? 'form-input register toggle-input' : 'form-input register' } type="submit" aria-label="register submit">Register</button>
             <input
-                className={formToggle ? 'form-input email toggle-input' : 'form-input email' }
+                className={formToggle ? 'form-input email email--register toggle-input' : 'form-input email email--register' }
                 value={email}
-                //placeholder="email"
+                placeholder="email"
                 aria-label="register email"
                 onChange={e => {
                     setEmail(e.target.value);
                 }}
             />
             <input
-                className={formToggle ? 'form-input password toggle-input' : 'form-input password' }
+                className={formToggle ? 'form-input password password--register toggle-input' : 'form-input password password--register' }
                 type="password"
                 value={password}
-                //placeholder="password"
+                placeholder="password"
                 aria-label="register password"
                 onChange={e => {
                     setPassword(e.target.value);

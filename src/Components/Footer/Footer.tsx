@@ -1,6 +1,6 @@
 
 export const Footer: React.FC = () => {
     return(<div className="footer">
-        2022 &copy Darby Burbidge
+        &copy;2022 Darby Burbidge
     </div>);
 };

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { setAccessToken } from '../../accessToken';
 import { CurrentUserDocument, CurrentUserQuery, useLoginMutation } from '../../generated/graphql';
 
@@ -7,8 +6,6 @@ export const Login: React.FC = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ formToggle, setFormToggle ] = useState(false);
-    //The new History
-    const navigate = useNavigate();
 
     const [login, {loading, error}] = useLoginMutation();
 
@@ -29,6 +26,10 @@ export const Login: React.FC = () => {
             e.preventDefault()
             if (!formToggle) {
                 setFormToggle(!formToggle)
+                const focusInput = document.querySelector('.email--login');
+                focusInput?.setAttribute('required', 'true');
+                focusInput?.nextElementSibling?.querySelector('.password--login')?.setAttribute('required', 'true');
+                (focusInput as HTMLElement).focus()
                 return
             }
             let response
@@ -65,7 +66,7 @@ export const Login: React.FC = () => {
         }}>
             <button className={formToggle ? 'form-input login toggle-input button button__login' : 'form-input login button button__login' } type="submit" aria-label="login submit">Login</button>
                 <input
-                    className={formToggle ? 'form-input email toggle-input' : 'form-input email' }
+                    className={formToggle ? 'form-input email email--login toggle-input ' : 'form-input email email--login' }
                     value={email}
                     placeholder="email"
                     aria-label="login email"
@@ -74,7 +75,7 @@ export const Login: React.FC = () => {
                     }}
                 />
                 <input
-                    className={formToggle ? 'form-input password toggle-input button button__register' : 'form-input password button button__register' }
+                    className={formToggle ? 'form-input password password--login toggle-input button button__login' : 'form-input password password--login button button__login' }
                     type="password"
                     value={password}
                     placeholder="password"
