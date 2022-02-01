@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { setAccessToken } from '../../accessToken';
-import { CurrentUserDocument, CurrentUserQuery, useLoginMutation } from '../../generated/graphql';
+import { useRegisterMutation } from '../../generated/graphql';
 
 export const Register: React.FC = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ formToggle, setFormToggle ] = useState(false);
 
-    const [login, {loading, error}] = useLoginMutation();
+    const [register, {loading, error}] = useRegisterMutation();
 
     if(loading) {
         return (
-            <div>loading...</div>
+            <div className="register-form">loading...</div>
         )
     }
     if(error) {
         return (
-            <div>{error.message}</div>
+            <div className="register-form">{error.message}</div>
         )
     }
 
@@ -28,41 +27,21 @@ export const Register: React.FC = () => {
             setFormToggle(!formToggle)
             const focusInput = document.querySelector('.email--register');
             focusInput?.setAttribute('required', 'true');
-            focusInput?.nextElementSibling?.querySelector('.password--register')?.setAttribute('required', 'true');
+            document.querySelector('.password--register')?.setAttribute('required', 'true');
             (focusInput as HTMLElement).focus()
             return
         }
-        let response
         try {
-            //attempt to login using the form info, storing the user details in the cache
-            response = await login({
+            //attempt to register using the form info, storing the user details in the cache
+            await register({
                 variables: {
                     email,
                     password
-                },
-                //stores a query in the cache that gets the current users info
-                update: (store, {data}) => {
-                    if (!data) {
-                        return null;
-                    }
-                    store.writeQuery<CurrentUserQuery>({
-                        query: CurrentUserDocument,                        
-                        data: {
-                            __typename: 'Query',
-                            currentUser: data.login.user
-                        }
-                    });
                 }
             });
         } catch (err) {
             console.error(err)
         }
-        //assuming everything went well, set the accessToken using the token we received in the response
-        if(response && response.data) {
-            setAccessToken(response.data?.login.accessToken)
-        }
-        //navigate back home
-        window.location.href = "/"
     }}>
         <button className={formToggle ? 'form-input register toggle-input' : 'form-input register' } type="submit" aria-label="register submit">Register</button>
             <input

@@ -1,0 +1,1 @@
+export { AddCategoryForm as default } from "./AddCategoryForm";

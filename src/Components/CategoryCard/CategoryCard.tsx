@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { CurrentUserAllDocument, useDeleteCategoryMutation } from '../../generated/graphql';
-import { AddItemForm } from '../AddItemForm/AddItemForm';
 import { EditCategoryForm } from '../EditCategoryFrom/EditCategoryForm';
 import { ItemCard } from '../ItemCard/ItemCard';
+import { AddItemForm } from '../AddItemForm/AddItemForm';
 
 /* TODO: 1. Fix inability to focus the input element of the
     "Edit Category" Form when the "Edit" button is activated */
@@ -28,7 +28,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({category}) => {
     const [deleteCategory,] = useDeleteCategoryMutation();
 
     return(<>
-        <li className="category-card">
+        <section className="category-card">
             <div className="category-card__header">
                 <div className="category-card__title">{category!.categoryName}</div>                
                 <div className="category-card__buttons">
@@ -80,14 +80,14 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({category}) => {
             <ul className="category-card__body">
                 {category!.items!.map((item) => {
                     return(
-                        <ItemCard
-                            key={item._id}
-                            item={item}
-                        />
+                            <ItemCard
+                                key={item._id}
+                                item={item}
+                            />
                     )
                 })}
             </ul>
-            <AddItemForm className="button button__add button--solo add-item" categoryId={category._id} />
-        </li>
+                <AddItemForm className="button button__add button--solo add-item" categoryId={category._id} />
+        </section>
     </>);
 };

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { setAccessToken } from "./accessToken";
+import { Footer } from "./Components/Footer/Footer";
+import { Header } from "./Components/Header/Header";
 import { Router } from "./Components/Router";
 import "./Styles/styles.css";
 
@@ -20,12 +22,19 @@ export const App: React.FC = () => {
     }, [])
 
   if (loading) {
-    return (
-      <div>loading... app</div>
+    return (<>
+        <Header skip={loading}/>
+        <div className="body">loading...</div>
+        <div className="footer"></div>
+      </>
     )
   }
   return (
+    <>
+      <Header skip={loading}/>
       <Router />
-    );
+      <Footer />
+    </>
+  );
 }
 

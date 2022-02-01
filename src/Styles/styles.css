@@ -915,6 +915,22 @@
     transform: translateX(8.5rem);
   }
 }
+.category-list {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin: 0;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+  display: flex;
+  /*flex-direction: column;*/
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: center;
+  color: #fff;
+  background: #fff;
+}
+
 /*** The new CSS Reset - version 1.2.0 (last updated 23.7.2021) ***/
 /* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
 *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
@@ -953,7 +969,7 @@ textarea {
 }
 
 .body {
-  min-height: 100vh;
+  min-height: 60vh;
 }
 
 .header__container {

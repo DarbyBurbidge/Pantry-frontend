@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { setAccessToken } from '../../accessToken';
+import { getAccessToken, setAccessToken } from '../../accessToken';
 import { CurrentUserDocument, CurrentUserQuery, useLoginMutation } from '../../generated/graphql';
 
 export const Login: React.FC = () => {
@@ -28,7 +28,7 @@ export const Login: React.FC = () => {
                 setFormToggle(!formToggle)
                 const focusInput = document.querySelector('.email--login');
                 focusInput?.setAttribute('required', 'true');
-                focusInput?.nextElementSibling?.querySelector('.password--login')?.setAttribute('required', 'true');
+                document.querySelector('.password--login')?.setAttribute('required', 'true');
                 (focusInput as HTMLElement).focus()
                 return
             }
@@ -60,6 +60,7 @@ export const Login: React.FC = () => {
             //assuming everything went well, set the accessToken using the token we received in the response
             if(response && response.data) {
                 setAccessToken(response.data?.login.accessToken)
+                console.log(getAccessToken())
             }
             //navigate back home
             window.location.href = "/"
