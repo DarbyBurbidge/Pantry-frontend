@@ -1,4 +1,4 @@
-mutation editUser ($email: String! $password: String!) {
+mutation EditUser ($email: String! $password: String!) {
   editUser (email: $email, password: $password) {
 		message
 		return

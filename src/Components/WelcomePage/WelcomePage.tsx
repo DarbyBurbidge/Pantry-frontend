@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Oval } from 'react-loader-spinner';
 import { useNavigate } from 'react-router-dom';
-import { CurrentUserAllDocument, useCurrentUserQuery, useLoginMutation, useRegisterMutation } from '../../generated/graphql';
+import { CurrentUserAllDocument, CurrentUserDocument, useCurrentUserQuery, useRegisterAndLoginMutation } from '../../generated/graphql';
 
 const generateGuest = () => {
     let guest = ''
@@ -12,8 +13,7 @@ const generateGuest = () => {
 
 export const WelcomePage: React.FC = () => {
     const { data, error } = useCurrentUserQuery();
-    const [register,] = useRegisterMutation();
-    const [login,] = useLoginMutation();
+    const [registerAndLogin, {loading}] = useRegisterAndLoginMutation();
     const navigate = useNavigate();
 
     const parent = document.querySelector('.welcome__aside');
@@ -35,32 +35,26 @@ export const WelcomePage: React.FC = () => {
             <aside className="welcome__aside">
                 <button className="welcome__action" onClick={async () => {
                     const guest = generateGuest();
-                    register({
-                        variables: {
-                            email: `guest${guest}`,
-                            password: guest
-                        }
-                    })
-                    .then(async ({data}) => {
-                        console.log(data?.register.message);
-                        try {
-                            const res = await login({
-                                variables: {
-                                    email: `guest${guest}`,
-                                    password: guest
-                                },
-                                refetchQueries: [{query: CurrentUserAllDocument}]
-                            });
-                        } catch (err) {
-                            console.error(err);
-                        }
+                    try {
+                        await registerAndLogin({
+                            variables: {
+                                email: `guest${guest}`,
+                                password: guest
+                            }, 
+                            refetchQueries: [{
+                                query: CurrentUserDocument
+                            }, {
+                                query: CurrentUserAllDocument
+                            }]
+                        })
+                    } catch (err) {
+                        console.error(err)
+                    }
+                    
                         navigate('/home');
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                    });
-                }}>
-                    TRY IT NOW
+                    }
+                }>
+                    {loading ? <Oval color="#222222" secondaryColor="#AAAAAA" height={20} width={20}/> : "TRY IT NOW"}
                 </button>
             </aside>
         </section>

@@ -1,4 +1,4 @@
-query currentUserAll {
+query CurrentUserAll {
     currentUser {
         _id
 		email

@@ -1,0 +1,9 @@
+mutation RegisterAndLogin ($email: String!, $password: String!) {
+  registerAndLogin (email: $email, password: $password) {
+    accessToken
+    user {
+        _id
+        email
+    }
+  }
+}
