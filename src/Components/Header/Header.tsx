@@ -1,12 +1,13 @@
-import { CurrentUserAllDocument, useCurrentUserLazyQuery, useLogoutMutation } from '../../generated/graphql';
-import { Login } from '../Login/Login';
-import { Register } from '../Register/Register';
 import { UserInfo } from '../UserInfo/UserInfo';
 
 
 interface HeaderProps {
     skip: boolean;
 }
+
+/* Container for basic header components
+the skip prop is there to skip rendering UserInfo
+in the case where the accessToken doesn't exist yet*/
 export const Header: React.FC<HeaderProps> = ({skip}) => {
 
     return(<>

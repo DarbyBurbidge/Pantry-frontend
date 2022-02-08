@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAddCategoryMutation } from '../../generated/graphql';
+import { CurrentUserAllDocument, useAddCategoryMutation } from '../../generated/graphql';
 
 
 /* TODO: Fix focusing on input element on toggle */
@@ -28,12 +28,16 @@ export const AddCategoryForm: React.FC = () => {
                 if (!formToggle) {
                     return
                 }
-                addCategory({variables: {
-                    categoryName
-                }})
+                addCategory({
+                    variables: {
+                        categoryName
+                    }, refetchQueries: [{
+                        query: CurrentUserAllDocument
+                    }]
+                });
                 console.log("submit");
                 setFormToggle(!formToggle);
-                window.location.href = '/'
+                //window.location.href = '/'
             }}>
                 <button className="cancel__button" type="button" onClick={() => { setFormToggle(false)}}>x</button>
                 <label className="add-category__input-label">Name:</label>

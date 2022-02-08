@@ -1,19 +1,25 @@
 import React from 'react';
+import { Oval } from 'react-loader-spinner';
 import { CurrentUserAllDocument, useCurrentUserQuery, useLogoutMutation } from '../../generated/graphql';
 import { Login } from '../Login/Login';
 import { Register } from '../Register/Register';
 
 export const UserInfo: React.FC = () => {
-    const { data, error } = useCurrentUserQuery();
+    const { data, loading, error } = useCurrentUserQuery();
     const [logout,] = useLogoutMutation();
 
     let body: any = null;
     if (error) {
-        body = <div>{error}</div>
-    }
-    if (data?.currentUser) {
+        console.error(error)
+    }  else if (loading) {
         body = 
-            <div className="link-container">
+            <div className="user-info">
+                <Oval color="#222222" secondaryColor="#AAAAAA" height={80} width={80} />
+            </div>
+    }
+    else if (data?.currentUser) {
+        body = 
+            <div className="user-info">
                 <button
                     className="button button__logout"
                     type="button"
@@ -29,9 +35,9 @@ export const UserInfo: React.FC = () => {
     }
     else {
         body =
-            <div className="link-container link-container--guest">
-                <Login />            
-                <Register />
+            <div className="user-info">
+                <Login parent="user-info"/>            
+                <Register parent="user-info"/>
             </div>
     }
     return(<>

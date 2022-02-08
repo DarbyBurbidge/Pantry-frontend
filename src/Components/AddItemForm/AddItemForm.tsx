@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAddItemMutation } from '../../generated/graphql';
+import { CurrentUserAllDocument, useAddItemMutation } from '../../generated/graphql';
 
 interface AddItemProps {
     className: string;
@@ -32,10 +32,9 @@ export const AddItemForm: React.FC<AddItemProps> = ({className, categoryId}) => 
                         itemName,
                         categoryId,
                         expiration: submitExp
-                    }})
+                    }, refetchQueries: [{query: CurrentUserAllDocument}]})
                     console.log("submit");
                     setFormToggle(!formToggle);
-                    window.location.href = '/'
                 }}>
                     <button className="cancel__button" type="button" onClick={() => { setFormToggle(false)}}>x</button>
                     <label className="item-form__name-label exp-alter">Item:</label>

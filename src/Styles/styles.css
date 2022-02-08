@@ -1,5 +1,5 @@
 .item-card {
-  font-family: Tahoma, sans-serif;
+  font-family: Nunito, sans-serif;
   font-size: 1rem;
 }
 .item-card__container {
@@ -38,7 +38,7 @@
 }
 
 .button {
-  font-family: Tahoma, sans-serif;
+  font-family: Nunito, sans-serif;
   min-width: 5rem;
   padding: 0.5rem 0.75rem;
   border-radius: 0.75rem;
@@ -84,7 +84,7 @@
   position: absolute;
   top: -3rem;
   width: 20rem;
-  margin: 0 50% 0 50%;
+  margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -204,7 +204,6 @@
       the height of this element ~39px, cut in half is 19.5px or ~1.25rem (20px)
   */
   bottom: -1.25rem;
-  margin: 0 50% 0 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -816,103 +815,134 @@
 
 .login-form, .register-form {
   position: relative;
-  right: 2.5rem;
   margin: 0;
   padding: 0;
+  height: 2.5rem;
+  width: 5rem;
 }
-
-.register-form {
-  bottom: -3rem;
+@media screen and (min-width: 1400px) {
+  .login-form.-left, .register-form.-left {
+    -webkit-animation: to-right 1000ms ease-in-out forwards;
+            animation: to-right 1000ms ease-in-out forwards;
+  }
 }
-
-.form-input {
+@media screen and (min-width: 1400px) {
+  .login-form.-right, .register-form.-right {
+    -webkit-animation: to-left 1000ms ease-in-out forwards;
+            animation: to-left 1000ms ease-in-out forwards;
+  }
+}
+.login-form__input, .register-form__input {
   position: absolute;
   bottom: 0rem;
   font-size: 1rem;
-  width: 4rem;
+  width: 5rem;
   padding: 0.5rem;
   border-radius: 0.75rem;
   border: 2px solid #212121;
   background: white;
 }
-.form-input.login, .form-input.register {
-  width: 5rem;
-}
-
-.login, .register {
+.login-form__input.-submit, .register-form__input.-submit {
   z-index: 99;
   display: flex;
   justify-content: center;
 }
-
-.email {
-  z-index: 97;
-}
-
-.password {
-  z-index: 98;
-}
-
-.email.toggle-input {
+.login-form__input.-submit.toggle-input, .register-form__input.-submit.toggle-input {
   -webkit-animation: slide-input__1 1000ms ease-in-out forwards;
           animation: slide-input__1 1000ms ease-in-out forwards;
 }
-
-.password.toggle-input {
+.login-form__input.-email, .register-form__input.-email {
+  z-index: 97;
+}
+.login-form__input.-email.toggle-input, .register-form__input.-email.toggle-input {
   -webkit-animation: slide-input__2 1000ms ease-in-out forwards;
           animation: slide-input__2 1000ms ease-in-out forwards;
 }
-
-.login.toggle-input, .register.toggle-input {
+.login-form__input.-password, .register-form__input.-password {
+  z-index: 98;
+}
+.login-form__input.-password.toggle-input, .register-form__input.-password.toggle-input {
   -webkit-animation: slide-input__3 1000ms ease-in-out forwards;
           animation: slide-input__3 1000ms ease-in-out forwards;
 }
 
-@-webkit-keyframes slide-input__1 {
+@-webkit-keyframes to-right {
   0% {
-    width: 4;
+    left: 0;
   }
   100% {
-    width: 8rem;
-    transform: translateX(-8.5rem);
+    left: 8.5rem;
   }
 }
 
-@keyframes slide-input__1 {
+@keyframes to-right {
   0% {
-    width: 4;
+    left: 0;
   }
   100% {
-    width: 8rem;
-    transform: translateX(-8.5rem);
+    left: 8.5rem;
+  }
+}
+@-webkit-keyframes to-left {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: 8.5rem;
+  }
+}
+@keyframes to-left {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: 8.5rem;
+  }
+}
+@-webkit-keyframes slide-input__1 {
+  100% {
+    transform: translateX(8.5rem);
+  }
+}
+@keyframes slide-input__1 {
+  100% {
+    transform: translateX(8.5rem);
   }
 }
 @-webkit-keyframes slide-input__2 {
   0% {
-    width: 4;
+    width: 5;
   }
   100% {
     width: 8rem;
-    transform: translateX(0);
+    transform: translateX(-8.5rem);
   }
 }
 @keyframes slide-input__2 {
   0% {
-    width: 4;
+    width: 5;
+  }
+  100% {
+    width: 8rem;
+    transform: translateX(-8.5rem);
+  }
+}
+@-webkit-keyframes slide-input__3 {
+  0% {
+    width: 5;
   }
   100% {
     width: 8rem;
     transform: translateX(0);
   }
 }
-@-webkit-keyframes slide-input__3 {
-  100% {
-    transform: translateX(8.5rem);
-  }
-}
 @keyframes slide-input__3 {
+  0% {
+    width: 5;
+  }
   100% {
-    transform: translateX(8.5rem);
+    width: 8rem;
+    transform: translateX(0);
   }
 }
 .category-list {
@@ -931,8 +961,51 @@
   background: #fff;
 }
 
+.guest-banner {
+  padding: 1.5rem;
+  width: 100%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background: #d1b394;
+  border-radius: 1rem;
+  border: 2px solid #212121;
+}
+.guest-banner__message {
+  font-size: 1.1rem;
+  margin-right: auto;
+  line-height: 2rem;
+  padding-bottom: 1.5rem;
+}
+@media screen and (min-width: 1400px) {
+  .guest-banner__message {
+    padding: 0;
+  }
+}
+@media screen and (min-width: 500px) {
+  .guest-banner {
+    width: 80%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .guest-banner {
+    flex-direction: row;
+  }
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 9rem;
+}
+
 /*** The new CSS Reset - version 1.2.0 (last updated 23.7.2021) ***/
-/* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
+/* Remove all the styles of the "User-Agent-Stylesheets", except for the 'display' property */
 *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
   all: unset;
   display: revert;
@@ -970,6 +1043,11 @@ textarea {
 
 .body {
   min-height: 60vh;
+  line-height: 1.25em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .header__container {
@@ -993,6 +1071,7 @@ textarea {
 .header-title {
   font-size: 3rem;
   color: #fff;
+  margin-bottom: 0.5rem;
   text-shadow: 1px 1px 1px #212121, 1px -1px 1px #212121, -1px 1px 1px #212121, -1px -1px 1px #212121;
 }
 
@@ -1018,4 +1097,74 @@ textarea {
   color: #212121;
   background: #9494d1;
   border-top: 4px solid #212121;
+}
+
+.welcome {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: flex-start;
+  color: #212121;
+}
+.welcome__section {
+  position: relative;
+  top: 3rem;
+  width: 100%;
+  margin: 2rem;
+  padding: 2rem;
+  padding-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 2rem;
+  border: 2px solid #212121;
+}
+.welcome__title {
+  position: absolute;
+  top: -3rem;
+  left: -2rem;
+  width: calc(100% + 4rem);
+  padding: 1rem;
+  text-align: center;
+  font-size: 3rem;
+  line-height: initial;
+  border-radius: 2rem;
+  border: 2px solid #212121;
+  background: #9494d1;
+}
+.welcome__header {
+  color: #9494d1;
+  padding: 0.5rem 0;
+  font-size: 2rem;
+  line-height: initial;
+}
+.welcome__image {
+  width: 200px;
+  height: 200px;
+  border-radius: 1rem;
+  margin: 1rem;
+}
+.welcome__section > p {
+  line-height: 1.5rem;
+  align-self: flex-start;
+}
+.welcome__aside {
+  padding-top: 2rem;
+  width: 100%;
+}
+.welcome__action {
+  position: relative;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 2px solid #212121;
+  background: #9494d1;
+}
+.welcome .display--false {
+  display: none;
 }/*# sourceMappingURL=styles.css.map */

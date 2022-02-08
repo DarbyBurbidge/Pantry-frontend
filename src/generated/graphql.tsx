@@ -46,6 +46,7 @@ export type Mutation = {
   deleteItem: ReturnObject;
   editCategoryName: ReturnObject;
   editItem: ReturnObject;
+  editUser: ReturnObject;
   login: LoginResponse;
   logout: ReturnObject;
   register: ReturnObject;
@@ -87,6 +88,12 @@ export type MutationEditItemArgs = {
 };
 
 
+export type MutationEditUserArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+
 export type MutationLoginArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -119,7 +126,6 @@ export type User = {
   categories: Array<Category>;
   email: Scalars['String'];
   tokenVersion: Scalars['Float'];
-  userName: Scalars['String'];
 };
 
 export type AddCategoryMutationVariables = Exact<{
@@ -178,6 +184,14 @@ export type CurrentUserAllQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CurrentUserAllQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', _id: string, email: string, tokenVersion: number, categories: Array<{ __typename?: 'Category', _id: string, categoryName: string, items?: Array<{ __typename?: 'Item', _id: string, itemName: string, expiration: string }> | null | undefined }> } | null | undefined };
+
+export type EditUserMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type EditUserMutation = { __typename?: 'Mutation', editUser: { __typename?: 'ReturnObject', message: string, return: boolean } };
 
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
@@ -495,6 +509,41 @@ export function useCurrentUserAllLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type CurrentUserAllQueryHookResult = ReturnType<typeof useCurrentUserAllQuery>;
 export type CurrentUserAllLazyQueryHookResult = ReturnType<typeof useCurrentUserAllLazyQuery>;
 export type CurrentUserAllQueryResult = Apollo.QueryResult<CurrentUserAllQuery, CurrentUserAllQueryVariables>;
+export const EditUserDocument = gql`
+    mutation editUser($email: String!, $password: String!) {
+  editUser(email: $email, password: $password) {
+    message
+    return
+  }
+}
+    `;
+export type EditUserMutationFn = Apollo.MutationFunction<EditUserMutation, EditUserMutationVariables>;
+
+/**
+ * __useEditUserMutation__
+ *
+ * To run a mutation, you first call `useEditUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editUserMutation, { data, loading, error }] = useEditUserMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useEditUserMutation(baseOptions?: Apollo.MutationHookOptions<EditUserMutation, EditUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditUserMutation, EditUserMutationVariables>(EditUserDocument, options);
+      }
+export type EditUserMutationHookResult = ReturnType<typeof useEditUserMutation>;
+export type EditUserMutationResult = Apollo.MutationResult<EditUserMutation>;
+export type EditUserMutationOptions = Apollo.BaseMutationOptions<EditUserMutation, EditUserMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {

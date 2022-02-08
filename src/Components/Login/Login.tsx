@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
+import { Oval } from 'react-loader-spinner';
 import { getAccessToken, setAccessToken } from '../../accessToken';
 import { CurrentUserDocument, CurrentUserQuery, useLoginMutation } from '../../generated/graphql';
 
-export const Login: React.FC = () => {
+interface LoginProps {
+    parent: string;
+    modifier?: string
+}
+
+export const Login: React.FC<LoginProps> = ({parent, modifier}) => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ formToggle, setFormToggle ] = useState(false);
@@ -11,25 +17,27 @@ export const Login: React.FC = () => {
 
     if(loading) {
         return (
-            <div>loading...</div>
+            <div className={'login-form'}><Oval color="#222222" secondaryColor="#AAAAAA" height={40} width={40} /></div>
         )
     }
     if(error) {
         return (
-            <div>{error.message}</div>
+            <div className={'login-form'}>{error.message}</div>
         )
     }
 
 
     return(
-        <form className="login-form" onSubmit={async e => {
-            e.preventDefault()
+        <form className={(formToggle && modifier) ? `login-form -${modifier}` : 'login-form'} onSubmit={async e => {
+            e.preventDefault();
             if (!formToggle) {
                 setFormToggle(!formToggle)
-                const focusInput = document.querySelector('.email--login');
-                focusInput?.setAttribute('required', 'true');
-                document.querySelector('.password--login')?.setAttribute('required', 'true');
-                (focusInput as HTMLElement).focus()
+                // Target the parent prop so that we can target the elements from the correct form.
+                const parentElement = document.querySelector(`.${parent}`);
+                const emailElement = parentElement?.querySelector('.login-form__input.-email');
+                emailElement?.setAttribute('required', 'true');
+                parentElement?.querySelector('.login-form__input.-password')?.setAttribute('required', 'true');
+                (emailElement as HTMLElement).focus();
                 return
             }
             let response
@@ -55,19 +63,19 @@ export const Login: React.FC = () => {
                     }
                 });
             } catch (err) {
-                console.error(err)
+                console.error(err);
             }
             //assuming everything went well, set the accessToken using the token we received in the response
             if(response && response.data) {
-                setAccessToken(response.data?.login.accessToken)
-                console.log(getAccessToken())
+                setAccessToken(response.data?.login.accessToken);
+                console.log(getAccessToken());
             }
             //navigate back home
-            window.location.href = "/"
+            window.location.href = "/";
         }}>
-            <button className={formToggle ? 'form-input login toggle-input button button__login' : 'form-input login button button__login' } type="submit" aria-label="login submit">Login</button>
+            <button className={ formToggle ? 'login-form__input -submit toggle-input' : 'login-form__input -submit' } type="submit" aria-label="login submit">Login</button>
                 <input
-                    className={formToggle ? 'form-input email email--login toggle-input ' : 'form-input email email--login' }
+                    className={ formToggle ? 'login-form__input -email toggle-input' : 'login-form__input -email' }
                     value={email}
                     placeholder="email"
                     aria-label="login email"
@@ -76,7 +84,7 @@ export const Login: React.FC = () => {
                     }}
                 />
                 <input
-                    className={formToggle ? 'form-input password password--login toggle-input button button__login' : 'form-input password password--login button button__login' }
+                    className={ formToggle ? 'login-form__input -password toggle-input' : 'login-form__input -password' }
                     type="password"
                     value={password}
                     placeholder="password"

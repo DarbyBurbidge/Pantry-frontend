@@ -1,60 +1,96 @@
 @use '../abstracts/' as *;
+@use 'sass:map';
 
 .login-form, .register-form {
     position: relative;
-    right: 2.5rem;
     margin: 0;
     padding: 0;
-}
+    height: 2.5rem;
+    width: 5rem; //seems like a magic number to center it (same width as button?)
+    
+    &.-left {
+        @media screen and (min-width: map.get($breakpoints, "large")) {
+            animation: to-right 1000ms ease-in-out forwards;
+        }
+    }
 
-.register-form {
-    bottom: -3rem;
-}
+    &.-right {
+        @media screen and (min-width: map.get($breakpoints, "large")) {
+            animation: to-left 1000ms ease-in-out forwards;
+        }
+    }
 
-.form-input {
-    position: absolute;
-    bottom: 0rem;
-    font-size: 1rem;
-    width: 4rem;
-    padding: .5rem;
-    border-radius: $br-md;
-    border: $border-emphasis solid $color-border;
-    background: $color-white;
-
-    &.login, &.register {
+    &__input {
+        position: absolute;
+        bottom: 0rem;
+        font-size: 1rem;
         width: 5rem;
+        padding: .5rem;
+        border-radius: $br-md;
+        border: $border-emphasis solid $color-border;
+        background: $color-white;
+
+        &.-submit {
+            z-index: 99;
+            display: flex;
+            justify-content: center;
+            &.toggle-input {
+                animation: slide-input__1 1000ms ease-in-out forwards;
+            }
+        }
+
+        &.-email {
+            z-index: 97;
+            &.toggle-input {
+                animation: slide-input__2 1000ms ease-in-out forwards;
+            }
+        }
+
+        &.-password {
+            z-index: 98;
+            &.toggle-input {
+                animation: slide-input__3 1000ms ease-in-out forwards;
+            }
+        }
     }
 }
 
-.login, .register {
-    z-index: 99;
-    display: flex;
-    justify-content: center;
+// These are offsets to make the form open in a particular direction
+// rather than out from the center
+@keyframes to-right {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 8.5rem;
+    }
 }
 
-.email {
-    z-index: 97;
+@keyframes to-left {
+    0% {
+        right: 0;
+    }
+    100% {
+        right: 8.5rem;
+    }
 }
 
-.password {
-    z-index: 98;
-}
 
-.email.toggle-input {
-    animation: slide-input__1 1000ms ease-in-out forwards;
-}
+// Each of these are based relative to the center
 
-.password.toggle-input {
-    animation: slide-input__2 1000ms ease-in-out forwards;
-}
-
-.login.toggle-input, .register.toggle-input {
-    animation: slide-input__3 1000ms ease-in-out forwards;
-}
-
+// Shifts the submit button to the right (button).
 @keyframes slide-input__1 {
     0% {
-        width: 4;
+    }
+    100% {
+        transform: translateX(8.5rem);
+    }
+}
+
+// Grows and shifts the leftmost input to the left (email)
+@keyframes slide-input__2 {
+    0% {
+        width: 5;
     }
     100% {
         width: 8rem;
@@ -62,9 +98,10 @@
     }
 }
 
-@keyframes slide-input__2 {
+// Just grows the center input (password)
+@keyframes slide-input__3 {
     0% {
-        width: 4;
+        width: 5;
     }
     100% {
         width: 8rem;
@@ -72,10 +109,5 @@
     }
 }
 
-@keyframes slide-input__3 {
-    0% {
-    }
-    100% {
-        transform: translateX(8.5rem);
-    }
-}
+
+

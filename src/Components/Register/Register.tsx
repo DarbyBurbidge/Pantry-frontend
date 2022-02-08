@@ -1,51 +1,78 @@
 import React, { useState } from 'react';
-import { useRegisterMutation } from '../../generated/graphql';
+import { Oval } from 'react-loader-spinner';
+import { CurrentUserAllDocument, CurrentUserDocument, useEditUserMutation, useRegisterMutation } from '../../generated/graphql';
 
-export const Register: React.FC = () => {
+interface RegisterProps {
+    parent: string;
+    modifier?: string;
+    migrate?: boolean;
+}
+
+export const Register: React.FC<RegisterProps> = ({parent, modifier, migrate}) => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ formToggle, setFormToggle ] = useState(false);
 
     const [register, {loading, error}] = useRegisterMutation();
+    const [userEdit,] = useEditUserMutation();
 
     if(loading) {
         return (
-            <div className="register-form">loading...</div>
+            <div className={'register-form'}><Oval color="#222222" secondaryColor="#AAAAAA" height={40} width={40} /></div>
         )
     }
     if(error) {
         return (
-            <div className="register-form">{error.message}</div>
+            <div className={'register-form'}>{error.message}</div>
         )
     }
 
 
     return(<div>
-    <form className="register-form" onSubmit={async e => {
-        e.preventDefault()
+    <form className={(formToggle && modifier) ? `register-form -${modifier}` : 'register-form'} onSubmit={async e => {
+        e.preventDefault();
         if (!formToggle) {
-            setFormToggle(!formToggle)
-            const focusInput = document.querySelector('.email--register');
-            focusInput?.setAttribute('required', 'true');
-            document.querySelector('.password--register')?.setAttribute('required', 'true');
-            (focusInput as HTMLElement).focus()
+            setFormToggle(!formToggle);
+            const parentElement = document.querySelector(`.${parent}`);
+            const emailElement = parentElement?.querySelector(`.register-form__input.-email`);
+            emailElement?.setAttribute('required', 'true');
+            parentElement?.querySelector(`.register-form__input.-password`)?.setAttribute('required', 'true');
+            (emailElement as HTMLElement).focus();
             return
-        }
-        try {
-            //attempt to register using the form info, storing the user details in the cache
-            await register({
-                variables: {
-                    email,
-                    password
-                }
-            });
-        } catch (err) {
-            console.error(err)
+        } else if (migrate) {
+            try {
+                await userEdit({
+                    variables: {
+                        email,
+                        password
+                    }, 
+                    refetchQueries: [{
+                        query: CurrentUserDocument
+                    }, {
+                        query: CurrentUserAllDocument
+                    }]
+                });
+            }
+            catch (err) {
+                console.error(err);
+            }
+        } else {
+            try {
+                //attempt to register using the form info, storing the user details in the cache
+                await register({
+                    variables: {
+                        email,
+                        password
+                    }
+                });
+            } catch (err) {
+                console.error(err);
+            }
         }
     }}>
-        <button className={formToggle ? 'form-input register toggle-input' : 'form-input register' } type="submit" aria-label="register submit">Register</button>
+        <button className={formToggle ? `register-form__input -submit toggle-input` : `register-form__input -submit` } type="submit" aria-label="register submit">Register</button>
             <input
-                className={formToggle ? 'form-input email email--register toggle-input' : 'form-input email email--register' }
+                className={formToggle ? `register-form__input -email toggle-input` : `register-form__input -email` }
                 value={email}
                 placeholder="email"
                 aria-label="register email"
@@ -54,7 +81,7 @@ export const Register: React.FC = () => {
                 }}
             />
             <input
-                className={formToggle ? 'form-input password password--register toggle-input' : 'form-input password password--register' }
+                className={formToggle ? `register-form__input -password toggle-input` : `register-form__input -password` }
                 type="password"
                 value={password}
                 placeholder="password"

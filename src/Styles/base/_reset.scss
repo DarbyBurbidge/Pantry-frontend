@@ -1,6 +1,6 @@
 /*** The new CSS Reset - version 1.2.0 (last updated 23.7.2021) ***/
 
-/* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
+/* Remove all the styles of the "User-Agent-Stylesheets", except for the 'display' property */
 *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
   all: unset;
   display: revert;
@@ -38,4 +38,9 @@ textarea {
 
 .body {
   min-height: 60vh;
+  line-height: 1.25em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Oval } from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { setAccessToken } from "./accessToken";
 import { Footer } from "./Components/Footer/Footer";
 import { Header } from "./Components/Header/Header";
@@ -21,10 +23,13 @@ export const App: React.FC = () => {
         });
     }, [])
 
+
+  /* This is a pre-render to bring the LCP up to green
+  passing 'loading' prevents accidentally querying without an accessToken */
   if (loading) {
     return (<>
         <Header skip={loading}/>
-        <div className="body">loading...</div>
+        <div className="body"><Oval color="#222222" secondaryColor="#AAAAAA" height={200} width={200} /></div>
         <div className="footer"></div>
       </>
     )
