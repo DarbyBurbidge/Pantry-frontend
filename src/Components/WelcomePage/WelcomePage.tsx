@@ -54,7 +54,7 @@ export const WelcomePage: React.FC = () => {
                         navigate('/home');
                     }
                 }>
-                    {loading ? <Oval color="#222222" secondaryColor="#AAAAAA" height={20} width={20}/> : "TRY IT NOW"}
+                    {loading ? <Oval color="#222222" secondaryColor="#AAAAAA" height={14} width={14}/> : "TRY IT NOW"}
                 </button>
             </aside>
         </section>

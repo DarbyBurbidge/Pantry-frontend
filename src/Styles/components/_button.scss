@@ -8,6 +8,7 @@ $button-radius: $br-md;
 
 .button {
     font-family: map-get($font-stack, 'sans-serif');
+    line-height: 1.25rem;
     min-width: $button-width;
     padding: $button-padding;
     border-radius: $button-radius;
@@ -35,7 +36,7 @@ $button-radius: $br-md;
         background: $color-delete;
     }
 
-    &__login, &__logout, &__register {
+    &.-submit, &__logout {
         border-radius: $br-md;
         border: $border-emphasis solid $color-border;
         background: $color-white;

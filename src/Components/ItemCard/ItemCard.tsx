@@ -1,3 +1,4 @@
+import { getNullableType } from 'graphql';
 import React, { useState } from 'react';
 import { CurrentUserAllDocument, useDeleteItemMutation } from '../../generated/graphql';
 import { EditItemForm } from '../EditItemForm/EditItemForm';
@@ -8,6 +9,7 @@ interface ItemCardProps {
         __typename?: "Item" | undefined;
         _id: string;
         itemName: string;
+        quantity: number;
         expiration: string;
     };
 }
@@ -30,17 +32,37 @@ const thisYear = (date: string) => {
 }
 */
 
+const timeToExpire = (expiration: string) => {
+    if (expiration == 'N/A') {
+        return expiration
+    }
+    const today = new Date();
+    const expDate = new Date(expiration);
+    if ((today.getFullYear() == expDate.getFullYear()) && (today.getMonth() == expDate.getMonth())) {
+        const difference = (expDate.getDate() - today.getDate())
+        console.log(difference)
+        return difference;
+    }
+    return expiration
+}
+
 export const ItemCard: React.FC<ItemCardProps> = ({item}) => {
     const [formToggle, setFormToggle] = useState(false);
 
     const [ deleteItem,] = useDeleteItemMutation();
+
+    const timeLeft = timeToExpire(item.expiration)
+    const showExpire = ((typeof(timeLeft) == 'number') && (timeLeft >= 0)) ? true : false;
 
     return(
         <li className="item-card">
             <div className="item-card__container">
                 <span className="item-card__attributes">
                     <span className="item-card__attributes--left">{item.itemName}</span>
-                    <span className="item-card__attributes--right">{item.expiration}</span>
+                    <span className="item-card__attributes--right">{item.quantity}</span>
+                </span>
+                <span className="item-card__attributes" style={!showExpire ? {display: 'none', color: '#d19494'} : {}}>
+                    <span className="item-card__attributes--center">{`Expires in ${timeLeft} Day${timeLeft != 1 ? 's' : ''}`}</span>
                 </span>
                 <div className="item-card__buttons">
                     <button className="button button__edit" onClick={() => setFormToggle(!formToggle)}>Edit</button>  
@@ -57,7 +79,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({item}) => {
                         Delete
                     </button>
                 </div>
-                <EditItemForm itemName={item.itemName} itemExp={item.expiration} itemId={item._id} className={`display-${formToggle}`} formToggle={setFormToggle}/>
+                <EditItemForm itemName={item.itemName} itemExp={item.expiration} itemQuant={item.quantity} itemId={item._id} className={`display-${formToggle}`} formToggle={setFormToggle}/>
             </div>
         </li>
     );

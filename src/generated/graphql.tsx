@@ -29,6 +29,7 @@ export type Item = {
   categoryId: Scalars['String'];
   expiration: Scalars['String'];
   itemName: Scalars['String'];
+  quantity: Scalars['Float'];
   userId: Scalars['String'];
 };
 
@@ -63,6 +64,7 @@ export type MutationAddItemArgs = {
   categoryId: Scalars['String'];
   expiration: Scalars['String'];
   itemName: Scalars['String'];
+  quantity: Scalars['Float'];
 };
 
 
@@ -86,6 +88,7 @@ export type MutationEditItemArgs = {
   _id: Scalars['String'];
   expiration: Scalars['String'];
   itemName: Scalars['String'];
+  quantity: Scalars['Float'];
 };
 
 
@@ -161,6 +164,7 @@ export type AddItemMutationVariables = Exact<{
   itemName: Scalars['String'];
   categoryId: Scalars['String'];
   expiration: Scalars['String'];
+  quantity: Scalars['Float'];
 }>;
 
 
@@ -177,6 +181,7 @@ export type EditItemMutationVariables = Exact<{
   _id: Scalars['String'];
   itemName: Scalars['String'];
   expiration: Scalars['String'];
+  quantity: Scalars['Float'];
 }>;
 
 
@@ -190,7 +195,7 @@ export type CurrentUserQuery = { __typename?: 'Query', currentUser?: { __typenam
 export type CurrentUserAllQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CurrentUserAllQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', _id: string, email: string, tokenVersion: number, categories: Array<{ __typename?: 'Category', _id: string, categoryName: string, items?: Array<{ __typename?: 'Item', _id: string, itemName: string, expiration: string }> | null | undefined }> } | null | undefined };
+export type CurrentUserAllQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', _id: string, email: string, tokenVersion: number, categories: Array<{ __typename?: 'Category', _id: string, categoryName: string, items?: Array<{ __typename?: 'Item', _id: string, itemName: string, expiration: string, quantity: number }> | null | undefined }> } | null | undefined };
 
 export type EditUserMutationVariables = Exact<{
   email: Scalars['String'];
@@ -339,8 +344,13 @@ export type EditCategoryNameMutationHookResult = ReturnType<typeof useEditCatego
 export type EditCategoryNameMutationResult = Apollo.MutationResult<EditCategoryNameMutation>;
 export type EditCategoryNameMutationOptions = Apollo.BaseMutationOptions<EditCategoryNameMutation, EditCategoryNameMutationVariables>;
 export const AddItemDocument = gql`
-    mutation addItem($itemName: String!, $categoryId: String!, $expiration: String!) {
-  addItem(itemName: $itemName, categoryId: $categoryId, expiration: $expiration) {
+    mutation addItem($itemName: String!, $categoryId: String!, $expiration: String!, $quantity: Float!) {
+  addItem(
+    itemName: $itemName
+    categoryId: $categoryId
+    expiration: $expiration
+    quantity: $quantity
+  ) {
     message
     return
   }
@@ -364,6 +374,7 @@ export type AddItemMutationFn = Apollo.MutationFunction<AddItemMutation, AddItem
  *      itemName: // value for 'itemName'
  *      categoryId: // value for 'categoryId'
  *      expiration: // value for 'expiration'
+ *      quantity: // value for 'quantity'
  *   },
  * });
  */
@@ -409,8 +420,13 @@ export type DeleteItemMutationHookResult = ReturnType<typeof useDeleteItemMutati
 export type DeleteItemMutationResult = Apollo.MutationResult<DeleteItemMutation>;
 export type DeleteItemMutationOptions = Apollo.BaseMutationOptions<DeleteItemMutation, DeleteItemMutationVariables>;
 export const EditItemDocument = gql`
-    mutation editItem($_id: String!, $itemName: String!, $expiration: String!) {
-  editItem(_id: $_id, itemName: $itemName, expiration: $expiration) {
+    mutation editItem($_id: String!, $itemName: String!, $expiration: String!, $quantity: Float!) {
+  editItem(
+    _id: $_id
+    itemName: $itemName
+    expiration: $expiration
+    quantity: $quantity
+  ) {
     message
     return
   }
@@ -434,6 +450,7 @@ export type EditItemMutationFn = Apollo.MutationFunction<EditItemMutation, EditI
  *      _id: // value for '_id'
  *      itemName: // value for 'itemName'
  *      expiration: // value for 'expiration'
+ *      quantity: // value for 'quantity'
  *   },
  * });
  */
@@ -492,6 +509,7 @@ export const CurrentUserAllDocument = gql`
         _id
         itemName
         expiration
+        quantity
       }
     }
   }

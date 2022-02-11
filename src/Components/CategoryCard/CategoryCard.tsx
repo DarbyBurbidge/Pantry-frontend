@@ -17,6 +17,7 @@ interface CategoryCardProps {
             __typename?: "Item" | undefined;
             _id: string;
             itemName: string;
+            quantity: number;
             expiration: string;
         }[] | null | undefined;
     };

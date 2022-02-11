@@ -1,4 +1,5 @@
 @use '../abstracts/' as *;
+@use 'sass:map';
 
 
 .header__container {
@@ -8,7 +9,16 @@
     justify-content: center;
     align-items: center;
     background: $color-primary;
-    border-bottom: 4px solid $color-border;
+    border-bottom: $border-break solid $color-border;
+
+    @media screen and (min-width: map.get($breakpoints, "large")) {
+        flex-direction: row;
+        justify-content: space-between;
+        .logo {
+            margin: 2rem;
+            margin-right: 0;
+        }
+    }
 }
 
 .logo {

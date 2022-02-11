@@ -16,11 +16,6 @@ export const Register: React.FC<RegisterProps> = ({parent, modifier, migrate}) =
     const [register, {loading, error}] = useRegisterMutation();
     const [userEdit,] = useEditUserMutation();
 
-    if(loading) {
-        return (
-            <div className={'register-form'}><Oval color="#222222" secondaryColor="#AAAAAA" height={40} width={40} /></div>
-        )
-    }
     if(error) {
         return (
             <div className={'register-form'}>{error.message}</div>
@@ -70,26 +65,28 @@ export const Register: React.FC<RegisterProps> = ({parent, modifier, migrate}) =
             }
         }
     }}>
-        <button className={formToggle ? `register-form__input -submit toggle-input` : `register-form__input -submit` } type="submit" aria-label="register submit">Register</button>
-            <input
-                className={formToggle ? `register-form__input -email toggle-input` : `register-form__input -email` }
-                value={email}
-                placeholder="email"
-                aria-label="register email"
-                onChange={e => {
-                    setEmail(e.target.value);
-                }}
-            />
-            <input
-                className={formToggle ? `register-form__input -password toggle-input` : `register-form__input -password` }
-                type="password"
-                value={password}
-                placeholder="password"
-                aria-label="register password"
-                onChange={e => {
-                    setPassword(e.target.value);
-                }}
-            /> 
+        <button className={formToggle ? `button register-form__input -submit toggle-input` : `button register-form__input -submit` } type="submit" aria-label="register submit">
+            {loading ? <Oval color="#222222" secondaryColor="#AAAAAA" height={14} width={14} /> : "Register"}
+        </button>
+        <input
+            className={formToggle ? `register-form__input -email toggle-input` : `register-form__input -email` }
+            value={email}
+            placeholder="email"
+            aria-label="register email"
+            onChange={e => {
+                setEmail(e.target.value);
+            }}
+        />
+        <input
+            className={formToggle ? `register-form__input -password toggle-input` : `register-form__input -password` }
+            type="password"
+            value={password}
+            placeholder="password"
+            aria-label="register password"
+            onChange={e => {
+                setPassword(e.target.value);
+            }}
+        /> 
     </form>
     </div>);
 };

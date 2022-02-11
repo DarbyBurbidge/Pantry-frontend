@@ -39,6 +39,7 @@
 
 .button {
   font-family: Nunito, sans-serif;
+  line-height: 1.25rem;
   min-width: 5rem;
   padding: 0.5rem 0.75rem;
   border-radius: 0.75rem;
@@ -62,7 +63,7 @@
 .button__delete {
   background: #d19494;
 }
-.button__login, .button__logout, .button__register {
+.button.-submit, .button__logout {
   border-radius: 0.75rem;
   border: 2px solid #212121;
   background: white;
@@ -74,7 +75,7 @@
 .category-card {
   position: relative;
   width: 18rem;
-  margin: 4rem 0rem;
+  margin: 4rem 1rem;
   display: flex;
   justify-content: center;
   border-radius: 2rem;
@@ -784,29 +785,30 @@
 }
 .edit-item__input-container {
   display: flex;
+  flex-wrap: wrap;
   padding: 0.75rem;
   width: 100%;
-  margin-bottom: 0.5rem;
 }
-.edit-item__new-name, .edit-item__new-exp {
+.edit-item__new-name, .edit-item__new-exp, .edit-item__new-quant {
   display: flex;
   padding: 0.25rem 0.75em;
   border-radius: 0.5rem;
   border: 1px solid #212121;
   background: white;
   color: #212121;
-  width: 100%;
+  width: calc(50% - .35rem);
   background: white;
   align-items: center;
-}
-.edit-item__new-name:focus, .edit-item__new-exp:focus {
-  width: 10rem;
 }
 .edit-item__new-name {
   margin-right: 0.35rem;
 }
-.edit-item__new-exp {
+.edit-item__new-quant {
   margin-left: 0.35rem;
+}
+.edit-item__new-exp {
+  margin-top: 0.7rem;
+  min-width: 100%;
 }
 .edit-item.display-false {
   visibility: hidden;
@@ -1000,8 +1002,12 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  width: 100%;
   height: 9rem;
+}
+@media screen and (min-width: 1400px) {
+  .user-info {
+    margin-right: 2rem;
+  }
 }
 
 /*** The new CSS Reset - version 1.2.0 (last updated 23.7.2021) ***/
@@ -1059,6 +1065,16 @@ textarea {
   background: #9494d1;
   border-bottom: 4px solid #212121;
 }
+@media screen and (min-width: 1400px) {
+  .header__container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .header__container .logo {
+    margin: 2rem;
+    margin-right: 0;
+  }
+}
 
 .logo {
   width: 4rem;
@@ -1110,7 +1126,6 @@ textarea {
 .welcome__section {
   position: relative;
   top: 3rem;
-  width: 100%;
   margin: 2rem;
   padding: 2rem;
   padding-top: 3rem;
@@ -1163,7 +1178,7 @@ textarea {
   padding: 0.5rem 0.75rem;
   border-radius: 0.75rem;
   border: 2px solid #212121;
-  background: #9494d1;
+  background: #94d194;
 }
 .welcome .display--false {
   display: none;

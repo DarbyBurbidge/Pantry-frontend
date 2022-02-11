@@ -4,6 +4,7 @@ import { useEditItemMutation, CurrentUserAllDocument } from '../../generated/gra
 interface EditItemProps {
     itemName: string;
     itemExp: string;
+    itemQuant: number;
     itemId: string;
     className: string;
     formToggle: any;
@@ -35,18 +36,14 @@ const checkNA = (newExp: string) => {
     return newExp
 }
 
-export const EditItemForm: React.FC<EditItemProps> = ({itemName, itemExp, itemId, className, formToggle}) => {
+export const EditItemForm: React.FC<EditItemProps> = ({itemName, itemExp, itemQuant, itemId, className, formToggle}) => {
     const [newName, setNewName] = useState(itemName);
-    const [newExp, setNewExp] = useState(returnToDate(itemExp))
-
-    if(newName === 'Ground Beef') {
-        console.log(newExp)
-    }
+    const [newQuant, setNewQuant] = useState(itemQuant);
+    const [newExp, setNewExp] = useState(returnToDate(itemExp));
 
     const [editItem,] = useEditItemMutation();
 
     const formClasses = `edit-item ${className} ${itemId}`
-    console.log("rerender edit item")
 
 
     return(
@@ -54,7 +51,7 @@ export const EditItemForm: React.FC<EditItemProps> = ({itemName, itemExp, itemId
             e.preventDefault();
             
             try {
-                await editItem({variables: {_id: itemId, itemName: newName, expiration: checkNA(newExp)}, refetchQueries: [{query: CurrentUserAllDocument}]})
+                await editItem({variables: {_id: itemId, itemName: newName, expiration: checkNA(newExp), quantity: newQuant}, refetchQueries: [{query: CurrentUserAllDocument}]})
             } catch (e) {
                 console.error(e);
             }
@@ -62,6 +59,7 @@ export const EditItemForm: React.FC<EditItemProps> = ({itemName, itemExp, itemId
         }}>
             <div className="edit-item__input-container">
                 <input type="text" className="edit-item__new-name" value={newName} onChange={(e) => {setNewName(e.target.value)}} required></input>
+                <input type="number" max="12" min="0" className="edit-item__new-quant" value={newQuant} onChange={(e) => {setNewQuant(parseInt(e.target.value))}} required></input>   
                 <input type="date" className="edit-item__new-exp" value={newExp} onChange={(e) => {setNewExp(e.target.value)}} ></input>
             </div>
             <button type="submit" className="button button__edit">Submit Edit</button>

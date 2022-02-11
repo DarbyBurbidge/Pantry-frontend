@@ -15,11 +15,6 @@ export const Login: React.FC<LoginProps> = ({parent, modifier}) => {
 
     const [login, {loading, error}] = useLoginMutation();
 
-    if(loading) {
-        return (
-            <div className={'login-form'}><Oval color="#222222" secondaryColor="#AAAAAA" height={40} width={40} /></div>
-        )
-    }
     if(error) {
         return (
             <div className={'login-form'}>{error.message}</div>
@@ -73,7 +68,9 @@ export const Login: React.FC<LoginProps> = ({parent, modifier}) => {
             //navigate back home
             window.location.href = "/";
         }}>
-            <button className={ formToggle ? 'login-form__input -submit toggle-input' : 'login-form__input -submit' } type="submit" aria-label="login submit">Login</button>
+            <button className={ formToggle ? 'button login-form__input -submit toggle-input' : 'button login-form__input -submit' } type="submit" aria-label="login submit">
+                {loading ? <Oval color="#222222" secondaryColor="#AAAAAA" height={14} width={14} /> : "Login"}
+                </button>
                 <input
                     className={ formToggle ? 'login-form__input -email toggle-input' : 'login-form__input -email' }
                     value={email}

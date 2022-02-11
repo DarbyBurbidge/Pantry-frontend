@@ -10,6 +10,7 @@ query CurrentUserAll {
 				_id
 				itemName
 				expiration
+				quantity
 			}
 		}
 	}

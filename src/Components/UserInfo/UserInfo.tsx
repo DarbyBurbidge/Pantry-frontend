@@ -5,13 +5,13 @@ import { Login } from '../Login/Login';
 import { Register } from '../Register/Register';
 
 export const UserInfo: React.FC = () => {
-    const { data, loading, error } = useCurrentUserQuery();
-    const [logout,] = useLogoutMutation();
+    const { data, loading: loadingQuery, error } = useCurrentUserQuery();
+    const [logout,{loading}] = useLogoutMutation();
 
     let body: any = null;
     if (error) {
         console.error(error)
-    }  else if (loading) {
+    }  else if (loadingQuery) {
         body = 
             <div className="user-info">
                 <Oval color="#222222" secondaryColor="#AAAAAA" height={80} width={80} />
@@ -29,15 +29,15 @@ export const UserInfo: React.FC = () => {
                         window.location.href = '/'
                     }}
                 >
-                    Logout
+                    {loading ? <Oval color="#222222" secondaryColor="#AAAAAA" height={14} width={14} /> : "Logout"}
                 </button>
             </div>
     }
     else {
         body =
             <div className="user-info">
-                <Login parent="user-info"/>            
-                <Register parent="user-info"/>
+                <Login parent="user-info" modifier="right"/>            
+                <Register parent="user-info" modifier="right"/>
             </div>
     }
     return(<>

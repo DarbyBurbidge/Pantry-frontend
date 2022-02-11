@@ -1,5 +1,5 @@
-mutation addItem ($itemName: String! $categoryId: String! $expiration: String!) {
-	addItem (itemName: $itemName categoryId: $categoryId expiration: $expiration) {
+mutation addItem ($itemName: String! $categoryId: String! $expiration: String! $quantity: Float!) {
+	addItem (itemName: $itemName categoryId: $categoryId expiration: $expiration quantity: $quantity) {
 		message
 		return
 	}

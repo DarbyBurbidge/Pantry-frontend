@@ -31,6 +31,7 @@ export const AddItemForm: React.FC<AddItemProps> = ({className, categoryId}) => 
                     addItem({variables: {
                         itemName,
                         categoryId,
+                        quantity: 1,
                         expiration: submitExp
                     }, refetchQueries: [{query: CurrentUserAllDocument}]})
                     console.log("submit");
