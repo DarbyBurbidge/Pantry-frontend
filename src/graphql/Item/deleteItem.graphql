@@ -1,5 +1,5 @@
-mutation deleteItem ($_id: String!) {
-	deleteItem (_id: $_id) {
+mutation deleteItem ($id: String! $parentType: String!) {
+	deleteItem (id: $id parentType: $parentType) {
 		message
 		return
 	}

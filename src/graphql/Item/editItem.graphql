@@ -1,5 +1,5 @@
-mutation editItem ($_id: String! $itemName: String! $expiration: String! $quantity: Float!) {
-	editItem (_id: $_id itemName: $itemName expiration: $expiration quantity: $quantity) {
+mutation editItem ($id: String! $itemName: String! $expiration: String! $quantity: Float!) {
+	editItem (id: $id itemName: $itemName expiration: $expiration quantity: $quantity) {
 		message
 		return
 	}

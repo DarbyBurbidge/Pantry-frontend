@@ -1,0 +1,12 @@
+query getShoppingList {
+    getShoppingList {
+		items {
+			_id
+			itemName
+			quantity
+			expiration
+			tags
+			favorite
+		}
+	}
+} 

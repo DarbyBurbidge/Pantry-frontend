@@ -69,7 +69,7 @@ const client = new ApolloClient({
       },
       //access our refresh api using the refresh cookie
       fetchAccessToken: async () => {
-        const res = await fetch('https://guarded-oasis-23318.herokuapp.com/refresh_token', {
+        const res = await fetch(/*'https://guarded-oasis-23318.herokuapp.com/refresh_token'*/'http://localhost:5000/refresh_token', {
           method: 'POST',
           credentials: 'include'
         });
@@ -105,7 +105,7 @@ const client = new ApolloClient({
     requestLink,
     //declaring the link to the backend server, making sure to use our cookies
     new HttpLink({
-      uri: 'https://guarded-oasis-23318.herokuapp.com/graphql',
+      uri: /*'https://guarded-oasis-23318.herokuapp.com/graphql'*/'http://localhost:5000/graphql',
       credentials: 'include'
     })
   ]),

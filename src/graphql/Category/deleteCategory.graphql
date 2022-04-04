@@ -1,6 +1,0 @@
-mutation deleteCategory ($_id: String!) {
-	deleteCategory (_id: $_id) {
-		message
-		return
-	}
-}

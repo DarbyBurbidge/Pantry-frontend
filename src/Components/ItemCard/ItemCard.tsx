@@ -1,17 +1,14 @@
 import { getNullableType } from 'graphql';
 import React, { useState } from 'react';
-import { CurrentUserAllDocument, useDeleteItemMutation } from '../../generated/graphql';
+import { HiOutlineStar, HiStar } from 'react-icons/hi';
+import { CurrentUserAllDocument, Item, useDeleteItemMutation, useToggleFavoriteMutation } from '../../generated/graphql';
 import { EditItemForm } from '../EditItemForm/EditItemForm';
+import { capitalize } from '../FilterSelect/FilterSelect';
 
 
 interface ItemCardProps {
-    item: {
-        __typename?: "Item" | undefined;
-        _id: string;
-        itemName: string;
-        quantity: number;
-        expiration: string;
-    };
+    item: Item
+    parentType: string;
 }
 
 /* This whole block is likely a waste
@@ -46,31 +43,84 @@ const timeToExpire = (expiration: string) => {
     return expiration
 }
 
-export const ItemCard: React.FC<ItemCardProps> = ({item}) => {
+export const ItemCard: React.FC<ItemCardProps> = ({item, parentType}) => {
     const [formToggle, setFormToggle] = useState(false);
 
-    const [ deleteItem,] = useDeleteItemMutation();
+    const [deleteItem,] = useDeleteItemMutation();
+    const [toggleFavorite,] = useToggleFavoriteMutation();
 
     const timeLeft = timeToExpire(item.expiration)
-    const showExpire = ((typeof(timeLeft) == 'number') && (timeLeft >= 0)) ? true : false;
+    const showExpire = ((typeof(timeLeft) == 'number') && (timeLeft >= 0) && (timeLeft <= 3)) ? true : false;
 
     return(
         <li className="item-card">
             <div className="item-card__container">
-                <span className="item-card__attributes">
+                <span className="item-card__attributes item-card__attributes--name">
                     <span className="item-card__attributes--left">{item.itemName}</span>
-                    <span className="item-card__attributes--right">{item.quantity}</span>
+                    {
+                        item.favorite ? (
+                            <>
+                            <HiStar
+                                className="item-card__attributes--right"
+                                color="gold"
+                                size="1.5rem"    
+                            />
+                            <HiOutlineStar
+                            className="item-card__attributes--right -overlap"
+                            color="#222"
+                            size="1.5rem"
+                            onClick={() => {
+                                    toggleFavorite({
+                                        variables: {
+                                            id: item._id
+                                        }
+                                    ,
+                                        refetchQueries: [{query: CurrentUserAllDocument}]
+                                    })
+                                }}
+                            />
+                            </>
+                        ) : (
+                            <HiOutlineStar
+                                className="item-card__attributes--right"
+                                color="#222"
+                                size="1.5rem"
+                                onClick={() => {
+                                        toggleFavorite({
+                                            variables: {
+                                                id: item._id
+                                            }
+                                        ,
+                                            refetchQueries: [{query: CurrentUserAllDocument}]
+                                        })
+                                    }}
+                            />
+                        )
+                    }
                 </span>
-                <span className="item-card__attributes" style={!showExpire ? {display: 'none', color: '#d19494'} : {}}>
-                    <span className="item-card__attributes--center">{`Expires in ${timeLeft} Day${timeLeft != 1 ? 's' : ''}`}</span>
+                    
+                <span className="item-card__attributes">
+                    <span className="item-card__attributes--left">Quantity:</span>
+                    <span className="item-card__attributes--right" style={item.quantity == 0 ? {color: '#ff0000'} : {}}>{item.quantity}</span>
                 </span>
+                <span className="item-card__attributes" style={!showExpire ? {display: 'none'} : {color: '#ff0000'}}>
+                    <span className="item-card__attributes--left">{`Expires:`}</span>
+                    <span className="item-card__attributes--right">{`${timeLeft} Day${timeLeft != 1 ? 's' : ''}`}</span>
+                </span>
+                <div className="item-card__tags">
+                    <div className="item-card__tags__label">Tags:</div>
+                    {item.tags.map((tag)=> {
+                        return (<span className="item-card__tag">{capitalize(tag)}</span>)
+                    })}
+                </div>
                 <div className="item-card__buttons">
                     <button className="button button__edit" onClick={() => setFormToggle(!formToggle)}>Edit</button>  
                     <button className="button button__delete"
                         onClick={() => {
                             deleteItem({
                                 variables: {
-                                    _id: item._id
+                                    id: item._id,
+                                    parentType 
                                 },
                                 refetchQueries: [{query: CurrentUserAllDocument}]
                             });

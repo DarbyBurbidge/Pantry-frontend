@@ -8,20 +8,22 @@
         width: 14em;
         margin: 1em;
         border-radius: $br-lg;
-        border: $border-emphasis solid $color-border;
+        //border: $border-emphasis solid $color-border;
         padding: .75em;
         display: flex;
         flex-direction: column;
-        background: $color-primary;
+        //background: $color-primary;
+        background: #eee;
         list-style: none;
     }
 
     &__attributes {
+        position: relative;
         display: flex;
-        padding: .25em .75em;
-        border-radius: $br-sm;
-        border: $border-width solid $color-border;
-        background: $color-white;
+        padding: .25em .75rem;
+        //border-radius: $br-sm;
+        //border: $border-width solid $color-border;
+        //background: $color-white;
         color: $color-border;
         &--left {
             margin-right: auto;
@@ -29,6 +31,37 @@
         &--right {
             margin-left: auto;
         }
+        &--name {
+            font-size: 1.25rem;
+            line-height: 1.5rem;
+        }
+    }
+
+    &__tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+        padding-top: .5rem;
+
+        &__label {
+
+            font-size: 1.25rem;
+            line-height: 1.5rem;
+            color: $color-border;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+    }
+
+    &__tag {
+        padding: .25rem .75rem;
+        margin: .5rem .25rem;
+        background-color: $color-add;
+        border-radius: $br-md;
+        border: $border-width solid $color-border;
     }
 
     &__buttons {
@@ -39,4 +72,9 @@
         display: flex;
         justify-content: space-around;
     }
+}
+
+.-overlap {
+    position: absolute;
+    right: .75rem;
 }

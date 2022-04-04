@@ -1,1 +1,0 @@
-export { CategoryCard as default } from "./CategoryCard";

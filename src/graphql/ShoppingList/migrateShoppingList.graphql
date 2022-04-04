@@ -1,0 +1,5 @@
+mutation migrateList($itemIds: [String!]!) {
+	migrateList(itemIds: $itemIds) {
+		message
+	}
+}

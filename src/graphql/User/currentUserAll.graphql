@@ -1,16 +1,25 @@
 query CurrentUserAll {
-    currentUser {
-        _id
+	currentUser {
+		_id
 		email
 		tokenVersion
-		categories {
+		items {
 			_id
-			categoryName
+			itemName
+			quantity
+			expiration
+			tags
+			favorite
+		}
+		shoppingList {
+			_id
 			items {
 				_id
 				itemName
-				expiration
 				quantity
+				expiration
+				tags
+				favorite
 			}
 		}
 	}

@@ -18,16 +18,17 @@ $form-field-width: 12rem;
 
 
 .form__container {
-    position: absolute;
-    z-index: 2;
+    //position: absolute;
+    //z-index: 2;
     /* bottom is 1.25em because it's 1.1rem for height of button/2
         but this contains the 2px border as well making
         the height of this element ~39px, cut in half is 19.5px or ~1.25rem (20px)
     */
-    bottom: -1.25rem;
+    //bottom: -1.25rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 1rem;
 }
 
 .cancel__button {
@@ -35,18 +36,18 @@ $form-field-width: 12rem;
     top: .25rem;
     right: 1rem;
     z-index: 100;
-    @keyframes fade-in {
-        0% {
-            opacity: 0;
-        }
-        70% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-    animation: fade-in 1.5s linear forwards;
+    // @keyframes fade-in {
+    //     0% {
+    //         opacity: 0;
+    //     }
+    //     70% {
+    //         opacity: 0;
+    //     }
+    //     100% {
+    //         opacity: 1;
+    //     }
+    // }
+    //animation: fade-in 1.5s linear forwards;
 }
 
 .add-item, .add-item.button--solo {
@@ -61,97 +62,55 @@ $form-field-width: 12rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0;
+    padding: 1rem;
     z-index: 2;
     border-radius: $br-lg;
-    background: $color-primary;
-    animation: form-grow_container .5s linear forwards .49s;
-    &.exp-false {
-        animation: expiration-toggle_form .5s linear forwards;
-    }
-    &.exp-true {  
-        animation: expiration-reverse_form .5s linear forwards;
-    }
+    background: #cce;
 }
 
 .item-form__name-label {
-    font-size: .9rem;
     padding-left: .1rem;
-    opacity: 0;
     width: $form-field-width;
-    position: absolute;
-    z-index: 3;
 
-    animation: form-grow_name--label 450ms linear forwards 540ms;
-    &.exp-false {
-        animation: expiration-toggle_name--label .5s linear forwards;
-    }
-    &.exp-true {
-        animation: expiration-reverse_name--label .5s linear forwards;
-    }
 }
 
 .item-name {
-    opacity: 0;
     width: $form-field-width;
-    position: absolute;
-    z-index: 3;
-
-    animation: form-grow_name 450ms linear forwards 540ms;
-    &.exp-false {
-        animation: expiration-toggle_name .5s linear forwards;
-    }
-    &.exp-true {
-        animation: expiration-reverse_name .5s linear forwards;
-    }
 }
 
 .item-form__exp-label {
-    font-size: .9rem;
+    font-size: 1rem;
     padding-left: .1rem;
-    opacity: 0;
     width: $form-field-width;
-    position: absolute;
-    z-index: 4;
+}
 
-    animation: form-grow_exp--label 450ms linear forwards 540ms;
-    &.exp-false{
-        animation: expiration-toggle_exp--label .5s linear forwards;
+.item-form {
+
+    &__label {        
+        margin: .25rem 0;
+        margin-right: auto;
     }
 
-    &.exp-true {
-        animation: expiration-reverse_exp--label .5s linear forwards;
+    &__input {
+        width: $form-field-width;
+        margin-bottom: .5rem;
     }
 }
 
 
 .item-exp {
-    opacity: 0;
+    
     width: $form-field-width;
-    position: absolute;
-    z-index: 4;
-    animation: form-grow_exp 450ms linear forwards 540ms;
 
-    &.exp-false {
-        animation: expiration-toggle_exp .5s linear forwards;
-    }
-
-    &.exp-true {
-        animation: expiration-reverse_exp .5s linear forwards;
+    &--off {
+        display: none;
     }
 }
 
 .item-form__expiration-toggle {
-    opacity: 0;
     width: $form-field-width;
-    position: absolute;
-    z-index: 5;
     background: $color-delete;
-
-    &--on {
-        animation: form-grow_toggle 450ms linear forwards 540ms;
-    }
-
+    
     &--off {
         opacity: 1;
         bottom: 3.25rem;
@@ -160,229 +119,228 @@ $form-field-width: 12rem;
 
 .submit-item {
     border: $border-emphasis solid $color-border;
-    animation: form-grow_button .5s linear forwards;
 }
 
-@keyframes form-grow_button {
-    0% {
-        margin-top: initial;
-        width: 9rem;
-    }
-    99% {
-        border: $border-emphasis solid $color-border;
-        width: $form-field-width;
-    }
-    100% {
-        width: $form-field-width;
-        border: $border-width solid $color-border;
-    }
-}
+// @keyframes form-grow_button {
+//     0% {
+//         margin-top: initial;
+//         width: 9rem;
+//     }
+//     99% {
+//         border: $border-emphasis solid $color-border;
+//         width: $form-field-width;
+//     }
+//     100% {
+//         width: $form-field-width;
+//         border: $border-width solid $color-border;
+//     }
+// }
 
-@keyframes form-grow_container {
-    0% {
-        padding: 0;
-        border: $border-emphasis solid $color-border;
-        bottom: -1.25rem;
-    }
-    10% {
-        padding: 0 .5rem;
-    }
-    100% {
-        padding: .5rem;
-        padding-top: 10.25rem;
-        border: $border-emphasis solid $color-border;
-        bottom: -5.5rem;
-    }
-}
+// @keyframes form-grow_container {
+//     0% {
+//         padding: 0;
+//         border: $border-emphasis solid $color-border;
+//         bottom: -1.25rem;
+//     }
+//     10% {
+//         padding: 0 .5rem;
+//     }
+//     100% {
+//         padding: .5rem;
+//         padding-top: 10.25rem;
+//         border: $border-emphasis solid $color-border;
+//         bottom: -5.5rem;
+//     }
+// }
 
-/* delay 540ms */
-@keyframes form-grow_toggle {
-    0% {
-        opacity: 1;
-        bottom: 0;
-    }
-    100% {
-        opacity: 1;
-        bottom: 3.25rem;
-    }
-}
+// /* delay 540ms */
+// @keyframes form-grow_toggle {
+//     0% {
+//         opacity: 1;
+//         bottom: 0;
+//     }
+//     100% {
+//         opacity: 1;
+//         bottom: 3.25rem;
+//     }
+// }
 
-@keyframes form-grow_exp--label {
-    0% {
-        opacity: 1;
-        bottom: 0;
-    }
-    100% {
-        opacity: 1;
-        bottom: 8rem;
-    }
-}
+// @keyframes form-grow_exp--label {
+//     0% {
+//         opacity: 1;
+//         bottom: 0;
+//     }
+//     100% {
+//         opacity: 1;
+//         bottom: 8rem;
+//     }
+// }
 
-@keyframes form-grow_exp {
-    0% {
-        opacity: 1;
-        bottom: 0;
-    }
-    100% {
-        opacity: 1;
-        bottom: 6rem;
-    }
-}
+// @keyframes form-grow_exp {
+//     0% {
+//         opacity: 1;
+//         bottom: 0;
+//     }
+//     100% {
+//         opacity: 1;
+//         bottom: 6rem;
+//     }
+// }
 
-@keyframes form-grow_name--label {
-    0% {
-        opacity: 1;
-        bottom: 0;
-    }
-    100% {
-        opacity: 1;
-        bottom: 11.5rem;
-    }
-}
+// @keyframes form-grow_name--label {
+//     0% {
+//         opacity: 1;
+//         bottom: 0;
+//     }
+//     100% {
+//         opacity: 1;
+//         bottom: 11.5rem;
+//     }
+// }
 
-@keyframes form-grow_name {
-    0% {
-        opacity: 1;
-        bottom: 0;
-    }
-    100% {
-        opacity: 1;
-        bottom: 9.5rem;
-    }
-}
+// @keyframes form-grow_name {
+//     0% {
+//         opacity: 1;
+//         bottom: 0;
+//     }
+//     100% {
+//         opacity: 1;
+//         bottom: 9.5rem;
+//     }
+// }
 
-/*
-    Animation for toggling off/on expiration
-*/
+// /*
+//     Animation for toggling off/on expiration
+// */
 
-@keyframes expiration-toggle_form {
-    0% {   
-        padding: .5rem;
-        padding-top: 10.25rem;
-        border: $border-emphasis solid $color-border;
-        bottom: -5.5rem;
-    }
-    100% {
-        padding: .5rem;
-        padding-top: 7rem;
-        border: $border-emphasis solid $color-border;
-        bottom: -4rem;
-    }
-}
+// @keyframes expiration-toggle_form {
+//     0% {   
+//         padding: .5rem;
+//         padding-top: 10.25rem;
+//         border: $border-emphasis solid $color-border;
+//         bottom: -5.5rem;
+//     }
+//     100% {
+//         padding: .5rem;
+//         padding-top: 7rem;
+//         border: $border-emphasis solid $color-border;
+//         bottom: -4rem;
+//     }
+// }
 
-@keyframes expiration-reverse_form {
-    0% {   
-        padding: .5rem;
-        padding-top: 7rem;
-        border: $border-emphasis solid $color-border;
-        bottom: -4rem;
-    }
-    100% {
-        padding: .5rem;
-        padding-top: 10.25rem;
-        border: $border-emphasis solid $color-border;
-        bottom: -5.5rem;
-    }
-}
+// @keyframes expiration-reverse_form {
+//     0% {   
+//         padding: .5rem;
+//         padding-top: 7rem;
+//         border: $border-emphasis solid $color-border;
+//         bottom: -4rem;
+//     }
+//     100% {
+//         padding: .5rem;
+//         padding-top: 10.25rem;
+//         border: $border-emphasis solid $color-border;
+//         bottom: -5.5rem;
+//     }
+// }
 
-@keyframes expiration-toggle_exp--label {
-    0% {
-        opacity: 1;
-        bottom: 8rem;
-    }
-    50% {
-        opacity: 1;
-        bottom: 6rem;
-    }
-    100% {
-        opacity: 1;
-        bottom: 3.25rem;
-    }
-}
+// @keyframes expiration-toggle_exp--label {
+//     0% {
+//         opacity: 1;
+//         bottom: 8rem;
+//     }
+//     50% {
+//         opacity: 1;
+//         bottom: 6rem;
+//     }
+//     100% {
+//         opacity: 1;
+//         bottom: 3.25rem;
+//     }
+// }
 
-@keyframes expiration-reverse_exp--label {
-    0% {
-        opacity: 1;
-        bottom: 3.25rem;
-    }
-    50% {
-        opacity: 1;
-        bottom: 6rem;
-    }
-    100% {
-        opacity: 1;
-        bottom: 8rem;
-    }
-}
+// @keyframes expiration-reverse_exp--label {
+//     0% {
+//         opacity: 1;
+//         bottom: 3.25rem;
+//     }
+//     50% {
+//         opacity: 1;
+//         bottom: 6rem;
+//     }
+//     100% {
+//         opacity: 1;
+//         bottom: 8rem;
+//     }
+// }
 
-@keyframes expiration-toggle_exp {
-    0% {
-        opacity: 1;
-        bottom: 6rem;
-    }
-    99% {
-        opacity: 1;
-        bottom: 3.25rem;
-    }
-    100% {
-        opacity: 0;
-    }
-}
+// @keyframes expiration-toggle_exp {
+//     0% {
+//         opacity: 1;
+//         bottom: 6rem;
+//     }
+//     99% {
+//         opacity: 1;
+//         bottom: 3.25rem;
+//     }
+//     100% {
+//         opacity: 0;
+//     }
+// }
 
-@keyframes expiration-reverse_exp {
-    0% {
-        opacity: 1;
-        bottom: 3.25rem;
-    }
-    100% {
-        opacity: 1;
-        bottom: 6rem;
-    }
-}
+// @keyframes expiration-reverse_exp {
+//     0% {
+//         opacity: 1;
+//         bottom: 3.25rem;
+//     }
+//     100% {
+//         opacity: 1;
+//         bottom: 6rem;
+//     }
+// }
 
-@keyframes expiration-toggle_name--label {
-    0% {
-        opacity: 1;
-        bottom: 11.5rem;
-    }
-    100% {
-        opacity: 1;
-        bottom: 8rem;
-    }
-}
+// @keyframes expiration-toggle_name--label {
+//     0% {
+//         opacity: 1;
+//         bottom: 11.5rem;
+//     }
+//     100% {
+//         opacity: 1;
+//         bottom: 8rem;
+//     }
+// }
 
-@keyframes expiration-reverse_name--label {
-    0% {
-        opacity: 1;
-        bottom: 8rem;
-    }
-    100% {
-        opacity: 1;
-        bottom: 11.5rem;
-    }
-}
+// @keyframes expiration-reverse_name--label {
+//     0% {
+//         opacity: 1;
+//         bottom: 8rem;
+//     }
+//     100% {
+//         opacity: 1;
+//         bottom: 11.5rem;
+//     }
+// }
 
-@keyframes expiration-toggle_name {
-    0% {
-        opacity: 1;
-        bottom: 9.5rem;
-    }
-    100% {
-        opacity: 1;
-        bottom: 6rem;
-    }
-}
+// @keyframes expiration-toggle_name {
+//     0% {
+//         opacity: 1;
+//         bottom: 9.5rem;
+//     }
+//     100% {
+//         opacity: 1;
+//         bottom: 6rem;
+//     }
+// }
 
-@keyframes expiration-reverse_name {
-    0% {
-        opacity: 1;
-        bottom: 6rem;
-    }
-    100% {
-        opacity: 1;
-        bottom: 9.5rem;
-    }
-}
+// @keyframes expiration-reverse_name {
+//     0% {
+//         opacity: 1;
+//         bottom: 6rem;
+//     }
+//     100% {
+//         opacity: 1;
+//         bottom: 9.5rem;
+//     }
+// }
 
 
 

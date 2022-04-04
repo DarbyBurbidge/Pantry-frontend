@@ -3,25 +3,28 @@ import { CurrentUserAllDocument, useAddItemMutation } from '../../generated/grap
 
 interface AddItemProps {
     className: string;
-    categoryId: string;
+    parentType: string;
+    parentId: string;
 }
 
-export const AddItemForm: React.FC<AddItemProps> = ({className, categoryId}) => {
+export const AddItemForm: React.FC<AddItemProps> = ({className, parentType, parentId}) => {
     const [addItem,] = useAddItemMutation();
 
-    const today = new Date().toISOString().split('T')
-    console.log(today[0])
+    const today = new Date().toISOString().split('T');
+    console.log(today[0]);
     const [ formToggle, setFormToggle ] = useState(false);
     const [ itemName, setItemName ] = useState('');
     const [ hasExp, setHasExp ] = useState(true);
+    const [ quantity, setQuantity ] = useState(0);
     const [ expiration, setItemExp ] = useState(today[0]);
+    const [ tags, setTags ] = useState("");
 
 
     return(
         <div className={formToggle ? 'form__container form__container--active' : 'form__container'}>
             {formToggle ? (
                 
-                <form className="item-form exp-alter" onSubmit={(e) => {
+                <form className="item-form" onSubmit={(e) => {
                     e.preventDefault();
                     if (!formToggle) {
                         return
@@ -30,29 +33,39 @@ export const AddItemForm: React.FC<AddItemProps> = ({className, categoryId}) => 
                     const submitExp = hasExp ? expiration : 'N/A';
                     addItem({variables: {
                         itemName,
-                        categoryId,
-                        quantity: 1,
-                        expiration: submitExp
-                    }, refetchQueries: [{query: CurrentUserAllDocument}]})
+                        quantity,
+                        expiration: submitExp,
+                        tags: tags != "" ? tags.toLowerCase().replaceAll(" ","").split(",") : [],
+                        parentType,
+                    }, refetchQueries: [{query: CurrentUserAllDocument}]});
+                    setItemName("");
+                    setHasExp(true);
+                    setItemExp(today[0]);
+                    setQuantity(1);
+                    setTags("");
                     console.log("submit");
                     setFormToggle(!formToggle);
                 }}>
                     <button className="cancel__button" type="button" onClick={() => { setFormToggle(false)}}>x</button>
-                    <label className="item-form__name-label exp-alter">Item:</label>
-                    <input className="item-form__input item-name exp-alter" type="text" placeholder="item name" value={itemName} onChange={(e) => {setItemName(e.target.value)}} autoFocus required/>
-                    <label className="item-form__exp-label exp-alter">Expiration:</label>
-                    <input className="item-form__input item-exp exp-alter" type="date" value={expiration} onChange={(e) => {setItemExp(e.target.value)}} pattern="\d{2}-\d{2}-\d{4}"/>
-                    <button className="item-form__expiration-toggle item-form__expiration-toggle--on button exp-alter" type="button" onClick={() => {
-                        const elements = document.getElementsByClassName('exp-alter');
-                        console.log(elements);
-                        for (let i = 0; i < elements.length; i++) {
-                            elements[i].classList.remove(`exp-${hasExp}`);
-                            elements[i].classList.add(`exp-${!hasExp}`);
-                        }
+                    <label className="item-form__label">Item:</label>
+                    <input className="item-form__input item-name" type="text" placeholder="item name" value={itemName} onChange={(e) => {setItemName(e.target.value)}} required/>
+                    <label className="item-form__label">Quantity:</label>
+                    <input className="item-form__input item-quantity" type="number" min="0" max="12" value={quantity} onChange={(e) => {setQuantity(parseInt(e.target.value))}} required />
+                    {
+                        hasExp ? <>
+                        <label className="item-form__label">Expiration:</label>
+                        <input className="item-form__input item-exp" type="date" value={expiration} onChange={(e) => {setItemExp(e.target.value)}} pattern="\d{2}-\d{2}-\d{4}"/>
+                        </> : <></>
+                    }
+                    <button className="item-form__expiration-toggle item-form__expiration-toggle--on button" type="button" onClick={() => {
                         setHasExp(!hasExp);
                     }} >
                         { hasExp ? 'Missing Expiration' : 'Has Expiration' }
-                    </button> 
+                    </button>
+                    <label className="item-form__label">Tags:</label> 
+                    <input className="item-form__input item-tags" type="text" value={tags} onChange={(e) => {
+                        setTags(e.target.value)
+                    }}/>
                     <button className="button button__add add-item submit-item" type="submit" >
                         Submit Item
                     </button>

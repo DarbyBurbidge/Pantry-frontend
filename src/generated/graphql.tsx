@@ -15,22 +15,14 @@ export type Scalars = {
   Float: number;
 };
 
-export type Category = {
-  __typename?: 'Category';
-  _id: Scalars['ID'];
-  categoryName: Scalars['String'];
-  items?: Maybe<Array<Item>>;
-  userId: Scalars['String'];
-};
-
 export type Item = {
   __typename?: 'Item';
   _id: Scalars['ID'];
-  categoryId: Scalars['String'];
   expiration: Scalars['String'];
+  favorite: Scalars['Boolean'];
   itemName: Scalars['String'];
   quantity: Scalars['Float'];
-  userId: Scalars['String'];
+  tags: Array<Scalars['String']>;
 };
 
 export type LoginResponse = {
@@ -41,52 +33,39 @@ export type LoginResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addCategory: ReturnObject;
   addItem: ReturnObject;
-  deleteCategory: ReturnObject;
+  addShoppingList: ReturnObject;
   deleteItem: ReturnObject;
-  editCategoryName: ReturnObject;
+  deleteShoppingList: ReturnObject;
   editItem: ReturnObject;
   editUser: ReturnObject;
   login: LoginResponse;
   logout: ReturnObject;
+  migrateList: ReturnObject;
   register: ReturnObject;
   registerAndLogin: LoginResponse;
-};
-
-
-export type MutationAddCategoryArgs = {
-  categoryName: Scalars['String'];
+  toggleFavorite: ReturnObject;
 };
 
 
 export type MutationAddItemArgs = {
-  categoryId: Scalars['String'];
   expiration: Scalars['String'];
   itemName: Scalars['String'];
+  parentType: Scalars['String'];
   quantity: Scalars['Float'];
-};
-
-
-export type MutationDeleteCategoryArgs = {
-  _id: Scalars['String'];
+  tags: Array<Scalars['String']>;
 };
 
 
 export type MutationDeleteItemArgs = {
-  _id: Scalars['String'];
-};
-
-
-export type MutationEditCategoryNameArgs = {
-  _id: Scalars['String'];
-  categoryName: Scalars['String'];
+  id: Scalars['String'];
+  parentType: Scalars['String'];
 };
 
 
 export type MutationEditItemArgs = {
-  _id: Scalars['String'];
   expiration: Scalars['String'];
+  id: Scalars['String'];
   itemName: Scalars['String'];
   quantity: Scalars['Float'];
 };
@@ -104,6 +83,11 @@ export type MutationLoginArgs = {
 };
 
 
+export type MutationMigrateListArgs = {
+  itemIds: Array<Scalars['String']>;
+};
+
+
 export type MutationRegisterArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -115,12 +99,17 @@ export type MutationRegisterAndLoginArgs = {
   password: Scalars['String'];
 };
 
+
+export type MutationToggleFavoriteArgs = {
+  id: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   bye: Scalars['String'];
   currentUser?: Maybe<User>;
-  getCategories?: Maybe<Array<Category>>;
   getItems?: Maybe<Array<Item>>;
+  getShoppingList?: Maybe<ShoppingList>;
   hello: Scalars['String'];
 };
 
@@ -130,55 +119,44 @@ export type ReturnObject = {
   return: Scalars['Boolean'];
 };
 
+export type ShoppingList = {
+  __typename?: 'ShoppingList';
+  _id: Scalars['ID'];
+  itemIds: Array<Scalars['String']>;
+  items?: Maybe<Array<Item>>;
+};
+
 export type User = {
   __typename?: 'User';
   _id: Scalars['ID'];
-  categories: Array<Category>;
   email: Scalars['String'];
+  itemIds: Array<Scalars['String']>;
+  items?: Maybe<Array<Item>>;
+  shoppingList?: Maybe<ShoppingList>;
   tokenVersion: Scalars['Float'];
 };
 
-export type AddCategoryMutationVariables = Exact<{
-  categoryName: Scalars['String'];
-}>;
-
-
-export type AddCategoryMutation = { __typename?: 'Mutation', addCategory: { __typename?: 'ReturnObject', message: string, return: boolean } };
-
-export type DeleteCategoryMutationVariables = Exact<{
-  _id: Scalars['String'];
-}>;
-
-
-export type DeleteCategoryMutation = { __typename?: 'Mutation', deleteCategory: { __typename?: 'ReturnObject', message: string, return: boolean } };
-
-export type EditCategoryNameMutationVariables = Exact<{
-  _id: Scalars['String'];
-  categoryName: Scalars['String'];
-}>;
-
-
-export type EditCategoryNameMutation = { __typename?: 'Mutation', editCategoryName: { __typename?: 'ReturnObject', message: string, return: boolean } };
-
 export type AddItemMutationVariables = Exact<{
   itemName: Scalars['String'];
-  categoryId: Scalars['String'];
-  expiration: Scalars['String'];
   quantity: Scalars['Float'];
+  expiration: Scalars['String'];
+  tags: Array<Scalars['String']> | Scalars['String'];
+  parentType: Scalars['String'];
 }>;
 
 
 export type AddItemMutation = { __typename?: 'Mutation', addItem: { __typename?: 'ReturnObject', message: string, return: boolean } };
 
 export type DeleteItemMutationVariables = Exact<{
-  _id: Scalars['String'];
+  id: Scalars['String'];
+  parentType: Scalars['String'];
 }>;
 
 
 export type DeleteItemMutation = { __typename?: 'Mutation', deleteItem: { __typename?: 'ReturnObject', message: string, return: boolean } };
 
 export type EditItemMutationVariables = Exact<{
-  _id: Scalars['String'];
+  id: Scalars['String'];
   itemName: Scalars['String'];
   expiration: Scalars['String'];
   quantity: Scalars['Float'];
@@ -186,6 +164,35 @@ export type EditItemMutationVariables = Exact<{
 
 
 export type EditItemMutation = { __typename?: 'Mutation', editItem: { __typename?: 'ReturnObject', message: string, return: boolean } };
+
+export type ToggleFavoriteMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type ToggleFavoriteMutation = { __typename?: 'Mutation', toggleFavorite: { __typename?: 'ReturnObject', message: string, return: boolean } };
+
+export type AddShoppingListMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AddShoppingListMutation = { __typename?: 'Mutation', addShoppingList: { __typename?: 'ReturnObject', message: string } };
+
+export type DeleteShoppingListMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DeleteShoppingListMutation = { __typename?: 'Mutation', deleteShoppingList: { __typename?: 'ReturnObject', message: string } };
+
+export type GetShoppingListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetShoppingListQuery = { __typename?: 'Query', getShoppingList?: { __typename?: 'ShoppingList', items?: Array<{ __typename?: 'Item', _id: string, itemName: string, quantity: number, expiration: string, tags: Array<string>, favorite: boolean }> | null | undefined } | null | undefined };
+
+export type MigrateListMutationVariables = Exact<{
+  itemIds: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type MigrateListMutation = { __typename?: 'Mutation', migrateList: { __typename?: 'ReturnObject', message: string } };
 
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -195,7 +202,7 @@ export type CurrentUserQuery = { __typename?: 'Query', currentUser?: { __typenam
 export type CurrentUserAllQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CurrentUserAllQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', _id: string, email: string, tokenVersion: number, categories: Array<{ __typename?: 'Category', _id: string, categoryName: string, items?: Array<{ __typename?: 'Item', _id: string, itemName: string, expiration: string, quantity: number }> | null | undefined }> } | null | undefined };
+export type CurrentUserAllQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', _id: string, email: string, tokenVersion: number, items?: Array<{ __typename?: 'Item', _id: string, itemName: string, quantity: number, expiration: string, tags: Array<string>, favorite: boolean }> | null | undefined, shoppingList?: { __typename?: 'ShoppingList', _id: string, items?: Array<{ __typename?: 'Item', _id: string, itemName: string, quantity: number, expiration: string, tags: Array<string>, favorite: boolean }> | null | undefined } | null | undefined } | null | undefined };
 
 export type EditUserMutationVariables = Exact<{
   email: Scalars['String'];
@@ -240,116 +247,14 @@ export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 export type HelloQuery = { __typename?: 'Query', hello: string };
 
 
-export const AddCategoryDocument = gql`
-    mutation addCategory($categoryName: String!) {
-  addCategory(categoryName: $categoryName) {
-    message
-    return
-  }
-}
-    `;
-export type AddCategoryMutationFn = Apollo.MutationFunction<AddCategoryMutation, AddCategoryMutationVariables>;
-
-/**
- * __useAddCategoryMutation__
- *
- * To run a mutation, you first call `useAddCategoryMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddCategoryMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addCategoryMutation, { data, loading, error }] = useAddCategoryMutation({
- *   variables: {
- *      categoryName: // value for 'categoryName'
- *   },
- * });
- */
-export function useAddCategoryMutation(baseOptions?: Apollo.MutationHookOptions<AddCategoryMutation, AddCategoryMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddCategoryMutation, AddCategoryMutationVariables>(AddCategoryDocument, options);
-      }
-export type AddCategoryMutationHookResult = ReturnType<typeof useAddCategoryMutation>;
-export type AddCategoryMutationResult = Apollo.MutationResult<AddCategoryMutation>;
-export type AddCategoryMutationOptions = Apollo.BaseMutationOptions<AddCategoryMutation, AddCategoryMutationVariables>;
-export const DeleteCategoryDocument = gql`
-    mutation deleteCategory($_id: String!) {
-  deleteCategory(_id: $_id) {
-    message
-    return
-  }
-}
-    `;
-export type DeleteCategoryMutationFn = Apollo.MutationFunction<DeleteCategoryMutation, DeleteCategoryMutationVariables>;
-
-/**
- * __useDeleteCategoryMutation__
- *
- * To run a mutation, you first call `useDeleteCategoryMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteCategoryMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteCategoryMutation, { data, loading, error }] = useDeleteCategoryMutation({
- *   variables: {
- *      _id: // value for '_id'
- *   },
- * });
- */
-export function useDeleteCategoryMutation(baseOptions?: Apollo.MutationHookOptions<DeleteCategoryMutation, DeleteCategoryMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteCategoryMutation, DeleteCategoryMutationVariables>(DeleteCategoryDocument, options);
-      }
-export type DeleteCategoryMutationHookResult = ReturnType<typeof useDeleteCategoryMutation>;
-export type DeleteCategoryMutationResult = Apollo.MutationResult<DeleteCategoryMutation>;
-export type DeleteCategoryMutationOptions = Apollo.BaseMutationOptions<DeleteCategoryMutation, DeleteCategoryMutationVariables>;
-export const EditCategoryNameDocument = gql`
-    mutation editCategoryName($_id: String!, $categoryName: String!) {
-  editCategoryName(_id: $_id, categoryName: $categoryName) {
-    message
-    return
-  }
-}
-    `;
-export type EditCategoryNameMutationFn = Apollo.MutationFunction<EditCategoryNameMutation, EditCategoryNameMutationVariables>;
-
-/**
- * __useEditCategoryNameMutation__
- *
- * To run a mutation, you first call `useEditCategoryNameMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useEditCategoryNameMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [editCategoryNameMutation, { data, loading, error }] = useEditCategoryNameMutation({
- *   variables: {
- *      _id: // value for '_id'
- *      categoryName: // value for 'categoryName'
- *   },
- * });
- */
-export function useEditCategoryNameMutation(baseOptions?: Apollo.MutationHookOptions<EditCategoryNameMutation, EditCategoryNameMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<EditCategoryNameMutation, EditCategoryNameMutationVariables>(EditCategoryNameDocument, options);
-      }
-export type EditCategoryNameMutationHookResult = ReturnType<typeof useEditCategoryNameMutation>;
-export type EditCategoryNameMutationResult = Apollo.MutationResult<EditCategoryNameMutation>;
-export type EditCategoryNameMutationOptions = Apollo.BaseMutationOptions<EditCategoryNameMutation, EditCategoryNameMutationVariables>;
 export const AddItemDocument = gql`
-    mutation addItem($itemName: String!, $categoryId: String!, $expiration: String!, $quantity: Float!) {
+    mutation addItem($itemName: String!, $quantity: Float!, $expiration: String!, $tags: [String!]!, $parentType: String!) {
   addItem(
     itemName: $itemName
-    categoryId: $categoryId
-    expiration: $expiration
     quantity: $quantity
+    expiration: $expiration
+    tags: $tags
+    parentType: $parentType
   ) {
     message
     return
@@ -372,9 +277,10 @@ export type AddItemMutationFn = Apollo.MutationFunction<AddItemMutation, AddItem
  * const [addItemMutation, { data, loading, error }] = useAddItemMutation({
  *   variables: {
  *      itemName: // value for 'itemName'
- *      categoryId: // value for 'categoryId'
- *      expiration: // value for 'expiration'
  *      quantity: // value for 'quantity'
+ *      expiration: // value for 'expiration'
+ *      tags: // value for 'tags'
+ *      parentType: // value for 'parentType'
  *   },
  * });
  */
@@ -386,8 +292,8 @@ export type AddItemMutationHookResult = ReturnType<typeof useAddItemMutation>;
 export type AddItemMutationResult = Apollo.MutationResult<AddItemMutation>;
 export type AddItemMutationOptions = Apollo.BaseMutationOptions<AddItemMutation, AddItemMutationVariables>;
 export const DeleteItemDocument = gql`
-    mutation deleteItem($_id: String!) {
-  deleteItem(_id: $_id) {
+    mutation deleteItem($id: String!, $parentType: String!) {
+  deleteItem(id: $id, parentType: $parentType) {
     message
     return
   }
@@ -408,7 +314,8 @@ export type DeleteItemMutationFn = Apollo.MutationFunction<DeleteItemMutation, D
  * @example
  * const [deleteItemMutation, { data, loading, error }] = useDeleteItemMutation({
  *   variables: {
- *      _id: // value for '_id'
+ *      id: // value for 'id'
+ *      parentType: // value for 'parentType'
  *   },
  * });
  */
@@ -420,9 +327,9 @@ export type DeleteItemMutationHookResult = ReturnType<typeof useDeleteItemMutati
 export type DeleteItemMutationResult = Apollo.MutationResult<DeleteItemMutation>;
 export type DeleteItemMutationOptions = Apollo.BaseMutationOptions<DeleteItemMutation, DeleteItemMutationVariables>;
 export const EditItemDocument = gql`
-    mutation editItem($_id: String!, $itemName: String!, $expiration: String!, $quantity: Float!) {
+    mutation editItem($id: String!, $itemName: String!, $expiration: String!, $quantity: Float!) {
   editItem(
-    _id: $_id
+    id: $id
     itemName: $itemName
     expiration: $expiration
     quantity: $quantity
@@ -447,7 +354,7 @@ export type EditItemMutationFn = Apollo.MutationFunction<EditItemMutation, EditI
  * @example
  * const [editItemMutation, { data, loading, error }] = useEditItemMutation({
  *   variables: {
- *      _id: // value for '_id'
+ *      id: // value for 'id'
  *      itemName: // value for 'itemName'
  *      expiration: // value for 'expiration'
  *      quantity: // value for 'quantity'
@@ -461,6 +368,178 @@ export function useEditItemMutation(baseOptions?: Apollo.MutationHookOptions<Edi
 export type EditItemMutationHookResult = ReturnType<typeof useEditItemMutation>;
 export type EditItemMutationResult = Apollo.MutationResult<EditItemMutation>;
 export type EditItemMutationOptions = Apollo.BaseMutationOptions<EditItemMutation, EditItemMutationVariables>;
+export const ToggleFavoriteDocument = gql`
+    mutation ToggleFavorite($id: String!) {
+  toggleFavorite(id: $id) {
+    message
+    return
+  }
+}
+    `;
+export type ToggleFavoriteMutationFn = Apollo.MutationFunction<ToggleFavoriteMutation, ToggleFavoriteMutationVariables>;
+
+/**
+ * __useToggleFavoriteMutation__
+ *
+ * To run a mutation, you first call `useToggleFavoriteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useToggleFavoriteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [toggleFavoriteMutation, { data, loading, error }] = useToggleFavoriteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useToggleFavoriteMutation(baseOptions?: Apollo.MutationHookOptions<ToggleFavoriteMutation, ToggleFavoriteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ToggleFavoriteMutation, ToggleFavoriteMutationVariables>(ToggleFavoriteDocument, options);
+      }
+export type ToggleFavoriteMutationHookResult = ReturnType<typeof useToggleFavoriteMutation>;
+export type ToggleFavoriteMutationResult = Apollo.MutationResult<ToggleFavoriteMutation>;
+export type ToggleFavoriteMutationOptions = Apollo.BaseMutationOptions<ToggleFavoriteMutation, ToggleFavoriteMutationVariables>;
+export const AddShoppingListDocument = gql`
+    mutation addShoppingList {
+  addShoppingList {
+    message
+  }
+}
+    `;
+export type AddShoppingListMutationFn = Apollo.MutationFunction<AddShoppingListMutation, AddShoppingListMutationVariables>;
+
+/**
+ * __useAddShoppingListMutation__
+ *
+ * To run a mutation, you first call `useAddShoppingListMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddShoppingListMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addShoppingListMutation, { data, loading, error }] = useAddShoppingListMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAddShoppingListMutation(baseOptions?: Apollo.MutationHookOptions<AddShoppingListMutation, AddShoppingListMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddShoppingListMutation, AddShoppingListMutationVariables>(AddShoppingListDocument, options);
+      }
+export type AddShoppingListMutationHookResult = ReturnType<typeof useAddShoppingListMutation>;
+export type AddShoppingListMutationResult = Apollo.MutationResult<AddShoppingListMutation>;
+export type AddShoppingListMutationOptions = Apollo.BaseMutationOptions<AddShoppingListMutation, AddShoppingListMutationVariables>;
+export const DeleteShoppingListDocument = gql`
+    mutation deleteShoppingList {
+  deleteShoppingList {
+    message
+  }
+}
+    `;
+export type DeleteShoppingListMutationFn = Apollo.MutationFunction<DeleteShoppingListMutation, DeleteShoppingListMutationVariables>;
+
+/**
+ * __useDeleteShoppingListMutation__
+ *
+ * To run a mutation, you first call `useDeleteShoppingListMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteShoppingListMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteShoppingListMutation, { data, loading, error }] = useDeleteShoppingListMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useDeleteShoppingListMutation(baseOptions?: Apollo.MutationHookOptions<DeleteShoppingListMutation, DeleteShoppingListMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteShoppingListMutation, DeleteShoppingListMutationVariables>(DeleteShoppingListDocument, options);
+      }
+export type DeleteShoppingListMutationHookResult = ReturnType<typeof useDeleteShoppingListMutation>;
+export type DeleteShoppingListMutationResult = Apollo.MutationResult<DeleteShoppingListMutation>;
+export type DeleteShoppingListMutationOptions = Apollo.BaseMutationOptions<DeleteShoppingListMutation, DeleteShoppingListMutationVariables>;
+export const GetShoppingListDocument = gql`
+    query getShoppingList {
+  getShoppingList {
+    items {
+      _id
+      itemName
+      quantity
+      expiration
+      tags
+      favorite
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetShoppingListQuery__
+ *
+ * To run a query within a React component, call `useGetShoppingListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetShoppingListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetShoppingListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetShoppingListQuery(baseOptions?: Apollo.QueryHookOptions<GetShoppingListQuery, GetShoppingListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetShoppingListQuery, GetShoppingListQueryVariables>(GetShoppingListDocument, options);
+      }
+export function useGetShoppingListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetShoppingListQuery, GetShoppingListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetShoppingListQuery, GetShoppingListQueryVariables>(GetShoppingListDocument, options);
+        }
+export type GetShoppingListQueryHookResult = ReturnType<typeof useGetShoppingListQuery>;
+export type GetShoppingListLazyQueryHookResult = ReturnType<typeof useGetShoppingListLazyQuery>;
+export type GetShoppingListQueryResult = Apollo.QueryResult<GetShoppingListQuery, GetShoppingListQueryVariables>;
+export const MigrateListDocument = gql`
+    mutation migrateList($itemIds: [String!]!) {
+  migrateList(itemIds: $itemIds) {
+    message
+  }
+}
+    `;
+export type MigrateListMutationFn = Apollo.MutationFunction<MigrateListMutation, MigrateListMutationVariables>;
+
+/**
+ * __useMigrateListMutation__
+ *
+ * To run a mutation, you first call `useMigrateListMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMigrateListMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [migrateListMutation, { data, loading, error }] = useMigrateListMutation({
+ *   variables: {
+ *      itemIds: // value for 'itemIds'
+ *   },
+ * });
+ */
+export function useMigrateListMutation(baseOptions?: Apollo.MutationHookOptions<MigrateListMutation, MigrateListMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MigrateListMutation, MigrateListMutationVariables>(MigrateListDocument, options);
+      }
+export type MigrateListMutationHookResult = ReturnType<typeof useMigrateListMutation>;
+export type MigrateListMutationResult = Apollo.MutationResult<MigrateListMutation>;
+export type MigrateListMutationOptions = Apollo.BaseMutationOptions<MigrateListMutation, MigrateListMutationVariables>;
 export const CurrentUserDocument = gql`
     query CurrentUser {
   currentUser {
@@ -502,14 +581,23 @@ export const CurrentUserAllDocument = gql`
     _id
     email
     tokenVersion
-    categories {
+    items {
       _id
-      categoryName
+      itemName
+      quantity
+      expiration
+      tags
+      favorite
+    }
+    shoppingList {
+      _id
       items {
         _id
         itemName
-        expiration
         quantity
+        expiration
+        tags
+        favorite
       }
     }
   }

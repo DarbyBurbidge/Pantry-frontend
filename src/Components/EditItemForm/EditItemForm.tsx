@@ -51,7 +51,7 @@ export const EditItemForm: React.FC<EditItemProps> = ({itemName, itemExp, itemQu
             e.preventDefault();
             
             try {
-                await editItem({variables: {_id: itemId, itemName: newName, expiration: checkNA(newExp), quantity: newQuant}, refetchQueries: [{query: CurrentUserAllDocument}]})
+                await editItem({variables: {id: itemId, itemName: newName, expiration: checkNA(newExp), quantity: newQuant}, refetchQueries: [{query: CurrentUserAllDocument}]})
             } catch (e) {
                 console.error(e);
             }

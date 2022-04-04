@@ -37,10 +37,11 @@ textarea {
 }
 
 .body {
-  min-height: 60vh;
+  min-height: 80vh;
   line-height: 1.25em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 2rem 0;
 }
