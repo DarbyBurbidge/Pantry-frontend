@@ -36,6 +36,13 @@ $button-radius: $br-md;
         background: $color-delete;
     }
 
+    &__side {
+        content: "  ";
+        background: red;
+        width: 1rem;
+        height: 1rem;
+    }
+
     &.-submit, &__logout {
         border-radius: $br-md;
         border: $border-emphasis solid $color-border;

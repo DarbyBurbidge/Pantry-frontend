@@ -17,10 +17,10 @@
         list-style: none;
     }
 
-    &__attributes {
-        position: relative;
+    &__section {
+        //position: relative;
         display: flex;
-        padding: .25em .75rem;
+        //padding: .25em .75rem;
         //border-radius: $br-sm;
         //border: $border-width solid $color-border;
         //background: $color-white;
@@ -72,9 +72,30 @@
         display: flex;
         justify-content: space-around;
     }
+
+    &__delete {
+        background-color: $color-delete;
+        border-radius: 50%;
+        border: $border-emphasis solid $color-border;
+        width: 1.2rem;
+        height: 1.2rem;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 .-overlap {
     position: absolute;
     right: .75rem;
+}
+
+.-left {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.-right {
+    margin-right: 0;
+    margin-left: auto;
 }

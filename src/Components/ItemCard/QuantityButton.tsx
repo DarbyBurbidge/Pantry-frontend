@@ -1,24 +1,24 @@
 import React from 'react';
 
 interface QuantityButtonProps {
+    className: string;
     objectId: string;
     initVal: number;
     changeAmt: number;
     onClickCallback: Function;
 }
 
-export const QuantityButton: React.FC<QuantityButtonProps> = ({objectId, initVal, changeAmt, onClickCallback}) => {
+export const QuantityButton: React.FC<QuantityButtonProps> = ({className, objectId, initVal, changeAmt, onClickCallback, children}) => {
     const [callback] = onClickCallback();
     
     return(<>
-        <button className="button" type="button" onClick={() => {
+        <button className={className} type="button" onClick={() => {
             callback({
                 variables: {
                     id: objectId,
                     newQuant: initVal+changeAmt
-                }
-                
+                }                
             })
-        }}>{""}</button>
+        }}>{children}</button>
     </>);
 };
