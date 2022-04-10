@@ -1,9 +1,9 @@
-import { getNullableType } from 'graphql';
 import React, { useState } from 'react';
 import { HiOutlineStar, HiStar } from 'react-icons/hi';
-import { CurrentUserAllDocument, Item, useDeleteItemMutation, useToggleFavoriteMutation } from '../../generated/graphql';
+import { CurrentUserAllDocument, Item, useDeleteItemMutation, useSetQuantMutation, useToggleFavoriteMutation } from '../../generated/graphql';
 import { EditItemForm } from '../EditItemForm/EditItemForm';
 import { capitalize } from '../FilterSelect/FilterSelect';
+import { QuantityButton } from './QuantityButton';
 
 
 interface ItemCardProps {
@@ -46,8 +46,10 @@ const timeToExpire = (expiration: string) => {
 export const ItemCard: React.FC<ItemCardProps> = ({item, parentType}) => {
     const [formToggle, setFormToggle] = useState(false);
 
-    const [deleteItem,] = useDeleteItemMutation();
-    const [toggleFavorite,] = useToggleFavoriteMutation();
+    const [deleteItem] = useDeleteItemMutation();
+    const [toggleFavorite] = useToggleFavoriteMutation();
+    const [setQuantity] = useSetQuantMutation();
+
 
     const timeLeft = timeToExpire(item.expiration)
     const showExpire = ((typeof(timeLeft) == 'number') && (timeLeft >= 0) && (timeLeft <= 3)) ? true : false;
@@ -86,22 +88,22 @@ export const ItemCard: React.FC<ItemCardProps> = ({item, parentType}) => {
                                 color="#222"
                                 size="1.5rem"
                                 onClick={() => {
-                                        toggleFavorite({
-                                            variables: {
-                                                id: item._id
-                                            }
-                                        ,
-                                            refetchQueries: [{query: CurrentUserAllDocument}]
-                                        })
-                                    }}
+                                    toggleFavorite({
+                                        variables: {
+                                            id: item._id
+                                        }
+                                    })
+                                }}
                             />
                         )
                     }
                 </span>
                     
                 <span className="item-card__attributes">
+                    <QuantityButton objectId={item._id} initVal={item.quantity} changeAmt={-1} onClickCallback={useSetQuantMutation}/>
                     <span className="item-card__attributes--left">Quantity:</span>
                     <span className="item-card__attributes--right" style={item.quantity == 0 ? {color: '#ff0000'} : {}}>{item.quantity}</span>
+                    <QuantityButton objectId={item._id} initVal={item.quantity} changeAmt={1} onClickCallback={useSetQuantMutation}/>
                 </span>
                 <span className="item-card__attributes" style={!showExpire ? {display: 'none'} : {color: '#ff0000'}}>
                     <span className="item-card__attributes--left">{`Expires:`}</span>

@@ -1,5 +1,8 @@
 mutation migrateList($itemIds: [String!]!) {
 	migrateList(itemIds: $itemIds) {
-		message
+		_id
+		items {
+			_id
+		}
 	}
 }

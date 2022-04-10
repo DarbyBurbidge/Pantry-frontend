@@ -29,7 +29,7 @@ const Home: React.FC = () => {
     let body = null    
     if (error) {
         console.error(error)
-        body = <div className="body">Please Log In:</div>
+        body = <div className="body">An Error Occurred</div>
     } else if (loading) {
         body = <div className="body"><Oval color="#222222" secondaryColor="#AAAAAA" height={200} width={200} /></div>
     } else if (!data?.currentUser) {

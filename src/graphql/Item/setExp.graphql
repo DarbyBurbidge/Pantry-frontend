@@ -1,0 +1,6 @@
+mutation SetExp($id: String! $newExp: String!) {
+    setExp(id: $id, newExp: $newExp) {
+        _id
+        expiration
+    }
+}

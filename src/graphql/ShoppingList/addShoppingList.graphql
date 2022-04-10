@@ -1,5 +1,8 @@
 mutation addShoppingList {
 	addShoppingList {
-		message
+		_id
+		items {
+			_id
+		}
 	}
 }

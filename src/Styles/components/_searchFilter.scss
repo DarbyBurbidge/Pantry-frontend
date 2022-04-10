@@ -3,6 +3,7 @@
 .filter {
     display: flex;
     padding: 1rem;
+    max-width: 95vw;
     flex-direction: column;
     background-color: $color-primary;
     border-radius: $br-xl;
@@ -27,6 +28,7 @@
     &__tag-container {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         width: 100%;
         &__tag {
             margin: 0 .5rem;

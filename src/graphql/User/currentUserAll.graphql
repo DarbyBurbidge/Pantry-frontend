@@ -8,8 +8,8 @@ query CurrentUserAll {
 			itemName
 			quantity
 			expiration
-			tags
 			favorite
+			tags	
 		}
 		shoppingList {
 			_id
@@ -18,8 +18,8 @@ query CurrentUserAll {
 				itemName
 				quantity
 				expiration
-				tags
 				favorite
+				tags
 			}
 		}
 	}

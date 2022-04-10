@@ -1,6 +1,10 @@
 mutation deleteItem ($id: String! $parentType: String!) {
 	deleteItem (id: $id parentType: $parentType) {
-		message
-		return
+		_id
+		itemName
+		quantity
+		expiration
+		favorite
+		tags
 	}
 }

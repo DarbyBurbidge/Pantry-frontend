@@ -1,6 +1,6 @@
 mutation EditUser ($email: String! $password: String!) {
   editUser (email: $email, password: $password) {
-		message
-		return
+	  _id
+	  email
 	}
 }

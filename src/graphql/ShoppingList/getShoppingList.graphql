@@ -5,8 +5,8 @@ query getShoppingList {
 			itemName
 			quantity
 			expiration
-			tags
 			favorite
+			tags
 		}
 	}
 } 

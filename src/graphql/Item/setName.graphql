@@ -1,0 +1,6 @@
+mutation SetName($id: String! $newName: String!) {
+    setName(id: $id, newName: $newName) {
+        _id
+        itemName
+    }
+}

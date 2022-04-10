@@ -1,5 +1,8 @@
 mutation deleteShoppingList {
 	deleteShoppingList {
-		message
+		_id
+		items {
+			_id
+		}
 	}
 }

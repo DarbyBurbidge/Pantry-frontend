@@ -1,0 +1,6 @@
+mutation SetQuant($id: String! $newQuant: Float!) {
+    setQuant(id: $id, newQuant: $newQuant) {
+        _id
+        quantity
+    }
+}

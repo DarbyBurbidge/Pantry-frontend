@@ -16,7 +16,7 @@ export const FilterSelect: React.FC<FilterSelectProps> = ({tags, filter, setFilt
 
     return(<>
         <div className="filter">
-            <h1 className="filter__filter">Search: <input className="filter__filter__input" value={filter} onChange={(e) => {setFilter(e.target.value)}}/></h1>
+            <label className="filter__filter">Search: <input className="filter__filter__input" value={filter} onChange={(e) => {setFilter(e.target.value)}}/></label>
             <div className="filter__tag-container"><h2 className="filter__tag-container__label">Tags:</h2>
                 <span className="filter__tag-container__tag button button__edit" onClick={() => {setFilter("")}}>All Items</span>
                 {tags.sort().map((tag) => {

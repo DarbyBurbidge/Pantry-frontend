@@ -17,7 +17,7 @@
   position: relative;
   display: flex;
   padding: 0.25em 0.75rem;
-  color: #212121;
+  color: hsl(0deg, 0%, 13%);
 }
 .item-card__attributes--left {
   margin-right: auto;
@@ -40,7 +40,7 @@
 .item-card__tags__label {
   font-size: 1.25rem;
   line-height: 1.5rem;
-  color: #212121;
+  color: hsl(0deg, 0%, 13%);
   display: flex;
   justify-content: center;
   width: 100%;
@@ -48,9 +48,9 @@
 .item-card__tag {
   padding: 0.25rem 0.75rem;
   margin: 0.5rem 0.25rem;
-  background-color: #94d194;
+  background-color: hsl(120deg, 40%, 70%);
   border-radius: 0.75rem;
-  border: 1px solid #212121;
+  border: 1px solid hsl(0deg, 0%, 13%);
 }
 .item-card__buttons {
   width: 100%;
@@ -72,33 +72,33 @@
   min-width: 5rem;
   padding: 0.5rem 0.75rem;
   border-radius: 0.75rem;
-  border: 1px solid #212121;
+  border: 1px solid hsl(0deg, 0%, 13%);
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #212121;
+  color: hsl(0deg, 0%, 13%);
   /* for components that stand apart */
 }
 .button:focus, .button:active {
   filter: brightness(90%);
 }
 .button__add {
-  background: #94d194;
+  background: hsl(120deg, 40%, 70%);
   min-width: 9rem;
 }
 .button__edit {
-  background: #d1b394;
+  background: hsl(30deg, 40%, 70%);
 }
 .button__delete {
-  background: #d19494;
+  background: hsl(0deg, 40%, 70%);
 }
 .button.-submit, .button__logout {
   border-radius: 0.75rem;
-  border: 2px solid #212121;
-  background: white;
+  border: 2px solid hsl(0deg, 0%, 13%);
+  background: hsl(0deg, 0%, 100%);
 }
 .button--solo {
-  border: 2px solid #212121;
+  border: 2px solid hsl(0deg, 0%, 13%);
 }
 
 .category-card {
@@ -108,7 +108,7 @@
   display: flex;
   justify-content: center;
   border-radius: 2rem;
-  border: 2px solid #212121;
+  border: 2px solid hsl(0deg, 0%, 13%);
 }
 .category-card__header {
   position: absolute;
@@ -120,13 +120,13 @@
   justify-content: center;
   align-items: center;
   border-radius: 1rem;
-  border: 2px solid #212121;
-  background: #9494d1;
+  border: 2px solid hsl(0deg, 0%, 13%);
+  background: hsl(240deg, 40%, 70%);
 }
 .category-card__title {
   padding-top: 1rem;
   font-size: 1.75rem;
-  text-shadow: 1px 1px 1px #212121, 1px -1px 1px #212121, -1px 1px 1px #212121, -1px -1px 1px #212121;
+  text-shadow: 1px 1px 1px hsl(0deg, 0%, 13%), 1px -1px 1px hsl(0deg, 0%, 13%), -1px 1px 1px hsl(0deg, 0%, 13%), -1px -1px 1px hsl(0deg, 0%, 13%);
 }
 .category-card__buttons {
   width: 100%;
@@ -160,24 +160,24 @@
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
-  border: 2px solid #212121;
+  border: 2px solid hsl(0deg, 0%, 13%);
   padding: 0.5rem;
-  background: #9494d1;
+  background: hsl(240deg, 40%, 70%);
 }
 .add-category__input-label {
   font-size: 0.9rem;
-  color: white;
+  color: hsl(0deg, 0%, 100%);
   margin-bottom: 0.5rem;
 }
 .add-category__input {
   display: flex;
   padding: 0.25rem 0.75em;
   border-radius: 0.5rem;
-  border: 1px solid #212121;
-  background: white;
-  color: #212121;
+  border: 1px solid hsl(0deg, 0%, 13%);
+  background: hsl(0deg, 0%, 100%);
+  color: hsl(0deg, 0%, 13%);
   width: 100%;
-  background: white;
+  background: hsl(0deg, 0%, 100%);
   align-items: center;
   margin-bottom: 0.5rem;
 }
@@ -193,21 +193,21 @@
   justify-content: flex-start;
   align-items: center;
   border-radius: 1rem;
-  border: 2px solid #212121;
-  background: #9494d1;
+  border: 2px solid hsl(0deg, 0%, 13%);
+  background: hsl(240deg, 40%, 70%);
 }
 .edit-category__new-category {
   width: calc(100% + 4px);
   padding: 0.25rem 0.75rem;
   font-size: 1.5rem;
-  background: white;
+  background: hsl(0deg, 0%, 100%);
   border-radius: 0.75rem;
-  border: 2px solid #212121;
+  border: 2px solid hsl(0deg, 0%, 13%);
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
   text-align: center;
-  color: #212121;
+  color: hsl(0deg, 0%, 13%);
 }
 .edit-category.display-false {
   visibility: hidden;
@@ -219,11 +219,11 @@
   flex-direction: column;
 }
 .item-form__input {
-  color: #212121;
-  background: white;
+  color: hsl(0deg, 0%, 13%);
+  background: hsl(0deg, 0%, 100%);
   padding: 0.25rem 0.75rem;
   border-radius: 0.5rem;
-  border: 1px solid #212121;
+  border: 1px solid hsl(0deg, 0%, 13%);
 }
 
 .form__container {
@@ -297,7 +297,7 @@
 
 .item-form__expiration-toggle {
   width: 12rem;
-  background: #d19494;
+  background: hsl(0deg, 40%, 70%);
 }
 .item-form__expiration-toggle--off {
   opacity: 1;
@@ -305,7 +305,7 @@
 }
 
 .submit-item {
-  border: 2px solid #212121;
+  border: 2px solid hsl(0deg, 0%, 13%);
 }
 
 .edit-item {
@@ -320,8 +320,8 @@
   justify-content: flex-start;
   align-items: center;
   border-radius: 1rem;
-  border: 2px solid #212121;
-  background: #9494d1;
+  border: 2px solid hsl(0deg, 0%, 13%);
+  background: hsl(240deg, 40%, 70%);
 }
 .edit-item__input-container {
   display: flex;
@@ -333,11 +333,11 @@
   display: flex;
   padding: 0.25rem 0.75em;
   border-radius: 0.5rem;
-  border: 1px solid #212121;
-  background: white;
-  color: #212121;
+  border: 1px solid hsl(0deg, 0%, 13%);
+  background: hsl(0deg, 0%, 100%);
+  color: hsl(0deg, 0%, 13%);
   width: calc(50% - 0.35rem);
-  background: white;
+  background: hsl(0deg, 0%, 100%);
   align-items: center;
 }
 .edit-item__new-name {
@@ -381,8 +381,8 @@
   width: 5rem;
   padding: 0.5rem;
   border-radius: 0.75rem;
-  border: 2px solid #212121;
-  background: white;
+  border: 2px solid hsl(0deg, 0%, 13%);
+  background: hsl(0deg, 0%, 100%);
 }
 .login-form__input.-submit, .register-form__input.-submit {
   z-index: 99;
@@ -511,9 +511,9 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background: #d1b394;
+  background: hsl(30deg, 40%, 70%);
   border-radius: 1rem;
-  border: 2px solid #212121;
+  border: 2px solid hsl(0deg, 0%, 13%);
 }
 .guest-banner__message {
   font-size: 1.1rem;
@@ -553,10 +553,11 @@
 .filter {
   display: flex;
   padding: 1rem;
+  max-width: 95vw;
   flex-direction: column;
-  background-color: #9494d1;
+  background-color: hsl(240deg, 40%, 70%);
   border-radius: 2rem;
-  border: 2px solid #212121;
+  border: 2px solid hsl(0deg, 0%, 13%);
 }
 .filter__filter {
   width: 100%;
@@ -568,13 +569,14 @@
 .filter__filter__input {
   margin-left: 0.5rem;
   padding: 0.25rem 0.75rem;
-  background-color: white;
+  background-color: hsl(0deg, 0%, 100%);
   border-radius: 0.5rem;
-  border: 1px solid #212121;
+  border: 1px solid hsl(0deg, 0%, 13%);
 }
 .filter__tag-container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   width: 100%;
 }
 .filter__tag-container__tag {
@@ -591,7 +593,7 @@
 
 .error {
   border-radius: 0.75rem;
-  border: 1px solid #212121;
+  border: 1px solid hsl(0deg, 0%, 13%);
   padding: 0.25rem 0.75rem;
 }
 
@@ -648,8 +650,8 @@ textarea {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #9494d1;
-  border-bottom: 4px solid #212121;
+  background: hsl(240deg, 40%, 70%);
+  border-bottom: 4px solid hsl(0deg, 0%, 13%);
 }
 @media screen and (min-width: 1400px) {
   .header__container {
@@ -667,14 +669,14 @@ textarea {
   margin: 2rem auto;
   aspect-ratio: 1;
   border-radius: 1rem;
-  border: 2px solid #212121;
+  border: 2px solid hsl(0deg, 0%, 13%);
 }
 
 .header-title {
   font-size: 3rem;
   color: #fff;
   margin-bottom: 0.5rem;
-  text-shadow: 1px 1px 1px #212121, 1px -1px 1px #212121, -1px 1px 1px #212121, -1px -1px 1px #212121;
+  text-shadow: 1px 1px 1px hsl(0deg, 0%, 13%), 1px -1px 1px hsl(0deg, 0%, 13%), -1px 1px 1px hsl(0deg, 0%, 13%), -1px -1px 1px hsl(0deg, 0%, 13%);
 }
 
 .link-container {
@@ -696,9 +698,9 @@ textarea {
   align-items: center;
   width: 100%;
   height: 8rem;
-  color: #212121;
-  background: #9494d1;
-  border-top: 4px solid #212121;
+  color: hsl(0deg, 0%, 13%);
+  background: hsl(240deg, 40%, 70%);
+  border-top: 4px solid hsl(0deg, 0%, 13%);
 }
 
 .welcome {
@@ -707,7 +709,7 @@ textarea {
   margin-bottom: 3rem;
   display: flex;
   justify-content: flex-start;
-  color: #212121;
+  color: hsl(0deg, 0%, 13%);
 }
 .welcome__section {
   position: relative;
@@ -720,7 +722,7 @@ textarea {
   justify-content: center;
   align-items: flex-start;
   border-radius: 2rem;
-  border: 2px solid #212121;
+  border: 2px solid hsl(0deg, 0%, 13%);
 }
 .welcome__title {
   position: absolute;
@@ -732,11 +734,11 @@ textarea {
   font-size: 3rem;
   line-height: initial;
   border-radius: 2rem;
-  border: 2px solid #212121;
-  background: #9494d1;
+  border: 2px solid hsl(0deg, 0%, 13%);
+  background: hsl(240deg, 40%, 70%);
 }
 .welcome__header {
-  color: #9494d1;
+  color: hsl(240deg, 40%, 70%);
   padding: 0.5rem 0;
   font-size: 2rem;
   line-height: initial;
@@ -763,8 +765,8 @@ textarea {
   align-items: flex-start;
   padding: 0.5rem 0.75rem;
   border-radius: 0.75rem;
-  border: 2px solid #212121;
-  background: #94d194;
+  border: 2px solid hsl(0deg, 0%, 13%);
+  background: hsl(120deg, 40%, 70%);
 }
 .welcome .display--false {
   display: none;
