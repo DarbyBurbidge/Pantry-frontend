@@ -70,7 +70,8 @@ export const ItemCard: React.FC<ItemCardProps> = ({item, parentType}) => {
                                 variables: {
                                     id: item._id,
                                     parentType 
-                                }
+                                },
+                                refetchQueries: [{query: CurrentUserAllDocument}]
                             });
                         }}
                         style={{'scale': '.5'}}

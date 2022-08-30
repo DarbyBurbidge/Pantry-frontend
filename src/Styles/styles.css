@@ -657,6 +657,7 @@
   flex-direction: column;
 }
 .expiration__seperator {
+  position: relative;
   width: 100%;
   margin: 0;
   display: flex;
@@ -689,6 +690,7 @@
   display: flex;
   margin-bottom: 0.25rem;
   padding: 0.25rem 0.75em;
+  min-height: 1.5rem;
   border-radius: 0.5rem;
   border: 1px solid hsl(0deg, 0%, 13%);
   background: hsl(0deg, 0%, 100%);

@@ -35,7 +35,7 @@ const calcExpString = (timeLeft: string | number) => {
 }
 
 export const ExpirationComponent: React.FC<ExpirationComponentProps> = ({className, itemId, expiration}) => {
-    const [newExp, setNewExp] = useState(expiration);
+    const [newExp, setNewExp] = useState(expiration !== 'N/A'? expiration : 'N/A');
     const [showForm, formToggle] = useState(false);
     
     const [setExp] = useSetExpMutation();
@@ -47,7 +47,7 @@ export const ExpirationComponent: React.FC<ExpirationComponentProps> = ({classNa
         <span className={`${className} expiration`} style={!displayRed ? {color: '#ff0000'}: {}}>
             <span className="expiration__seperator" onClick={() => formToggle(!showForm)}>
                 <span className="expiration__label -left">{`Expires:`}</span>
-                {showForm ? <AiFillCaretUp style={{'position': 'relative', 'bottom': '-.25rem'}}/> : <AiFillCaretDown style={{'position': 'relative', 'bottom': '-.25rem'}}/>}
+                {showForm ? <AiFillCaretUp style={{'position': 'absolute', 'bottom': '-.25rem'}}/> : <AiFillCaretDown style={{'position': 'absolute', 'bottom': '-.25rem'}}/>}
                 <span className="expiration__data -right">{calcExpString(timeLeft)}</span>
             </span>
             
@@ -65,7 +65,7 @@ export const ExpirationComponent: React.FC<ExpirationComponentProps> = ({classNa
                             console.error(e);
                         }
                     }}>
-                    <input type="date" className="input-field" value={newExp} onChange={(e) => {setNewExp(e.target.value)}} ></input>
+                    <input type="date" className="input-field" value={newExp} onChange={(e) => {setNewExp(e.target.value)}} defaultValue=""></input>
                     <button type="submit" className="expiration__button button button__edit">Submit Edit</button>
                     </form>
                 </span>
