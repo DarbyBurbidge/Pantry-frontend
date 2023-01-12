@@ -60,6 +60,11 @@ export type MutationAddItemArgs = {
 };
 
 
+export type MutationAddShoppingListArgs = {
+  itemIds: Array<Scalars['String']>;
+};
+
+
 export type MutationDeleteItemArgs = {
   id: Scalars['String'];
   parentType: Scalars['String'];
@@ -211,7 +216,9 @@ export type ToggleFavoriteMutationVariables = Exact<{
 
 export type ToggleFavoriteMutation = { __typename?: 'Mutation', toggleFavorite: { __typename?: 'Item', _id: string, favorite: boolean } };
 
-export type AddShoppingListMutationVariables = Exact<{ [key: string]: never; }>;
+export type AddShoppingListMutationVariables = Exact<{
+  itemIds: Array<Scalars['String']> | Scalars['String'];
+}>;
 
 
 export type AddShoppingListMutation = { __typename?: 'Mutation', addShoppingList: { __typename?: 'ShoppingList', _id: string, items?: Array<{ __typename?: 'Item', _id: string }> | null | undefined } };
@@ -554,8 +561,8 @@ export type ToggleFavoriteMutationHookResult = ReturnType<typeof useToggleFavori
 export type ToggleFavoriteMutationResult = Apollo.MutationResult<ToggleFavoriteMutation>;
 export type ToggleFavoriteMutationOptions = Apollo.BaseMutationOptions<ToggleFavoriteMutation, ToggleFavoriteMutationVariables>;
 export const AddShoppingListDocument = gql`
-    mutation addShoppingList {
-  addShoppingList {
+    mutation addShoppingList($itemIds: [String!]!) {
+  addShoppingList(itemIds: $itemIds) {
     _id
     items {
       _id
@@ -578,6 +585,7 @@ export type AddShoppingListMutationFn = Apollo.MutationFunction<AddShoppingListM
  * @example
  * const [addShoppingListMutation, { data, loading, error }] = useAddShoppingListMutation({
  *   variables: {
+ *      itemIds: // value for 'itemIds'
  *   },
  * });
  */

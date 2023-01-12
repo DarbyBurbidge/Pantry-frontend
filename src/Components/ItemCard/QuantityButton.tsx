@@ -8,7 +8,7 @@ interface QuantityButtonProps {
     onClickCallback: Function;
 }
 
-export const QuantityButton: React.FC<QuantityButtonProps> = ({className, objectId, initVal, changeAmt, onClickCallback, children}) => {
+export const QuantityButton: React.FC<QuantityButtonProps> = ({className, objectId, initVal, changeAmt, onClickCallback}) => {
     const [callback] = onClickCallback();
     
     return(<>
@@ -19,6 +19,6 @@ export const QuantityButton: React.FC<QuantityButtonProps> = ({className, object
                     newQuant: initVal+changeAmt
                 }                
             })
-        }}>{children}</button>
+        }}></button>
     </>);
 };

@@ -15,12 +15,24 @@ export const QuantityComponent: React.FC<QuantityComponentProps> = ({className, 
     
     return(<>
         <span className={`${className} quantity`}>
-            <QuantityButton className="quantity__button -left" objectId={itemId} initVal={quantity} changeAmt={-1} onClickCallback={useSetQuantMutation}><AiFillMinusSquare style={{'color': 'hsl(0, 40%, 70%)', 'scale': '1.5'}}/></QuantityButton>
+        <button className="quantity__button -right" onClick={() => {
+                setQuantity({
+                variables: {
+                    id: itemId,
+                    newQuant: quantity-1
+                }                
+            })}}><AiFillMinusSquare style={{'color': 'hsl(0, 40%, 70%)', 'scale': '1.5'}}/></button>
             <span className="quantity__seperator">
             <span className="quantity__label -left">Quantity:</span>
             <span className="quantity__data -right" style={quantity == 0 ? {color: '#ff0000'} : {}}>{quantity}</span>
             </span>
-            <QuantityButton className="quantity__button -right" objectId={itemId} initVal={quantity} changeAmt={1} onClickCallback={useSetQuantMutation}><AiFillPlusSquare style={{'color': 'hsl(120, 40%, 70%)', 'scale': '1.5'}}/></QuantityButton>
+            <button className="quantity__button -right" onClick={() => {
+                setQuantity({
+                variables: {
+                    id: itemId,
+                    newQuant: quantity+1
+                }                
+            })}}><AiFillPlusSquare style={{'color': 'hsl(120, 40%, 70%)', 'scale': '1.5'}}/></button>
         </span>
     </>);
 };

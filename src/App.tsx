@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Oval } from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import { setAccessToken } from "./accessToken";
+import { setAccessToken } from "./utils/accessToken";
 import { Footer } from "./Components/Footer/Footer";
 import { Header } from "./Components/Header/Header";
 import { Router } from "./Components/Router";
@@ -11,7 +11,7 @@ export const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
   //This whole component is here to make sure that an accessToken is fetched when the page is reloaded (otherwise it falls out of memory on refresh)
     useEffect(() => {
-        fetch('https://guarded-oasis-23318.herokuapp.com/refresh_token'/*'http://localhost:5000/refresh_token'*/, {
+        fetch('http://localhost:5000/refresh_token', {
           method: 'POST',
           credentials: 'include',
         }).then(async ret => {

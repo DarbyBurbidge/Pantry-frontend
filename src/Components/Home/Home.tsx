@@ -6,6 +6,7 @@ import { AddItemForm } from '../AddItemForm/AddItemForm';
 import { FilterSelect } from '../FilterSelect/FilterSelect';
 import { ItemCard } from '../ItemCard/ItemCard';
 import { Register } from '../Register/Register';
+import { fetchAccessToken } from '../../utils/accessToken';
 
 const getTags = (items: Array<Item> | null | undefined) => {
     let allTags: string[] | undefined = [];
@@ -83,8 +84,13 @@ const Home: React.FC = () => {
             {data?.currentUser?.shoppingList ? (
                 <button type="button" className="button button__add" onClick={() => {navigate('/shopping-list')}}>Shopping List</button>
             ) : (
-                 <button className="button button__add" type="button" onClick={() => {
-                        addShoppingList({refetchQueries: [{query: CurrentUserAllDocument}]});
+                 <button className="button button__add" type="button" onClick={async () => {
+                        const favorites = data?.currentUser?.items?.filter((item) => {
+                            return item.favorite
+                        });
+                        const ids = favorites?.map((item) => { return item._id })
+                        await addShoppingList({ variables: { itemIds: ids ? ids : []}, refetchQueries: [{query: CurrentUserAllDocument}]});
+                        fetchAccessToken();
                         navigate("/shopping-list");
                     }}>Create Shopping List</button>
             )}

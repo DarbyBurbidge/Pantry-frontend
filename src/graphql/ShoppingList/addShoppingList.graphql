@@ -1,5 +1,5 @@
-mutation addShoppingList {
-	addShoppingList {
+mutation addShoppingList($itemIds: [String!]!) {
+	addShoppingList(itemIds: $itemIds) {
 		_id
 		items {
 			_id

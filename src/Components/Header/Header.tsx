@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({skip}) => {
             {!skip ? (
                 <UserInfo />
             ) : (
-                <div className="link-container"></div>
+                <div className="user-info"></div>
             )}
         </div>
             
