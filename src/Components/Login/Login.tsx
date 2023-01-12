@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Oval } from 'react-loader-spinner';
-import { getAccessToken, setAccessToken } from '../../accessToken';
+import { getAccessToken, setAccessToken } from '../../utils/accessToken';
 import { CurrentUserDocument, CurrentUserQuery, useLoginMutation } from '../../generated/graphql';
 
 interface LoginProps {

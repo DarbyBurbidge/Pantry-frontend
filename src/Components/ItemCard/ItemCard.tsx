@@ -8,7 +8,7 @@ import { QuantityComponent } from './QuantityComponent';
 
 
 interface ItemCardProps {
-    item: Item
+    item: Item;
     parentType: string;
 }
 
@@ -85,7 +85,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({item, parentType}) => {
                 <div className="item-card__tags">
                     <div className="item-card__tags__label">Tags:</div>
                     {item.tags.map((tag)=> {
-                        return (<span className="item-card__tag">{capitalize(tag)}</span>)
+                        return (<span key={item._id + tag} className="item-card__tag">{capitalize(tag)}</span>)
                     })}
                 </div>
                 

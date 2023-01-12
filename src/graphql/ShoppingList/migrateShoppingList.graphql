@@ -1,5 +1,5 @@
-mutation migrateList($itemIds: [String!]!) {
-	migrateList(itemIds: $itemIds) {
+mutation migrateList($listId: String! $itemIds: [String!]!) {
+	migrateList(listId: $listId itemIds: $itemIds) {
 		_id
 		items {
 			_id

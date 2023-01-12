@@ -8,7 +8,7 @@ import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { getAccessToken, setAccessToken } from './accessToken';
+import { getAccessToken, setAccessToken } from './utils/accessToken';
 import { App } from './App';
 
 const cache = new InMemoryCache({})
@@ -69,7 +69,7 @@ const client = new ApolloClient({
       },
       //access our refresh api using the refresh cookie
       fetchAccessToken: async () => {
-        const res = await fetch('https://guarded-oasis-23318.herokuapp.com/refresh_token'/*'http://localhost:5000/refresh_token'*/, {
+        const res = await fetch('http://localhost:5000/refresh_token', {
           method: 'POST',
           credentials: 'include'
         });
@@ -105,7 +105,7 @@ const client = new ApolloClient({
     requestLink,
     //declaring the link to the backend server, making sure to use our cookies
     new HttpLink({
-      uri: 'https://guarded-oasis-23318.herokuapp.com/graphql'/*'http://localhost:5000/graphql'*/,
+      uri: 'http://localhost:5000/graphql',
       credentials: 'include'
     })
   ]),

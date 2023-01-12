@@ -20,7 +20,7 @@ export const FilterSelect: React.FC<FilterSelectProps> = ({tags, filter, setFilt
             <div className="filter__tag-container"><h2 className="filter__tag-container__label">Tags:</h2>
                 <span className="filter__tag-container__tag button button__edit" onClick={() => {setFilter("")}}>All Items</span>
                 {tags.sort().map((tag) => {
-                    return(<span className="filter__tag-container__tag button button__edit" onClick={() => {setFilter(tag)}}>{capitalize(tag)}</span>)
+                    return(<span key={tag} className="filter__tag-container__tag button button__edit" onClick={() => {setFilter(tag)}}>{capitalize(tag)}</span>)
                 })}
             </div>
         </div>
