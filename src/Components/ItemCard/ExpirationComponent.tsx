@@ -1,4 +1,3 @@
-import { isTypeSystemDefinitionNode } from 'graphql';
 import React, { useState } from 'react';
 import { useSetExpMutation } from '../../generated/graphql';
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai'
@@ -10,14 +9,13 @@ interface ExpirationComponentProps {
 }
 
 const timeToExpire = (expiration: string) => {
-    if (expiration == 'N/A') {
+    if (expiration === 'N/A') {
         return expiration
     }
     const today = new Date();
     const expDate = new Date(expiration);
-    if ((today.getFullYear() == expDate.getFullYear()) && (today.getMonth() == expDate.getMonth())) {
+    if ((today.getFullYear() === expDate.getFullYear()) && (today.getMonth() === expDate.getMonth())) {
         const difference = (expDate.getDate() - today.getDate())
-        console.log(difference)
         return difference;
     }
     return expiration
@@ -31,7 +29,7 @@ const calcExpString = (timeLeft: string | number) => {
     if (typeof(timeLeft) != 'number') {
         return 'N/A'
     }
-    return `${timeLeft} Day${timeLeft != 1 ? 's' : ''}`
+    return `${timeLeft} Day${timeLeft !== 1 ? 's' : ''}`
 }
 
 export const ExpirationComponent: React.FC<ExpirationComponentProps> = ({className, itemId, expiration}) => {
@@ -61,11 +59,11 @@ export const ExpirationComponent: React.FC<ExpirationComponentProps> = ({classNa
                                 id: itemId,
                                 newExp: newExp
                             }})
-                        } catch (e) {
-                            console.error(e);
+                        } catch (err) {
+                            console.error(err);
                         }
                     }}>
-                    <input type="date" className="input-field" value={newExp} onChange={(e) => {setNewExp(e.target.value)}} defaultValue=""></input>
+                    <input type="date" className="input-field" value={newExp} onChange={(e) => {setNewExp(e.target.value)}}></input>
                     <button type="submit" className="expiration__button button button__edit">Submit Edit</button>
                     </form>
                 </span>

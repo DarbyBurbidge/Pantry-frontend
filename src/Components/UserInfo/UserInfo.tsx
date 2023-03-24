@@ -3,6 +3,7 @@ import { Oval } from 'react-loader-spinner';
 import { CurrentUserAllDocument, useCurrentUserQuery, useLogoutMutation } from '../../generated/graphql';
 import { Login } from '../Login/Login';
 import { Register } from '../Register/Register';
+import { setAccessToken } from '../../utils/accessToken';
 
 export const UserInfo: React.FC = () => {
     const { data, loading: loadingQuery, error } = useCurrentUserQuery();
@@ -24,9 +25,9 @@ export const UserInfo: React.FC = () => {
                     className="button button__logout"
                     type="button"
                     onClick={async () => {
-                        console.log("logout!")
                         await logout({refetchQueries: [{query: CurrentUserAllDocument}] })
-                        window.location.href = '/'
+                        setAccessToken('')
+                        window.location.href = "/"
                     }}
                 >
                     {loading ? <Oval color="#222222" secondaryColor="#AAAAAA" height={14} width={14} /> : "Logout"}

@@ -14,8 +14,6 @@ const getTags = (items: Array<Item> | null | undefined) => {
         return tags.concat(item.tags)
     }, allTags)
     const cleanTags = [...new Set(allTags)]
-    console.log(`All Tags: ${allTags}`)
-    console.log(`Clean Tags: ${cleanTags}`)
     return cleanTags
 }
 

@@ -11,7 +11,6 @@ export const AddItemForm: React.FC<AddItemProps> = ({className, parentType, pare
     const [addItem,] = useAddItemMutation();
 
     const today = new Date().toISOString().split('T');
-    console.log(today[0]);
     const [ formToggle, setFormToggle ] = useState(false);
     const [ itemName, setItemName ] = useState('');
     const [ hasExp, setHasExp ] = useState(true);
@@ -29,13 +28,12 @@ export const AddItemForm: React.FC<AddItemProps> = ({className, parentType, pare
                     if (!formToggle) {
                         return
                     }
-                    console.log(`The expiration is ${expiration}`)
                     const submitExp = hasExp ? expiration : 'N/A';
                     addItem({variables: {
                         itemName,
                         quantity,
                         expiration: submitExp,
-                        tags: tags != "" ? tags.toLowerCase().replaceAll(" ","").split(",") : [],
+                        tags: tags !== "" ? tags.toLowerCase().replaceAll(" ","").split(",") : [],
                         parentType,
                     }, refetchQueries: [{query: CurrentUserAllDocument}]});
                     setItemName("");
@@ -43,7 +41,6 @@ export const AddItemForm: React.FC<AddItemProps> = ({className, parentType, pare
                     setItemExp(today[0]);
                     setQuantity(1);
                     setTags("");
-                    console.log("submit");
                     setFormToggle(!formToggle);
                 }}>
                     <button className="cancel__button" type="button" onClick={() => { setFormToggle(false)}}>x</button>

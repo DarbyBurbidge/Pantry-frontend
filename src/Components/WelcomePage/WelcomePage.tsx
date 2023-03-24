@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Oval } from 'react-loader-spinner';
 import { useNavigate } from 'react-router-dom';
 import { CurrentUserAllDocument, CurrentUserDocument, useCurrentUserQuery, useRegisterAndLoginMutation } from '../../generated/graphql';
@@ -16,22 +16,22 @@ export const WelcomePage: React.FC = () => {
     const [registerAndLogin, {loading}] = useRegisterAndLoginMutation();
     const navigate = useNavigate();
 
-    const parent = document.querySelector('.welcome__aside');
-    const form = parent?.querySelector('.register-form');
+    useEffect(() => {
+        if (data?.currentUser) {
+            navigate('/home')
+        }
+    }, [data, error, navigate])
 
     if (error) {
-        console.log(error);
-    } else if (data?.currentUser) {
-        console.log('Welcome!')
-        navigate('/home')
+        console.error(error);
     }
     return(
     <div className="body welcome">
         <section className="welcome__section">
             <h1 className="welcome__title">Welcome</h1>
-            <h3 className="welcome__header">The Pantry is here to help</h3>
-            <p>The Pantry is an organizational app built to help you organize and keep track of your kitchen.</p>
-            <p>It's simple layout and interface makes it easy to get started and use</p>
+            <h3 className="welcome__header">Easy Pantry is here to help</h3>
+            <p>Easy Pantry is an organizational app built to help you organize and keep track of your pantry so you don't have to.</p>
+            <p>It's simple layout and interface makes it easy to get started.</p>
             <aside className="welcome__aside">
                 <button className="welcome__action" onClick={async () => {
                     const guest = generateGuest();
@@ -50,10 +50,8 @@ export const WelcomePage: React.FC = () => {
                     } catch (err) {
                         console.error(err)
                     }
-                    
                         navigate('/home');
-                    }
-                }>
+                }}>
                     {loading ? <Oval color="#222222" secondaryColor="#AAAAAA" height={14} width={14}/> : "TRY IT NOW"}
                 </button>
             </aside>

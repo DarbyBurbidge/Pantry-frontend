@@ -1,1 +1,0 @@
-The Pantry has a simple easy-to-use layout that allows you to create categories (i.e. Fridge, Cupboard, or Shopping List), and then add items to them. Each Item in The Pantry contains a name, an expiration date (optional), and a quantity. The simple layout and minimal features makes it easy to add/edit/delete Items and Categories as necessary to suit your needs.

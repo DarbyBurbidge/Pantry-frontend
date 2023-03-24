@@ -16,9 +16,11 @@ export const Register: React.FC<RegisterProps> = ({parent, modifier, migrate}) =
     const [register, {loading, error}] = useRegisterMutation();
     const [userEdit,] = useEditUserMutation();
 
-    if(error) {
+    if(error?.message.includes("duplicate key error")) {
         return (
-            <div className={'register-form'}>{error.message}</div>
+            <div className={'register-form'}>
+                <div className={'register-form__input -error'}>{"User already registered"}</div>
+            </div>
         )
     }
 
@@ -72,6 +74,7 @@ export const Register: React.FC<RegisterProps> = ({parent, modifier, migrate}) =
             className={formToggle ? `register-form__input -email toggle-input` : `register-form__input -email` }
             value={email}
             placeholder="email"
+            autoComplete='current-email'
             aria-label="register email"
             onChange={e => {
                 setEmail(e.target.value);
@@ -82,6 +85,7 @@ export const Register: React.FC<RegisterProps> = ({parent, modifier, migrate}) =
             type="password"
             value={password}
             placeholder="password"
+            autoComplete='new-password'
             aria-label="register password"
             onChange={e => {
                 setPassword(e.target.value);

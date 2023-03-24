@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { Oval } from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { setAccessToken } from "./utils/accessToken";
 import { Footer } from "./Components/Footer/Footer";
 import { Header } from "./Components/Header/Header";
 import { Router } from "./Components/Router";
+import env from "./env"
 import "./Styles/styles.css";
+
 
 export const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  //This whole component is here to make sure that an accessToken is fetched when the page is reloaded (otherwise it falls out of memory on refresh)
+  //This whole component is here to make sure that an accessToken is fetched when the page is reloaded
+  // (otherwise it falls out of memory on refresh)
     useEffect(() => {
-        fetch('http://localhost:5000/refresh_token', {
+        fetch(`https://${env.backendIp}:${env.backendPort}/refresh`, {
           method: 'POST',
           credentials: 'include',
         }).then(async ret => {
@@ -19,7 +21,7 @@ export const App: React.FC = () => {
           setAccessToken(accessToken)
           setLoading(false);
         }).catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     }, [])
 
