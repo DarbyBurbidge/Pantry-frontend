@@ -1,8 +1,4 @@
-import ApolloClient from 'apollo-client';
-import { ApolloLink, Observable } from 'apollo-link';
-import { ApolloProvider } from '@apollo/react-hooks';
-import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient, ApolloLink, Observable, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/client';
 import { onError } from 'apollo-link-error';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
@@ -10,6 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { getAccessToken, setAccessToken } from './utils/accessToken';
 import { App } from './App';
+import env from './env';
 
 const cache = new InMemoryCache({})
 
@@ -63,24 +60,22 @@ const client = new ApolloClient({
               return true
             }
           } catch (err) {
-            console.log(err)
+            console.error(err)
             return false;
           }
       },
       //access our refresh api using the refresh cookie
       fetchAccessToken: async () => {
-        const res = await fetch('http://localhost:5000/refresh_token', {
+        const res = await fetch(`https://${env.backendIp}:${env.backendPort}/refresh`, {
           method: 'POST',
-          credentials: 'include'
+          credentials: 'include',
         });
 
         //must convert to json or it throws a nasty error and wont run handleFetch at all
         return res.json();
       },
       handleFetch: (accessToken) => {
-        console.log(`new access token: ${accessToken}`)
         setAccessToken(accessToken)
-        console.log(`${getAccessToken()} has been set`)
         return getAccessToken()
       },
       //no specific use for handleResponse at this time
@@ -95,17 +90,17 @@ const client = new ApolloClient({
     //generic error handler
     onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors) {
-        console.log(graphQLErrors);
+        console.error(graphQLErrors);
       }
       if (networkError) {
-        console.log(networkError);
+        console.error(networkError);
       }
     }),
     //The requestLink we already set up using the auth header and accessToken
     requestLink,
     //declaring the link to the backend server, making sure to use our cookies
     new HttpLink({
-      uri: 'http://localhost:5000/graphql',
+      uri: `https://${env.backendIp}:${env.backendPort}/graphql`,
       credentials: 'include'
     })
   ]),

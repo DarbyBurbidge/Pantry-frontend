@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { HiOutlineStar, HiStar } from 'react-icons/hi';
 import { ImCross } from 'react-icons/im';
 import { CurrentUserAllDocument, Item, useDeleteItemMutation, useToggleFavoriteMutation } from '../../generated/graphql';
@@ -12,28 +12,7 @@ interface ItemCardProps {
     parentType: string;
 }
 
-/* This whole block is likely a waste
-    It was meant as a function to convert a date into a 4 digit number
-    if it's not the current year but it's unnecessary
-const thisYear = (date: string) => {
-    console.log(`The date is: ${date}`)
-    if (date == 'N/A') {
-        return date
-    }
-    const today = new Date().toDateString();
-    const thisYear = today.split(' ')[3];
-    const givenYear = returnToDate(date).split('-')[0];
-    if (thisYear != givenYear) {
-        return givenYear.substring(2,4)
-    }
-    return givenYear
-}
-*/
-
 export const ItemCard: React.FC<ItemCardProps> = ({item, parentType}) => {
-    const [formToggle, setFormToggle] = useState(false);
-    const [showDelete, setShowDelete] = useState(true);
-
     const [deleteItem] = useDeleteItemMutation();
     const [toggleFavorite] = useToggleFavoriteMutation();
  

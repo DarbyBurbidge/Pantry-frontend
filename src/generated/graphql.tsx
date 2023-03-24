@@ -132,11 +132,9 @@ export type MutationToggleFavoriteArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  bye: Scalars['String'];
   currentUser?: Maybe<User>;
   getItems?: Maybe<Array<Item>>;
   getShoppingList?: Maybe<ShoppingList>;
-  hello: Scalars['String'];
 };
 
 export type ShoppingList = {
@@ -221,34 +219,34 @@ export type AddShoppingListMutationVariables = Exact<{
 }>;
 
 
-export type AddShoppingListMutation = { __typename?: 'Mutation', addShoppingList: { __typename?: 'ShoppingList', _id: string, items?: Array<{ __typename?: 'Item', _id: string }> | null | undefined } };
+export type AddShoppingListMutation = { __typename?: 'Mutation', addShoppingList: { __typename?: 'ShoppingList', _id: string, items?: Array<{ __typename?: 'Item', _id: string }> | null } };
 
 export type DeleteShoppingListMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DeleteShoppingListMutation = { __typename?: 'Mutation', deleteShoppingList: { __typename?: 'ShoppingList', _id: string, items?: Array<{ __typename?: 'Item', _id: string }> | null | undefined } };
+export type DeleteShoppingListMutation = { __typename?: 'Mutation', deleteShoppingList: { __typename?: 'ShoppingList', _id: string, items?: Array<{ __typename?: 'Item', _id: string }> | null } };
 
 export type GetShoppingListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetShoppingListQuery = { __typename?: 'Query', getShoppingList?: { __typename?: 'ShoppingList', items?: Array<{ __typename?: 'Item', _id: string, itemName: string, quantity: number, expiration: string, favorite: boolean, tags: Array<string> }> | null | undefined } | null | undefined };
+export type GetShoppingListQuery = { __typename?: 'Query', getShoppingList?: { __typename?: 'ShoppingList', items?: Array<{ __typename?: 'Item', _id: string, itemName: string, quantity: number, expiration: string, favorite: boolean, tags: Array<string> }> | null } | null };
 
 export type MigrateListMutationVariables = Exact<{
   itemIds: Array<Scalars['String']> | Scalars['String'];
 }>;
 
 
-export type MigrateListMutation = { __typename?: 'Mutation', migrateList: { __typename?: 'ShoppingList', _id: string, items?: Array<{ __typename?: 'Item', _id: string }> | null | undefined } };
+export type MigrateListMutation = { __typename?: 'Mutation', migrateList: { __typename?: 'ShoppingList', _id: string, items?: Array<{ __typename?: 'Item', _id: string }> | null } };
 
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CurrentUserQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', _id: string, email: string } | null | undefined };
+export type CurrentUserQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', _id: string, email: string } | null };
 
 export type CurrentUserAllQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CurrentUserAllQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', _id: string, email: string, tokenVersion: number, items?: Array<{ __typename?: 'Item', _id: string, itemName: string, quantity: number, expiration: string, favorite: boolean, tags: Array<string> }> | null | undefined, shoppingList?: { __typename?: 'ShoppingList', _id: string, items?: Array<{ __typename?: 'Item', _id: string, itemName: string, quantity: number, expiration: string, favorite: boolean, tags: Array<string> }> | null | undefined } | null | undefined } | null | undefined };
+export type CurrentUserAllQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', _id: string, email: string, tokenVersion: number, items?: Array<{ __typename?: 'Item', _id: string, itemName: string, quantity: number, expiration: string, favorite: boolean, tags: Array<string> }> | null, shoppingList?: { __typename?: 'ShoppingList', _id: string, items?: Array<{ __typename?: 'Item', _id: string, itemName: string, quantity: number, expiration: string, favorite: boolean, tags: Array<string> }> | null } | null } | null };
 
 export type EditUserMutationVariables = Exact<{
   email: Scalars['String'];
@@ -286,11 +284,6 @@ export type RegisterAndLoginMutationVariables = Exact<{
 
 
 export type RegisterAndLoginMutation = { __typename?: 'Mutation', registerAndLogin: { __typename?: 'LoginResponse', accessToken: string, user: { __typename?: 'User', _id: string, email: string } } };
-
-export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type HelloQuery = { __typename?: 'Query', hello: string };
 
 
 export const AddItemDocument = gql`
@@ -971,35 +964,3 @@ export function useRegisterAndLoginMutation(baseOptions?: Apollo.MutationHookOpt
 export type RegisterAndLoginMutationHookResult = ReturnType<typeof useRegisterAndLoginMutation>;
 export type RegisterAndLoginMutationResult = Apollo.MutationResult<RegisterAndLoginMutation>;
 export type RegisterAndLoginMutationOptions = Apollo.BaseMutationOptions<RegisterAndLoginMutation, RegisterAndLoginMutationVariables>;
-export const HelloDocument = gql`
-    query Hello {
-  hello
-}
-    `;
-
-/**
- * __useHelloQuery__
- *
- * To run a query within a React component, call `useHelloQuery` and pass it any options that fit your needs.
- * When your component renders, `useHelloQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useHelloQuery({
- *   variables: {
- *   },
- * });
- */
-export function useHelloQuery(baseOptions?: Apollo.QueryHookOptions<HelloQuery, HelloQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<HelloQuery, HelloQueryVariables>(HelloDocument, options);
-      }
-export function useHelloLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<HelloQuery, HelloQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<HelloQuery, HelloQueryVariables>(HelloDocument, options);
-        }
-export type HelloQueryHookResult = ReturnType<typeof useHelloQuery>;
-export type HelloLazyQueryHookResult = ReturnType<typeof useHelloLazyQuery>;
-export type HelloQueryResult = Apollo.QueryResult<HelloQuery, HelloQueryVariables>;

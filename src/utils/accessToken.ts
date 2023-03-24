@@ -1,3 +1,4 @@
+import env from "../env"
 
 export let accessToken = "";
 
@@ -10,14 +11,13 @@ export const getAccessToken = () => {
 }
 
 export const fetchAccessToken = () => {
-    fetch('http://localhost:5000/refresh_token', {
+    fetch(`https://${env.backendIp}:${env.backendPort}/refresh`, {
         method: 'POST',
         credentials: 'include',
     }).then(async ret => {
         const {accessToken} = await ret.json()
         setAccessToken(accessToken)
-        console.log(accessToken)
     }).catch((err) => {
-        console.log(err);
+        console.error(err);
     });
 }

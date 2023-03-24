@@ -251,13 +251,10 @@
 }
 
 .form__container {
-  /* bottom is 1.25em because it's 1.1rem for height of button/2
-      but this contains the 2px border as well making
-      the height of this element ~39px, cut in half is 19.5px or ~1.25rem (20px)
-  */
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -271,7 +268,6 @@
 .add-item, .add-item.button--solo {
   width: 9rem;
   z-index: 6;
-  width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
 }
@@ -388,14 +384,12 @@
 }
 @media screen and (min-width: 1400px) {
   .login-form.-left, .register-form.-left {
-    -webkit-animation: to-right 1000ms ease-in-out forwards;
-            animation: to-right 1000ms ease-in-out forwards;
+    animation: to-right 1000ms ease-in-out forwards;
   }
 }
 @media screen and (min-width: 1400px) {
   .login-form.-right, .register-form.-right {
-    -webkit-animation: to-left 1000ms ease-in-out forwards;
-            animation: to-left 1000ms ease-in-out forwards;
+    animation: to-left 1000ms ease-in-out forwards;
   }
 }
 .login-form__input, .register-form__input {
@@ -414,31 +408,29 @@
   justify-content: center;
 }
 .login-form__input.-submit.toggle-input, .register-form__input.-submit.toggle-input {
-  -webkit-animation: slide-input__1 1000ms ease-in-out forwards;
-          animation: slide-input__1 1000ms ease-in-out forwards;
+  animation: slide-input__1 1000ms ease-in-out forwards;
 }
 .login-form__input.-email, .register-form__input.-email {
   z-index: 97;
 }
 .login-form__input.-email.toggle-input, .register-form__input.-email.toggle-input {
-  -webkit-animation: slide-input__2 1000ms ease-in-out forwards;
-          animation: slide-input__2 1000ms ease-in-out forwards;
+  animation: slide-input__2 1000ms ease-in-out forwards;
 }
 .login-form__input.-password, .register-form__input.-password {
   z-index: 98;
 }
 .login-form__input.-password.toggle-input, .register-form__input.-password.toggle-input {
-  -webkit-animation: slide-input__3 1000ms ease-in-out forwards;
-          animation: slide-input__3 1000ms ease-in-out forwards;
+  animation: slide-input__3 1000ms ease-in-out forwards;
 }
-
-@-webkit-keyframes to-right {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: 8.5rem;
-  }
+.login-form__input.-error, .register-form__input.-error {
+  font-family: Georgia, serif;
+  display: flex;
+  left: -3.5rem;
+  width: 12rem;
+  height: 2.5rem;
+  color: hsl(0deg, 90%, 50%);
+  justify-content: center;
+  align-content: center;
 }
 
 @keyframes to-right {
@@ -449,14 +441,6 @@
     left: 8.5rem;
   }
 }
-@-webkit-keyframes to-left {
-  0% {
-    right: 0;
-  }
-  100% {
-    right: 8.5rem;
-  }
-}
 @keyframes to-left {
   0% {
     right: 0;
@@ -465,23 +449,9 @@
     right: 8.5rem;
   }
 }
-@-webkit-keyframes slide-input__1 {
-  100% {
-    transform: translateX(8.5rem);
-  }
-}
 @keyframes slide-input__1 {
   100% {
     transform: translateX(8.5rem);
-  }
-}
-@-webkit-keyframes slide-input__2 {
-  0% {
-    width: 5;
-  }
-  100% {
-    width: 8rem;
-    transform: translateX(-8.5rem);
   }
 }
 @keyframes slide-input__2 {
@@ -491,15 +461,6 @@
   100% {
     width: 8rem;
     transform: translateX(-8.5rem);
-  }
-}
-@-webkit-keyframes slide-input__3 {
-  0% {
-    width: 5;
-  }
-  100% {
-    width: 8rem;
-    transform: translateX(0);
   }
 }
 @keyframes slide-input__3 {
@@ -550,7 +511,7 @@
     padding: 0;
   }
 }
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 550px) {
   .guest-banner {
     width: 80%;
   }
@@ -569,14 +530,16 @@
   height: 9rem;
   width: 80px;
 }
-@media screen and (min-width: 1400px) {
+@media screen and (min-width: 1000px) {
   .user-info {
     margin-right: 2rem;
+    margin-left: -1.25rem;
   }
 }
 
 .filter {
   display: flex;
+  margin: 1rem;
   padding: 1rem;
   max-width: 95vw;
   flex-direction: column;
@@ -701,6 +664,38 @@
   align-items: center;
 }
 
+.card-list {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (min-width: 550px) {
+  .card-list {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+@media screen and (min-width: 800px) {
+  .card-list {
+    padding: 0;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .card-list {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .card-list {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+}
+
 /*** The new CSS Reset - version 1.2.0 (last updated 23.7.2021) ***/
 /* Remove all the styles of the "User-Agent-Stylesheets", except for the 'display' property */
 *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
@@ -757,7 +752,7 @@ textarea {
   background: hsl(240deg, 40%, 70%);
   border-bottom: 4px solid hsl(0deg, 0%, 13%);
 }
-@media screen and (min-width: 1400px) {
+@media screen and (min-width: 1000px) {
   .header__container {
     flex-direction: row;
     justify-content: space-between;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Oval } from 'react-loader-spinner';
-import { getAccessToken, setAccessToken } from '../../utils/accessToken';
+import { setAccessToken } from '../../utils/accessToken';
 import { CurrentUserDocument, CurrentUserQuery, useLoginMutation } from '../../generated/graphql';
+import { toUpperFirst } from '../../utils/utils';
 
 interface LoginProps {
     parent: string;
@@ -9,15 +10,27 @@ interface LoginProps {
 }
 
 export const Login: React.FC<LoginProps> = ({parent, modifier}) => {
+    const [login, {loading, error}] = useLoginMutation();
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ formToggle, setFormToggle ] = useState(false);
+    const [ loginError, setLoginError ] = useState(false)
 
-    const [login, {loading, error}] = useLoginMutation();
-
-    if(error) {
-        return (
-            <div className={'login-form'}>{error.message}</div>
+    if(loginError && error) {
+        return (<>
+            <div className={'login-form'}>
+                <div className={'login-form__input -error'}>
+                    {
+                        toUpperFirst(error.message)
+                    }
+                </div>
+            </div>
+            <div className={'login-form'}>
+                <button className={'login-form__input -error'} onClick={() => {setLoginError(false)}}>
+                    {'Click here to retry'}
+                </button>
+            </div>
+            </>
         )
     }
 
@@ -55,6 +68,9 @@ export const Login: React.FC<LoginProps> = ({parent, modifier}) => {
                                 currentUser: data.login.user
                             }
                         });
+                    },
+                    onError: () => {
+                        setLoginError(true)
                     }
                 });
             } catch (err) {
@@ -63,10 +79,7 @@ export const Login: React.FC<LoginProps> = ({parent, modifier}) => {
             //assuming everything went well, set the accessToken using the token we received in the response
             if(response && response.data) {
                 setAccessToken(response.data?.login.accessToken);
-                console.log(getAccessToken());
             }
-            //navigate back home
-            window.location.href = "/";
         }}>
             <button className={ formToggle ? 'button login-form__input -submit toggle-input' : 'button login-form__input -submit' } type="submit" aria-label="login submit">
                 {loading ? <Oval color="#222222" secondaryColor="#AAAAAA" height={14} width={14} /> : "Login"}
@@ -75,6 +88,7 @@ export const Login: React.FC<LoginProps> = ({parent, modifier}) => {
                     className={ formToggle ? 'login-form__input -email toggle-input' : 'login-form__input -email' }
                     value={email}
                     placeholder="email"
+                    autoComplete='current-email'
                     aria-label="login email"
                     onChange={e => {
                         setEmail(e.target.value);
@@ -85,6 +99,7 @@ export const Login: React.FC<LoginProps> = ({parent, modifier}) => {
                     type="password"
                     value={password}
                     placeholder="password"
+                    autoComplete='current-password'
                     aria-label="login password"
                     onChange={e => {
                         setPassword(e.target.value);

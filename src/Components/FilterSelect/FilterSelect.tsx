@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 interface FilterSelectProps {
     tags: string[];
@@ -12,7 +12,6 @@ export const capitalize = (str: String) => {
 }
 
 export const FilterSelect: React.FC<FilterSelectProps> = ({tags, filter, setFilter}) => {   
-    //const [filter, setFilter] = useState("");
 
     return(<>
         <div className="filter">

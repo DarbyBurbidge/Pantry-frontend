@@ -11,7 +11,7 @@
     background: $color-primary;
     border-bottom: $border-break solid $color-border;
 
-    @media screen and (min-width: map.get($breakpoints, "large")) {
+    @media screen and (min-width: map.get($breakpoints, "medium")) {
         flex-direction: row;
         justify-content: space-between;
         .logo {

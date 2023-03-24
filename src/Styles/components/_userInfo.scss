@@ -9,7 +9,8 @@
     height: 9rem;
     width: 80px; // constant width stops popping
 
-    @media screen and (min-width: map.get($breakpoints, "large")) {
+    @media screen and (min-width: map.get($breakpoints, "medium")) {
         margin-right: 2rem;
+        margin-left: -1.25rem; // The menu is wider than the logo on the opposite side. This corrects for it
     }
 }

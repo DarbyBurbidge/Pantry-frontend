@@ -8,12 +8,11 @@ import { ItemCard } from '../ItemCard/ItemCard';
 export const ShoppingList: React.FC = () => {
     const navigate = useNavigate();
 
-    const { data, loading, error } = useCurrentUserAllQuery();
+    const { data } = useCurrentUserAllQuery();
     const [ migrateList, ] = useMigrateListMutation();
 
     const shoppingList = data?.currentUser?.shoppingList
     const items = shoppingList?.items
-    console.log(items)
 
     return(
         <div className="body">
@@ -31,7 +30,7 @@ export const ShoppingList: React.FC = () => {
                             }
                         </ul>
                         <AddItemForm className="button button__add" parentType="list" parentId={shoppingList._id}/>
-                        { items?.length != 0 ? (
+                        { items?.length !== 0 ? (
                             <button className="button button__edit" type="button" onClick={() => {
                                 migrateList({
                                     variables: {

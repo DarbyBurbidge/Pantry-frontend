@@ -25,7 +25,6 @@ export const returnToDate = (dateString: string) => {
         day = `0${day}`
     }
     const newString = `${year}-${month}-${day}`
-    console.log(newString)
     return newString
 }
 
@@ -52,8 +51,8 @@ export const EditItemForm: React.FC<EditItemProps> = ({itemName, itemExp, itemQu
             
             try {
                 await editItem({variables: {id: itemId, itemName: newName, expiration: checkNA(newExp), quantity: newQuant}, refetchQueries: [{query: CurrentUserAllDocument}]})
-            } catch (e) {
-                console.error(e);
+            } catch (err) {
+                console.error(err);
             }
             formToggle(false);
         }}>

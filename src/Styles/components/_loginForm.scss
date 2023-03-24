@@ -52,6 +52,17 @@
                 animation: slide-input__3 1000ms ease-in-out forwards;
             }
         }
+
+        &.-error {
+            font-family: map.get($font-stack, "serif");
+            display: flex;
+            left: -3.5rem;
+            width: 12rem;
+            height: 2.5rem;
+            color: $color-error;
+            justify-content: center;
+            align-content: center;
+        }
     }
 }
 

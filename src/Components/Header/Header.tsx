@@ -13,7 +13,7 @@ export const Header: React.FC<HeaderProps> = ({skip}) => {
     return(<>
         <div className="header__container">
             <img className="logo" src="refrigerator_icon.webp" alt="logo" />
-            <h1 className="header-title">The Pantry</h1>
+            <h1 className="header-title">Easy Pantry</h1>
             {!skip ? (
                 <UserInfo />
             ) : (
